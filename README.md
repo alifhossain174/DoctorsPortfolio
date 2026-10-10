@@ -1,6 +1,6 @@
 ﻿# DoctorPortfolio
 
-Standalone Laravel 12 / PHP 8.2 application with Blade, Eloquent and vanilla JavaScript. Step 2 supplies the framework and asset build; the public CMS and private admin screens are implemented in later steps. Read AGENTS.md and docs/IMPLEMENTATION_STATUS.md before continuing.
+Standalone Laravel 12 / PHP 8.2 application with Blade, Eloquent and vanilla JavaScript. Step 3 supplies the schema, explicit bilingual initialization and database-backed public pages. Private admin screens are later steps. Read AGENTS.md and docs/IMPLEMENTATION_STATUS.md before continuing.
 
 ## Local setup (PowerShell, project root)
 
@@ -14,12 +14,14 @@ php artisan key:generate
 npm ci
 npm run build
 php artisan app:check-database
+php artisan migrate
+php artisan db:seed
 php artisan serve
 ```
 
-Open http://127.0.0.1:8000. The root is currently a minimal boot view; /up is Laravel's health route. No admin/auth routes or CMS are implemented yet. Do not regenerate an existing APP_KEY during updates.
+Open http://127.0.0.1:8000. The public pages and /blog/{slug} articles read database content in English/Bangla. /up is Laravel's health route. Private admin/login/editors are not implemented yet; no default account is seeded. Do not regenerate an existing APP_KEY during updates.
 
-Start **MySQL** from XAMPP Control Panel. XAMPP here exposes **MariaDB 10.4.32** at 127.0.0.1:3306. The dedicated `doctor_portfolio` database was already present and empty; the read-only Laravel connection check succeeds. For another machine, create only this dedicated database with utf8mb4/utf8mb4_unicode_ci in phpMyAdmin and set the matching local credentials in private `.env`. Never use an unrelated database. No migrations have been run; the schema is Step 3.
+Start **MySQL** from XAMPP Control Panel. XAMPP here exposes **MariaDB 10.4.32** at 127.0.0.1:3306. The dedicated `doctor_portfolio` database is connected and explicitly initialized with the full original bilingual content. For another machine, create only this dedicated database with utf8mb4/utf8mb4_unicode_ci in phpMyAdmin and set the matching local credentials in private `.env`. Never use an unrelated database. The Step 3 non-destructive migrations and import have run locally; no fake inquiries or default users exist.
 
 Defaults: DB_CONNECTION=mysql, APP_TIMEZONE=Asia/Dhaka, SESSION_DRIVER=file, CACHE_STORE=file, QUEUE_CONNECTION=sync and MAIL_MAILER=log. `config/app.php` reads APP_TIMEZONE. `.env.example` contains placeholders, no real login or application key. After changing .env:
 
@@ -41,7 +43,7 @@ npm run dev
 
 Pinned Vite 7.3.7 and Tailwind 4.3.3 compile `resources/css/admin.css` and `resources/js/admin.js`. Tailwind scans only admin Blade/JS. Only `resources/views/admin/layouts/app.blade.php` includes these entries via @vite; public pages must never extend it. Plain Vite uses a manifest, with no client-framework or Laravel-specific Vite plugins. A small development runner creates/removes `public/hot` for @vite; Node is a temporary asset development tool, not a production runtime. Stop it with Ctrl+C. If forcibly killed, remove only its stale public/hot file before serving built assets.
 
-Public stylesheet/media will have separate assets during the public-layout step. `frontend/` remains an unchanged reference and its app.js is never loaded by Laravel. No Tailwind/JavaScript CDN, Axios, framework starter kit, client router, queue worker, scheduler or Docker tooling is installed. Use `php artisan serve`; Composer's default multi-process dev/setup commands were removed.
+Public pages load public/assets/style.css (an identical reference copy) and interaction-only public/assets/public.js; initial images retain legacy external URLs. `frontend/` remains an unchanged reference and its app.js is never loaded by Laravel. No Tailwind/JavaScript CDN, Axios, framework starter kit, client router, queue worker, scheduler or Docker tooling is installed. Use `php artisan serve`; Composer's default multi-process dev/setup commands were removed.
 
 ## Directory structure and checks
 
@@ -51,7 +53,9 @@ bootstrap/app.php        Laravel 12 routing/middleware configuration
 config/                  Environment-driven application settings
 routes/                  web.php and read-only DB check in console.php
 resources/views/admin/   Isolated admin layout, ready for later auth/screens
-resources/views/         Temporary scaffold boot view
+resources/views/public/  Database-backed public pages/shared parts
+database/seeders/data/   UTF-8 initialization snapshot; never runtime content
+config/*content*.php     Typed content controls; values live in the database
 resources/css/admin.css  Admin-only Tailwind entry
 resources/js/admin.js    Vanilla admin enhancement
 scripts/vite-dev.mjs     Asset development runner
@@ -75,3 +79,20 @@ npm run build
 ## cPanel artifacts
 
 Build locally and deploy **public/build/manifest.json plus every referenced file under public/build/assets/** even though public/build is Git-ignored. Deploy production Composer vendor (`composer install --no-dev --optimize-autoloader`) and the application outside the web root; expose only public/. Keep frontend/, docs/, .env, private storage and temporary directories outside public_html. Do not deploy node_modules or public/hot. Production has its own private .env, preserved APP_KEY, APP_DEBUG=false, HTTPS/session settings, and writable storage/bootstrap/cache. Local uploaded public media and its storage link/host-compatible alternative are handled in later steps. See docs/ARCHITECTURE.md for the shared-hosting strategy.
+
+## Content initialization and tests
+
+On a new dedicated MySQL/MariaDB database run `php artisan migrate`, then `php artisan db:seed`. The completed import marker makes later normal seeding skip existing website content, including deleted originals. No default admin/password or fake inquiry is created. Seed files are explicit initialization input only; production needs the snapshot but does not need frontend/ or Node to seed.
+
+Only to deliberately restore missing original demo records run `php artisan website:repair-initial-content`. It preserves all existing edits/publication/visibility/passwords, but recreates missing demo rows in their original enabled/visible/published state and checks the original snapshot checksum. Do not use it as a routine update command or use migrate:fresh. See docs/SEED_CONTENT_REPORT.md for actual counts/mappings and remote-photo limitations.
+
+Focused tests use only `doctor_portfolio_test`, with an explicit guard and per-test DML rollback. Create that dedicated schema with utf8mb4, apply migrations without seeding, then run tests (PowerShell):
+
+```powershell
+$env:DB_DATABASE = 'doctor_portfolio_test'
+php artisan migrate
+Remove-Item Env:DB_DATABASE
+php artisan test
+```
+
+Keep .env set to doctor_portfolio for development; phpunit.xml selects the isolated test schema. No RefreshDatabase/migrate:fresh or test records in the development database. Secure interactive admin provisioning belongs to Step 5. The contact form now saves appointment requests/general messages locally before success; private staff management is still pending.

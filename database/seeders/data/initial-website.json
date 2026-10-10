@@ -1,0 +1,2530 @@
+{
+  "version": 1,
+  "source": {
+    "path": "frontend/assets/app.js",
+    "sha256": "41c24a8f4166a8b41103d947eba897405dd8f63b49dc5d4d7725ed40bcbe1611",
+    "dictionary_keys": 81
+  },
+  "original": {
+    "photos": {
+      "hero": "https://scontent.fbzl7-1.fna.fbcdn.net/v/t39.30808-6/386655458_7165314940145758_7620333021630825497_n.jpg?stp=dst-jpg_tt6&cstp=mx1000x1000&ctp=s1000x1000&_nc_cat=100&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeFk06JpC1BCOqXB7Ww4XxpSVfliVC9zBhtV-WJUL3MGGzhkPPiAClVm7pHgliW73nPbdqWxTcs2VrJ6W29L-hve&_nc_ohc=5X-VwDdwBmkQ7kNvwHDqX_o&_nc_oc=AdqY9Q9GpH-2u9D72wKp-6opk0YZ1EJ9GmR6TAcBFHMbCjqZ6qzXLwWhYGyShGfMokg&_nc_zt=23&_nc_ht=scontent.fbzl7-1.fna&_nc_gid=pGNeFVAGY4ZJbQHZGxS27w&_nc_ss=7b2a8&oh=00_AQM_1gBcuzQau2hyZHx4dKA60e8r8-HRPxkPlbfDw6hLYw&oe=6ACD61B1",
+      "doctor": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1000&q=85",
+      "consult": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=900&q=85",
+      "clinic": "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1000&q=85",
+      "lab": "https://images.unsplash.com/photo-1579154204601-01588f351e67?w=900&q=85",
+      "pregnancy": "https://images.unsplash.com/photo-1493894473891-10fc1e5dbd22?w=900&q=85",
+      "care": "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=900&q=85",
+      "interior": "https://images.unsplash.com/photo-1551076805-e1869033e561?w=900&q=85",
+      "team": "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=900&q=85"
+    },
+    "content": {
+      "en": {
+        "home": "Home",
+        "about": "About",
+        "services": "Services",
+        "diagnostics": "Diagnostic Center",
+        "blog": "Blog",
+        "gallery": "Gallery",
+        "contact": "Contact",
+        "appointment": "Book an Appointment",
+        "brand": "Dr. Shah Alam Talukder",
+        "subtitle": "Women’s Health · Fertility · IUI",
+        "eyebrow": "COMPASSIONATE WOMEN’S HEALTHCARE",
+        "herotitle": "Care that listens. Expertise that guides.",
+        "herodesc": "Consultations for obstetrics, gynecology, infertility and IUI-related care with Dr. Shah Alam Talukder, former Associate Professor, Department of Obstetrics & Gynecology, Sher-e-Bangla Medical College.",
+        "credential": "Former Associate Professor",
+        "department": "Obstetrics & Gynecology",
+        "place": "Sher-e-Bangla Medical College",
+        "visit": "Visit Deepan IUI Lab",
+        "explore": "Explore Services",
+        "servicesTitle": "Thoughtful care at every stage",
+        "servicesDesc": "Learn about common women’s health concerns and fertility treatment pathways. Specific procedures and availability should be confirmed with the chamber.",
+        "obtitle": "Obstetrics & Pregnancy Care",
+        "obdesc": "Preconception counseling, antenatal follow-up, pregnancy concerns and postnatal guidance.",
+        "gytitle": "Gynecology Consultation",
+        "gydesc": "Menstrual health, PCOS, pelvic pain, fibroids, ovarian cysts and menopausal concerns.",
+        "iuititle": "Infertility & IUI Guidance",
+        "iuidesc": "Fertility assessment, counseling and explanations of IUI treatment pathways.",
+        "diatitle": "Diagnostic Services",
+        "diadesc": "Contact Deepan IUI Lab for confirmed testing, preparation and report information.",
+        "learn": "Learn More →",
+        "doctorEyebrow": "MEET YOUR DOCTOR",
+        "doctorTitle": "Dedicated to women’s wellbeing",
+        "doctorText": "Dr. Shah Alam Talukder is a former Associate Professor in the Department of Obstetrics & Gynecology at Sher-e-Bangla Medical College. His areas of focus include women’s reproductive health, infertility and IUI.",
+        "qualification": "Clinical background",
+        "profession": "Former Associate Professor · Obstetrics & Gynecology · Sher-e-Bangla Medical College",
+        "visitTitle": "At the chamber",
+        "visitText": "Deepan IUI Lab, 4S Tower, 628 East Bogura Road, Barishal.",
+        "hoursTitle": "Consultation hours",
+        "hours": "10:00 AM – 2:00 PM and 5:00 PM – 8:00 PM",
+        "friday": "Friday: By appointment",
+        "blogtitle": "Health journal",
+        "blogdesc": "Friendly, general-education articles about reproductive and women’s health. These are not individual medical advice.",
+        "gallerytitle": "Our gallery",
+        "gallerydesc": "An editorial image gallery representing women’s healthcare and diagnostic environments. Stock photographs do not depict this doctor or actual facilities.",
+        "all": "All",
+        "clinical": "Clinical Care",
+        "wellness": "Women’s Health",
+        "facility": "Facility & Lab",
+        "read": "Read Article",
+        "ctatitle": "Your wellbeing deserves thoughtful attention.",
+        "ctadesc": "For consultation inquiries, connect with the chamber through the official Facebook page.",
+        "ctabtn": "Request an Appointment",
+        "address": "4S Tower, 628 East Bogura Road, Barishal, Bangladesh",
+        "fb": "Official Facebook Page",
+        "footertext": "Obstetrics, gynecology, fertility counseling and IUI-focused care in Barishal.",
+        "galleryNote": "Illustrative stock photos — not verified images of Deepan IUI Lab or Dr. Talukder.",
+        "blogheading": "Insights for better health",
+        "blogintro": "Educational reading on pregnancy, gynecological conditions, and fertility care.",
+        "tagtitle": "Browse by tag",
+        "contacttitle": "Visit us in Barishal",
+        "contactdesc": "Find chamber information and send an appointment inquiry.",
+        "formtitle": "Prepare an appointment inquiry",
+        "name": "Patient name",
+        "phone": "Phone number",
+        "topic": "Consultation type",
+        "message": "Brief message",
+        "prepare": "Copy inquiry & open Facebook",
+        "privacy": "This form does not store or send medical information to a server. It copies your message and opens Facebook; send it yourself via the doctor’s page.",
+        "addressLabel": "Chamber address",
+        "hoursLabel": "Patient visiting hours",
+        "openmap": "Find on Google Maps",
+        "abouttitle": "Experience rooted in women’s healthcare",
+        "aboutdesc": "Learn more about the doctor and the care topics supported by the chamber.",
+        "diagtitle": "Deepan IUI Lab & Diagnostic Center",
+        "diagdesc": "Chamber and laboratory information, with service availability confirmed directly by staff.",
+        "diagnotice": "A complete, verified test menu, prices and report delivery times have not been provided. Please confirm directly with the center before visiting.",
+        "diagtags": "Possible inquiry topics",
+        "diagtagsdesc": "Patients may ask about availability of fertility-related laboratory services, sample collection instructions, reports and appointment scheduling. No specific test is claimed to be available here.",
+        "servicePageTitle": "Obstetrics, Gynecology & Fertility",
+        "servicePageDesc": "Overview of care topics and when to seek professional advice.",
+        "disclaimer": "Educational information only. A clinician must evaluate individual symptoms and treatment options.",
+        "readmore": "View details"
+      },
+      "bn": {
+        "home": "হোম",
+        "about": "ডাক্তার পরিচিতি",
+        "services": "সেবাসমূহ",
+        "diagnostics": "ডায়াগনস্টিক সেন্টার",
+        "blog": "ব্লগ",
+        "gallery": "গ্যালারি",
+        "contact": "যোগাযোগ",
+        "appointment": "অ্যাপয়েন্টমেন্ট নিন",
+        "brand": "ডাঃ শাহ্ আলম তালুকদার",
+        "subtitle": "নারীস্বাস্থ্য · বন্ধ্যাত্ব · আইইউআই",
+        "eyebrow": "যত্নশীল নারীস্বাস্থ্য সেবা",
+        "herotitle": "মনোযোগ দিয়ে শোনা, অভিজ্ঞতার সঙ্গে পরামর্শ।",
+        "herodesc": "ডাঃ শাহ্ আলম তালুকদারের প্রসূতি ও স্ত্রীরোগ, বন্ধ্যাত্ব এবং আইইউআই-সংক্রান্ত পরামর্শ। তিনি শের-ই-বাংলা মেডিকেল কলেজের প্রসূতি ও স্ত্রীরোগ বিভাগের সাবেক সহযোগী অধ্যাপক।",
+        "credential": "সাবেক সহযোগী অধ্যাপক",
+        "department": "প্রসূতি ও স্ত্রীরোগ বিভাগ",
+        "place": "শের-ই-বাংলা মেডিকেল কলেজ",
+        "visit": "দীপন আইইউআই ল্যাবে আসুন",
+        "explore": "সেবাসমূহ দেখুন",
+        "servicesTitle": "জীবনের প্রতিটি পর্যায়ে সচেতন স্বাস্থ্যসেবা",
+        "servicesDesc": "নারীস্বাস্থ্য ও বন্ধ্যাত্ব চিকিৎসার বিষয়গুলো সম্পর্কে জানুন। নির্দিষ্ট সেবার প্রাপ্যতা চেম্বারে নিশ্চিত করুন।",
+        "obtitle": "প্রসূতি ও গর্ভকালীন যত্ন",
+        "obdesc": "গর্ভধারণের পূর্বপরামর্শ, গর্ভকালীন ফলোআপ, সমস্যা ও প্রসব-পরবর্তী নির্দেশনা।",
+        "gytitle": "স্ত্রীরোগ পরামর্শ",
+        "gydesc": "মাসিকের সমস্যা, পিসিওএস, তলপেটের ব্যথা, ফাইব্রয়েড, ওভারিয়ান সিস্ট ও মেনোপজ।",
+        "iuititle": "বন্ধ্যাত্ব ও আইইউআই পরামর্শ",
+        "iuidesc": "ফার্টিলিটি মূল্যায়ন, পরামর্শ এবং আইইউআই চিকিৎসা সম্পর্কে ধারণা।",
+        "diatitle": "ডায়াগনস্টিক সেবা",
+        "diadesc": "পরীক্ষা, প্রস্তুতি ও রিপোর্টের তথ্য জানতে দীপন আইইউআই ল্যাবে যোগাযোগ করুন।",
+        "learn": "বিস্তারিত জানুন →",
+        "doctorEyebrow": "চিকিৎসক পরিচিতি",
+        "doctorTitle": "নারীস্বাস্থ্য সেবায় নিবেদিত",
+        "doctorText": "ডাঃ শাহ্ আলম তালুকদার শের-ই-বাংলা মেডিকেল কলেজের প্রসূতি ও স্ত্রীরোগ বিভাগের সাবেক সহযোগী অধ্যাপক। নারী প্রজননস্বাস্থ্য, বন্ধ্যাত্ব ও আইইউআই তাঁর বিশেষ আগ্রহের ক্ষেত্র।",
+        "qualification": "পেশাগত পরিচিতি",
+        "profession": "সাবেক সহযোগী অধ্যাপক · প্রসূতি ও স্ত্রীরোগ · শের-ই-বাংলা মেডিকেল কলেজ",
+        "visitTitle": "চেম্বার",
+        "visitText": "দীপন আইইউআই ল্যাব, ৪ এস টাওয়ার, ৬২৮ পূর্ব বগুড়া রোড, বরিশাল।",
+        "hoursTitle": "রোগী দেখার সময়",
+        "hours": "সকাল ১০টা – দুপুর ২টা এবং বিকাল ৫টা – রাত ৮টা",
+        "friday": "শুক্রবার: অ্যাপয়েন্টমেন্টের মাধ্যমে",
+        "blogtitle": "স্বাস্থ্য ব্লগ",
+        "blogdesc": "নারীস্বাস্থ্য ও প্রজননস্বাস্থ্য নিয়ে সহজ শিক্ষামূলক লেখা; ব্যক্তিগত চিকিৎসা পরামর্শ নয়।",
+        "gallerytitle": "আমাদের গ্যালারি",
+        "gallerydesc": "নারীস্বাস্থ্য ও ডায়াগনস্টিক পরিবেশের প্রতিনিধিত্বমূলক স্টক ছবি। এগুলো চিকিৎসক বা প্রতিষ্ঠানের প্রকৃত ছবি নয়।",
+        "all": "সব",
+        "clinical": "চিকিৎসা",
+        "wellness": "নারীস্বাস্থ্য",
+        "facility": "চেম্বার ও ল্যাব",
+        "read": "লেখাটি পড়ুন",
+        "ctatitle": "আপনার সুস্থতার জন্য যত্নশীল পরামর্শ।",
+        "ctadesc": "পরামর্শের জন্য অফিসিয়াল ফেসবুক পেজের মাধ্যমে যোগাযোগ করুন।",
+        "ctabtn": "অ্যাপয়েন্টমেন্টের অনুরোধ",
+        "address": "৪ এস টাওয়ার, ৬২৮ পূর্ব বগুড়া রোড, বরিশাল, বাংলাদেশ",
+        "fb": "অফিসিয়াল ফেসবুক পেজ",
+        "footertext": "বরিশালে প্রসূতি ও স্ত্রীরোগ, বন্ধ্যাত্ব এবং আইইউআই বিষয়ে পরামর্শ।",
+        "galleryNote": "প্রতিনিধিত্বমূলক স্টক ছবি — দীপন আইইউআই ল্যাব বা চিকিৎসকের যাচাইকৃত ছবি নয়।",
+        "blogheading": "সুস্বাস্থ্যের জন্য জ্ঞান",
+        "blogintro": "গর্ভাবস্থা, স্ত্রীরোগ ও বন্ধ্যাত্ব চিকিৎসা সম্পর্কে শিক্ষামূলক তথ্য।",
+        "tagtitle": "ট্যাগ অনুযায়ী দেখুন",
+        "contacttitle": "বরিশালে আমাদের চেম্বার",
+        "contactdesc": "চেম্বারের তথ্য ও অ্যাপয়েন্টমেন্টের জন্য যোগাযোগ করুন।",
+        "formtitle": "অ্যাপয়েন্টমেন্ট বার্তা প্রস্তুত করুন",
+        "name": "রোগীর নাম",
+        "phone": "ফোন নম্বর",
+        "topic": "পরামর্শের ধরন",
+        "message": "সংক্ষিপ্ত বার্তা",
+        "prepare": "বার্তা কপি করে ফেসবুক খুলুন",
+        "privacy": "এই ফর্ম কোনো সার্ভারে স্বাস্থ্যতথ্য পাঠায় না। এটি বার্তা কপি করে ফেসবুক খুলবে; আপনাকে নিজে বার্তা পাঠাতে হবে।",
+        "addressLabel": "চেম্বারের ঠিকানা",
+        "hoursLabel": "রোগী দেখার সময়",
+        "openmap": "গুগল ম্যাপে খুঁজুন",
+        "abouttitle": "নারীস্বাস্থ্য সেবায় অভিজ্ঞতা",
+        "aboutdesc": "চিকিৎসক ও পরামর্শের বিষয় সম্পর্কে আরও জানুন।",
+        "diagtitle": "দীপন আইইউআই ল্যাব ও ডায়াগনস্টিক সেন্টার",
+        "diagdesc": "চেম্বার ও ল্যাবের তথ্য; সেবার প্রাপ্যতা সরাসরি নিশ্চিত করুন।",
+        "diagnotice": "পরীক্ষার পূর্ণ তালিকা, মূল্য ও রিপোর্টের সময় নিশ্চিত তথ্য হিসেবে দেওয়া হয়নি। যাওয়ার আগে কেন্দ্রে জেনে নিন।",
+        "diagtags": "যেসব বিষয়ে খোঁজ নিতে পারেন",
+        "diagtagsdesc": "বন্ধ্যাত্বসংক্রান্ত পরীক্ষার প্রাপ্যতা, নমুনা দেওয়ার নিয়ম, রিপোর্ট ও অ্যাপয়েন্টমেন্ট নিয়ে জানতে পারেন। এখানে কোনো নির্দিষ্ট পরীক্ষা নিশ্চিতভাবে উপলব্ধ বলা হচ্ছে না।",
+        "servicePageTitle": "প্রসূতি, স্ত্রীরোগ ও বন্ধ্যাত্ব",
+        "servicePageDesc": "চিকিৎসা ও কখন পরামর্শ নেওয়া উচিত সে সম্পর্কে ধারণা।",
+        "disclaimer": "শুধু শিক্ষামূলক তথ্য। ব্যক্তিগত উপসর্গ ও চিকিৎসা নির্ধারণে চিকিৎসকের মূল্যায়ন প্রয়োজন।",
+        "readmore": "বিস্তারিত দেখুন"
+      }
+    },
+    "articles": [
+      {
+        "id": "pregnancy-care",
+        "cat": "wellness",
+        "photo": "pregnancy",
+        "date": "PREGNANCY",
+        "en": {
+          "title": "A practical guide to antenatal care",
+          "tease": "Understanding routine prenatal visits, warning signs and questions to ask during pregnancy.",
+          "body": [
+            "Antenatal care provides an opportunity to monitor the health of the pregnant person and developing baby, identify risks, and plan appropriate care. The schedule and tests are tailored to medical history and stage of pregnancy.",
+            "Discuss medications, nutrition, blood pressure, diabetes screening and any new symptoms with your clinician. Seek urgent assessment for heavy bleeding, severe abdominal pain, seizures, severe headache with visual changes or reduced fetal movements later in pregnancy."
+          ]
+        },
+        "bn": {
+          "title": "গর্ভকালীন যত্নের সহজ নির্দেশিকা",
+          "tease": "গর্ভাবস্থায় নিয়মিত চেকআপ, সতর্কতার লক্ষণ ও চিকিৎসককে কী জিজ্ঞেস করবেন।",
+          "body": [
+            "গর্ভকালীন সেবায় মা ও শিশুর স্বাস্থ্য পর্যবেক্ষণ, ঝুঁকি শনাক্তকরণ এবং প্রয়োজনমতো চিকিৎসার পরিকল্পনা করা হয়। ইতিহাস ও গর্ভকাল অনুযায়ী পরীক্ষা এবং ফলোআপ ভিন্ন হতে পারে।",
+            "ওষুধ, পুষ্টি, রক্তচাপ, ডায়াবেটিস ও নতুন উপসর্গ সম্পর্কে চিকিৎসকের সঙ্গে কথা বলুন। অতিরিক্ত রক্তপাত, প্রচণ্ড পেটব্যথা, খিঁচুনি, চোখে ঝাপসা দেখা-সহ তীব্র মাথাব্যথা বা গর্ভের শিশুর নড়াচড়া কমে গেলে দ্রুত চিকিৎসা নিন।"
+          ]
+        }
+      },
+      {
+        "id": "pcos",
+        "cat": "clinical",
+        "photo": "care",
+        "date": "GYNECOLOGY",
+        "en": {
+          "title": "PCOS: symptoms, evaluation and care",
+          "tease": "Why irregular periods, acne and other symptoms may need a tailored evaluation.",
+          "body": [
+            "Polycystic ovary syndrome (PCOS) can involve irregular menstrual cycles, androgen-related symptoms and metabolic health concerns. Diagnosis relies on clinical assessment and sometimes laboratory tests or imaging.",
+            "Management depends on symptoms and personal goals, including whether pregnancy is desired. Do not begin hormonal or fertility medicines without a clinician’s guidance."
+          ]
+        },
+        "bn": {
+          "title": "পিসিওএস: লক্ষণ, পরীক্ষা ও যত্ন",
+          "tease": "অনিয়মিত মাসিক, ব্রণসহ বিভিন্ন লক্ষণে কেন ব্যক্তিভিত্তিক পরীক্ষা দরকার।",
+          "body": [
+            "পলিসিস্টিক ওভারি সিনড্রোমে (পিসিওএস) মাসিক অনিয়ম, হরমোনজনিত লক্ষণ ও বিপাকীয় স্বাস্থ্যঝুঁকি থাকতে পারে। রোগ নির্ণয়ে চিকিৎসা মূল্যায়ন এবং প্রয়োজনে পরীক্ষা বা আল্ট্রাসনোগ্রাম লাগে।",
+            "চিকিৎসা উপসর্গ ও ভবিষ্যৎ পরিকল্পনার ওপর নির্ভর করে। চিকিৎসকের পরামর্শ ছাড়া হরমোন বা বন্ধ্যাত্বের ওষুধ শুরু করবেন না।"
+          ]
+        }
+      },
+      {
+        "id": "fertility-first-visit",
+        "cat": "clinical",
+        "photo": "consult",
+        "date": "FERTILITY",
+        "en": {
+          "title": "What happens at a fertility consultation?",
+          "tease": "How a conversation about medical history and testing can help identify the next step.",
+          "body": [
+            "A fertility consultation often reviews menstrual history, how long pregnancy has been attempted, previous pregnancies, medications and relevant health conditions. Assessment may involve both partners when appropriate.",
+            "Options depend on the findings and may include lifestyle advice, investigations, timed intercourse, or discussion of assisted reproduction such as IUI. No treatment offers a guaranteed outcome."
+          ]
+        },
+        "bn": {
+          "title": "বন্ধ্যাত্ব পরামর্শের প্রথম সাক্ষাতে কী হয়?",
+          "tease": "চিকিৎসা ইতিহাস ও পরীক্ষা পরবর্তী সিদ্ধান্তে কীভাবে সাহায্য করে।",
+          "body": [
+            "প্রথম সাক্ষাতে মাসিকের ইতিহাস, কতদিন ধরে গর্ভধারণের চেষ্টা হচ্ছে, পূর্ববর্তী গর্ভধারণ, ওষুধ ও অন্যান্য রোগ সম্পর্কে আলোচনা হতে পারে। প্রয়োজনে উভয় সঙ্গীর মূল্যায়ন গুরুত্বপূর্ণ।",
+            "ফলাফল অনুযায়ী জীবনযাত্রার পরামর্শ, পরীক্ষা, নির্দিষ্ট সময়ে গর্ভধারণের চেষ্টা অথবা আইইউআই-এর মতো চিকিৎসার আলোচনা হতে পারে। কোনো পদ্ধতিতেই সফলতার নিশ্চয়তা নেই।"
+          ]
+        }
+      },
+      {
+        "id": "menopause",
+        "cat": "wellness",
+        "photo": "doctor",
+        "date": "WOMEN’S HEALTH",
+        "en": {
+          "title": "Understanding the menopause transition",
+          "tease": "Common changes, symptom management and when a medical review is important.",
+          "body": [
+            "Perimenopause can cause menstrual changes, sleep difficulties, hot flashes and mood symptoms. Other conditions can cause similar symptoms, so individual assessment matters.",
+            "Treatment options vary depending on medical history, preferences and personal risk factors. Postmenopausal bleeding should be evaluated promptly."
+          ]
+        },
+        "bn": {
+          "title": "মেনোপজের পরিবর্তনগুলো বুঝে নিন",
+          "tease": "সাধারণ পরিবর্তন, উপসর্গের যত্ন ও কখন চিকিৎসকের কাছে যাবেন।",
+          "body": [
+            "মেনোপজের আগে মাসিকের পরিবর্তন, ঘুমের সমস্যা, হঠাৎ গরম লাগা ও মানসিক পরিবর্তন দেখা দিতে পারে। একই রকম লক্ষণ অন্য কারণেও হতে পারে।",
+            "চিকিৎসা ব্যক্তির স্বাস্থ্য ইতিহাস ও ঝুঁকি অনুযায়ী নির্ধারিত হয়। মেনোপজের পরে রক্তপাত হলে দ্রুত মূল্যায়ন জরুরি।"
+          ]
+        }
+      }
+    ],
+    "galleries": [
+      {
+        "photo": "clinic",
+        "cat": "facility",
+        "en": "Healthcare environment",
+        "bn": "স্বাস্থ্যসেবার পরিবেশ"
+      },
+      {
+        "photo": "consult",
+        "cat": "clinical",
+        "en": "Consultation and care",
+        "bn": "পরামর্শ ও চিকিৎসা"
+      },
+      {
+        "photo": "lab",
+        "cat": "facility",
+        "en": "Laboratory research",
+        "bn": "ল্যাবরেটরি কার্যক্রম"
+      },
+      {
+        "photo": "pregnancy",
+        "cat": "wellness",
+        "en": "Pregnancy wellbeing",
+        "bn": "গর্ভকালীন সুস্থতা"
+      },
+      {
+        "photo": "team",
+        "cat": "clinical",
+        "en": "Healthcare professionals",
+        "bn": "স্বাস্থ্যকর্মীদের সেবা"
+      },
+      {
+        "photo": "interior",
+        "cat": "facility",
+        "en": "Medical facilities",
+        "bn": "চিকিৎসা কেন্দ্র"
+      },
+      {
+        "photo": "care",
+        "cat": "wellness",
+        "en": "Women’s health",
+        "bn": "নারীস্বাস্থ্য"
+      },
+      {
+        "photo": "doctor",
+        "cat": "clinical",
+        "en": "Clinical guidance",
+        "bn": "চিকিৎসা পরামর্শ"
+      }
+    ],
+    "serviceDetails": {
+      "en": [
+        [
+          "Pregnancy and antenatal care",
+          "Routine pregnancy consultations can cover nutrition, blood-pressure monitoring, prenatal testing, discomforts and planning for birth. Immediate assessment is important for heavy bleeding, severe pain, seizures or reduced fetal movement."
+        ],
+        [
+          "Menstrual and gynecological problems",
+          "Irregular or heavy periods, painful menstruation, abnormal discharge, pelvic pain, fibroids, ovarian cysts and suspected PCOS may warrant evaluation. Tests and treatment depend on individual symptoms."
+        ],
+        [
+          "Infertility assessment and IUI",
+          "Fertility assessment can include reproductive history and investigations for one or both partners. IUI involves preparing sperm and placing it inside the uterus around ovulation when clinically appropriate; outcomes vary and it is not suitable for everyone."
+        ],
+        [
+          "Menopause and midlife health",
+          "Consultation can address hot flashes, sleep, vaginal symptoms, bone health, and treatment choices. Bleeding after menopause should be assessed promptly."
+        ],
+        [
+          "Postnatal and reproductive health",
+          "Postnatal reviews, family-planning discussions, and concerns after pregnancy are important parts of continuing care."
+        ]
+      ],
+      "bn": [
+        [
+          "গর্ভকালীন ও প্রসূতি সেবা",
+          "গর্ভাবস্থার নিয়মিত পরামর্শে পুষ্টি, রক্তচাপ, পরীক্ষা, অস্বস্তি ও প্রসবের প্রস্তুতি নিয়ে আলোচনা করা যায়। অতিরিক্ত রক্তপাত, প্রচণ্ড ব্যথা, খিঁচুনি বা শিশুর নড়াচড়া কমে গেলে দ্রুত চিকিৎসা নিন।"
+        ],
+        [
+          "মাসিক ও স্ত্রীরোগ সমস্যা",
+          "অনিয়মিত বা অতিরিক্ত মাসিক, মাসিকের ব্যথা, অস্বাভাবিক স্রাব, তলপেটের ব্যথা, ফাইব্রয়েড, ওভারিয়ান সিস্ট ও পিসিওএস-এ মূল্যায়ন দরকার হতে পারে। পরীক্ষা ও চিকিৎসা রোগীভেদে ভিন্ন।"
+        ],
+        [
+          "বন্ধ্যাত্ব মূল্যায়ন ও আইইউআই",
+          "বন্ধ্যাত্ব মূল্যায়নে প্রজনন ইতিহাস ও প্রয়োজনে উভয় সঙ্গীর পরীক্ষা থাকতে পারে। আইইউআই-তে উপযুক্ত সময়ে প্রক্রিয়াজাত শুক্রাণু জরায়ুতে দেওয়া হয়; ফলাফল ভিন্ন হতে পারে এবং এটি সবার জন্য উপযুক্ত নয়।"
+        ],
+        [
+          "মেনোপজ ও মধ্যবয়সে স্বাস্থ্য",
+          "হঠাৎ গরম লাগা, ঘুমের সমস্যা, যোনির অস্বস্তি, হাড়ের স্বাস্থ্য ও চিকিৎসার বিকল্প নিয়ে আলোচনা করা যায়। মেনোপজের পরে রক্তপাত হলে দ্রুত চিকিৎসকের পরামর্শ নিন।"
+        ],
+        [
+          "প্রসব-পরবর্তী ও প্রজননস্বাস্থ্য",
+          "প্রসব-পরবর্তী ফলোআপ, পরিবার পরিকল্পনা ও গর্ভাবস্থার পরের যেকোনো উদ্বেগে ধারাবাহিক পরামর্শ গুরুত্বপূর্ণ।"
+        ]
+      ]
+    }
+  },
+  "mapping": {
+    "brand": "SiteSetting(primary).doctor_name",
+    "subtitle": "SiteSetting(primary).subtitle",
+    "doctorText": "SiteSetting(primary).doctor_biography",
+    "credential": "SiteSetting(primary).credential",
+    "department": "SiteSetting(primary).department",
+    "place": "SiteSetting(primary).institution",
+    "hours": "SiteSetting(primary).consultation_hours",
+    "friday": "SiteSetting(primary).friday_note",
+    "address": "SiteSetting(primary).address",
+    "footertext": "SiteSetting(primary).footer_description",
+    "galleryNote": "SiteSetting(primary).stock_notice; MediaAsset(all nine).stock_note",
+    "disclaimer": "SiteSetting(primary).medical_disclaimer",
+    "ctatitle": "SiteSetting(primary).cta_title",
+    "ctadesc": "SiteSetting(primary).cta_description",
+    "ctabtn": "SiteSetting(primary).cta_label",
+    "home": "NavigationItem(header:home).label; Page(home).label",
+    "about": "NavigationItem(header:about).label; Page(about).label; NavigationItem(footer:about).label",
+    "services": "NavigationItem(header:services).label; Page(services).label; NavigationItem(footer:services).label",
+    "diagnostics": "NavigationItem(header:diagnostics).label; Page(diagnostics).label",
+    "blog": "NavigationItem(header:blog).label; Page(blog).label; NavigationItem(footer:blog).label; Page(article).label",
+    "gallery": "NavigationItem(header:gallery).label; Page(gallery).label; NavigationItem(footer:gallery).label",
+    "contact": "NavigationItem(header:contact).label; Page(contact).label",
+    "appointment": "ContentField(home.appointment).value",
+    "eyebrow": "ContentField(home.eyebrow).value",
+    "herotitle": "ContentField(home.herotitle).value",
+    "herodesc": "ContentField(home.herodesc).value",
+    "visit": "ContentField(home.visit).value",
+    "servicesTitle": "ContentField(home.servicesTitle).value",
+    "servicesDesc": "ContentField(home.servicesDesc).value",
+    "doctorEyebrow": "ContentField(home.doctorEyebrow).value",
+    "doctorTitle": "ContentField(home.doctorTitle).value",
+    "blogtitle": "ContentField(home.blogtitle).value",
+    "explore": "ContentField(ui.explore).value",
+    "read": "ContentField(ui.read).value",
+    "readmore": "ContentField(ui.readmore).value",
+    "all": "ContentField(ui.filter_all).value",
+    "qualification": "ContentField(shared.qualification).value",
+    "hoursTitle": "ContentField(shared.hoursTitle).value",
+    "visitTitle": "ContentField(shared.visitTitle).value",
+    "profession": "ContentField(shared.profession).value",
+    "visitText": "ContentField(shared.visitText).value",
+    "gallerytitle": "ContentField(shared.gallerytitle).value",
+    "gallerydesc": "ContentField(shared.gallerydesc).value",
+    "blogheading": "ContentField(blog.blogheading).value",
+    "blogintro": "ContentField(blog.blogintro).value",
+    "tagtitle": "ContentField(blog.tagtitle).value",
+    "blogdesc": "ContentField(blog.blogdesc).value",
+    "fb": "ContentField(contact.fb).value",
+    "contacttitle": "ContentField(contact.contacttitle).value",
+    "contactdesc": "ContentField(contact.contactdesc).value",
+    "formtitle": "ContentField(contact.formtitle).value",
+    "name": "ContentField(contact.name).value",
+    "phone": "ContentField(contact.phone).value",
+    "topic": "ContentField(contact.topic).value",
+    "message": "ContentField(contact.message).value",
+    "prepare": "ContentField(contact.prepare).value",
+    "privacy": "ContentField(contact.privacy).value",
+    "addressLabel": "ContentField(contact.addressLabel).value",
+    "hoursLabel": "ContentField(contact.hoursLabel).value",
+    "openmap": "ContentField(contact.openmap).value",
+    "abouttitle": "ContentField(about.abouttitle).value",
+    "aboutdesc": "ContentField(about.aboutdesc).value",
+    "diagtitle": "ContentField(diagnostics.diagtitle).value",
+    "diagdesc": "ContentField(diagnostics.diagdesc).value",
+    "diagnotice": "ContentField(diagnostics.diagnotice).value",
+    "diagtags": "ContentField(diagnostics.diagtags).value",
+    "diagtagsdesc": "ContentField(diagnostics.diagtagsdesc).value",
+    "servicePageTitle": "ContentField(services.servicePageTitle).value",
+    "servicePageDesc": "ContentField(services.servicePageDesc).value",
+    "clinical": "Category(clinical).label",
+    "wellness": "Category(wellness).label",
+    "facility": "Category(facility).label",
+    "obtitle": "CareCard(obstetrics).title; ConsultationOption(obstetrics).label",
+    "obdesc": "CareCard(obstetrics).description",
+    "gytitle": "CareCard(gynecology).title; ConsultationOption(gynecology).label",
+    "gydesc": "CareCard(gynecology).description",
+    "iuititle": "CareCard(fertility).title; ConsultationOption(fertility).label",
+    "iuidesc": "CareCard(fertility).description",
+    "diatitle": "CareCard(diagnostics).title; ConsultationOption(diagnostics).label",
+    "diadesc": "CareCard(diagnostics).description",
+    "learn": "CareCard(all four).link_label"
+  },
+  "records": {
+    "media_assets": [
+      {
+        "key": "demo-photo-hero",
+        "title": {
+          "en": "Illustrative healthcare portrait — not the actual doctor",
+          "bn": "স্বাস্থ্যসেবার প্রতীকী প্রতিকৃতি — প্রকৃত চিকিৎসকের ছবি নয়"
+        },
+        "alt_text": {
+          "en": "Illustrative healthcare portrait — not the actual doctor",
+          "bn": "স্বাস্থ্যসেবার প্রতীকী প্রতিকৃতি — প্রকৃত চিকিৎসকের ছবি নয়"
+        },
+        "provenance_note": {
+          "en": "Original demo Facebook CDN URL; identity and rights unverified.",
+          "bn": "মূল ডেমোর ফেসবুক সিডিএন লিংক; পরিচয় ও ব্যবহারাধিকার যাচাই করা হয়নি।"
+        },
+        "stock_note": {
+          "en": "Illustrative stock photos — not verified images of Deepan IUI Lab or Dr. Talukder.",
+          "bn": "প্রতিনিধিত্বমূলক স্টক ছবি — দীপন আইইউআই ল্যাব বা চিকিৎসকের যাচাইকৃত ছবি নয়।"
+        },
+        "source_url": "https://scontent.fbzl7-1.fna.fbcdn.net/v/t39.30808-6/386655458_7165314940145758_7620333021630825497_n.jpg?stp=dst-jpg_tt6&cstp=mx1000x1000&ctp=s1000x1000&_nc_cat=100&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeFk06JpC1BCOqXB7Ww4XxpSVfliVC9zBhtV-WJUL3MGGzhkPPiAClVm7pHgliW73nPbdqWxTcs2VrJ6W29L-hve&_nc_ohc=5X-VwDdwBmkQ7kNvwHDqX_o&_nc_oc=AdqY9Q9GpH-2u9D72wKp-6opk0YZ1EJ9GmR6TAcBFHMbCjqZ6qzXLwWhYGyShGfMokg&_nc_zt=23&_nc_ht=scontent.fbzl7-1.fna&_nc_gid=pGNeFVAGY4ZJbQHZGxS27w&_nc_ss=7b2a8&oh=00_AQM_1gBcuzQau2hyZHx4dKA60e8r8-HRPxkPlbfDw6hLYw&oe=6ACD61B1",
+        "disk": null,
+        "path": null,
+        "mime_type": null,
+        "size": null
+      },
+      {
+        "key": "demo-photo-doctor",
+        "title": {
+          "en": "Clinical guidance",
+          "bn": "চিকিৎসা পরামর্শ"
+        },
+        "alt_text": {
+          "en": "Clinical guidance",
+          "bn": "চিকিৎসা পরামর্শ"
+        },
+        "provenance_note": {
+          "en": "Original demo Unsplash URL; identity and rights unverified.",
+          "bn": "মূল ডেমোর আনস্প্ল্যাশ লিংক; পরিচয় ও ব্যবহারাধিকার যাচাই করা হয়নি।"
+        },
+        "stock_note": {
+          "en": "Illustrative stock photos — not verified images of Deepan IUI Lab or Dr. Talukder.",
+          "bn": "প্রতিনিধিত্বমূলক স্টক ছবি — দীপন আইইউআই ল্যাব বা চিকিৎসকের যাচাইকৃত ছবি নয়।"
+        },
+        "source_url": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1000&q=85",
+        "disk": null,
+        "path": null,
+        "mime_type": null,
+        "size": null
+      },
+      {
+        "key": "demo-photo-consult",
+        "title": {
+          "en": "Consultation and care",
+          "bn": "পরামর্শ ও চিকিৎসা"
+        },
+        "alt_text": {
+          "en": "Consultation and care",
+          "bn": "পরামর্শ ও চিকিৎসা"
+        },
+        "provenance_note": {
+          "en": "Original demo Unsplash URL; identity and rights unverified.",
+          "bn": "মূল ডেমোর আনস্প্ল্যাশ লিংক; পরিচয় ও ব্যবহারাধিকার যাচাই করা হয়নি।"
+        },
+        "stock_note": {
+          "en": "Illustrative stock photos — not verified images of Deepan IUI Lab or Dr. Talukder.",
+          "bn": "প্রতিনিধিত্বমূলক স্টক ছবি — দীপন আইইউআই ল্যাব বা চিকিৎসকের যাচাইকৃত ছবি নয়।"
+        },
+        "source_url": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=900&q=85",
+        "disk": null,
+        "path": null,
+        "mime_type": null,
+        "size": null
+      },
+      {
+        "key": "demo-photo-clinic",
+        "title": {
+          "en": "Healthcare environment",
+          "bn": "স্বাস্থ্যসেবার পরিবেশ"
+        },
+        "alt_text": {
+          "en": "Healthcare environment",
+          "bn": "স্বাস্থ্যসেবার পরিবেশ"
+        },
+        "provenance_note": {
+          "en": "Original demo Unsplash URL; identity and rights unverified.",
+          "bn": "মূল ডেমোর আনস্প্ল্যাশ লিংক; পরিচয় ও ব্যবহারাধিকার যাচাই করা হয়নি।"
+        },
+        "stock_note": {
+          "en": "Illustrative stock photos — not verified images of Deepan IUI Lab or Dr. Talukder.",
+          "bn": "প্রতিনিধিত্বমূলক স্টক ছবি — দীপন আইইউআই ল্যাব বা চিকিৎসকের যাচাইকৃত ছবি নয়।"
+        },
+        "source_url": "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1000&q=85",
+        "disk": null,
+        "path": null,
+        "mime_type": null,
+        "size": null
+      },
+      {
+        "key": "demo-photo-lab",
+        "title": {
+          "en": "Laboratory research",
+          "bn": "ল্যাবরেটরি কার্যক্রম"
+        },
+        "alt_text": {
+          "en": "Laboratory research",
+          "bn": "ল্যাবরেটরি কার্যক্রম"
+        },
+        "provenance_note": {
+          "en": "Original demo Unsplash URL; identity and rights unverified.",
+          "bn": "মূল ডেমোর আনস্প্ল্যাশ লিংক; পরিচয় ও ব্যবহারাধিকার যাচাই করা হয়নি।"
+        },
+        "stock_note": {
+          "en": "Illustrative stock photos — not verified images of Deepan IUI Lab or Dr. Talukder.",
+          "bn": "প্রতিনিধিত্বমূলক স্টক ছবি — দীপন আইইউআই ল্যাব বা চিকিৎসকের যাচাইকৃত ছবি নয়।"
+        },
+        "source_url": "https://images.unsplash.com/photo-1579154204601-01588f351e67?w=900&q=85",
+        "disk": null,
+        "path": null,
+        "mime_type": null,
+        "size": null
+      },
+      {
+        "key": "demo-photo-pregnancy",
+        "title": {
+          "en": "Pregnancy wellbeing",
+          "bn": "গর্ভকালীন সুস্থতা"
+        },
+        "alt_text": {
+          "en": "Pregnancy wellbeing",
+          "bn": "গর্ভকালীন সুস্থতা"
+        },
+        "provenance_note": {
+          "en": "Original demo Unsplash URL; identity and rights unverified.",
+          "bn": "মূল ডেমোর আনস্প্ল্যাশ লিংক; পরিচয় ও ব্যবহারাধিকার যাচাই করা হয়নি।"
+        },
+        "stock_note": {
+          "en": "Illustrative stock photos — not verified images of Deepan IUI Lab or Dr. Talukder.",
+          "bn": "প্রতিনিধিত্বমূলক স্টক ছবি — দীপন আইইউআই ল্যাব বা চিকিৎসকের যাচাইকৃত ছবি নয়।"
+        },
+        "source_url": "https://images.unsplash.com/photo-1493894473891-10fc1e5dbd22?w=900&q=85",
+        "disk": null,
+        "path": null,
+        "mime_type": null,
+        "size": null
+      },
+      {
+        "key": "demo-photo-care",
+        "title": {
+          "en": "Women’s health",
+          "bn": "নারীস্বাস্থ্য"
+        },
+        "alt_text": {
+          "en": "Women’s health",
+          "bn": "নারীস্বাস্থ্য"
+        },
+        "provenance_note": {
+          "en": "Original demo Unsplash URL; identity and rights unverified.",
+          "bn": "মূল ডেমোর আনস্প্ল্যাশ লিংক; পরিচয় ও ব্যবহারাধিকার যাচাই করা হয়নি।"
+        },
+        "stock_note": {
+          "en": "Illustrative stock photos — not verified images of Deepan IUI Lab or Dr. Talukder.",
+          "bn": "প্রতিনিধিত্বমূলক স্টক ছবি — দীপন আইইউআই ল্যাব বা চিকিৎসকের যাচাইকৃত ছবি নয়।"
+        },
+        "source_url": "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=900&q=85",
+        "disk": null,
+        "path": null,
+        "mime_type": null,
+        "size": null
+      },
+      {
+        "key": "demo-photo-interior",
+        "title": {
+          "en": "Medical facilities",
+          "bn": "চিকিৎসা কেন্দ্র"
+        },
+        "alt_text": {
+          "en": "Medical facilities",
+          "bn": "চিকিৎসা কেন্দ্র"
+        },
+        "provenance_note": {
+          "en": "Original demo Unsplash URL; identity and rights unverified.",
+          "bn": "মূল ডেমোর আনস্প্ল্যাশ লিংক; পরিচয় ও ব্যবহারাধিকার যাচাই করা হয়নি।"
+        },
+        "stock_note": {
+          "en": "Illustrative stock photos — not verified images of Deepan IUI Lab or Dr. Talukder.",
+          "bn": "প্রতিনিধিত্বমূলক স্টক ছবি — দীপন আইইউআই ল্যাব বা চিকিৎসকের যাচাইকৃত ছবি নয়।"
+        },
+        "source_url": "https://images.unsplash.com/photo-1551076805-e1869033e561?w=900&q=85",
+        "disk": null,
+        "path": null,
+        "mime_type": null,
+        "size": null
+      },
+      {
+        "key": "demo-photo-team",
+        "title": {
+          "en": "Healthcare professionals",
+          "bn": "স্বাস্থ্যকর্মীদের সেবা"
+        },
+        "alt_text": {
+          "en": "Healthcare professionals",
+          "bn": "স্বাস্থ্যকর্মীদের সেবা"
+        },
+        "provenance_note": {
+          "en": "Original demo Unsplash URL; identity and rights unverified.",
+          "bn": "মূল ডেমোর আনস্প্ল্যাশ লিংক; পরিচয় ও ব্যবহারাধিকার যাচাই করা হয়নি।"
+        },
+        "stock_note": {
+          "en": "Illustrative stock photos — not verified images of Deepan IUI Lab or Dr. Talukder.",
+          "bn": "প্রতিনিধিত্বমূলক স্টক ছবি — দীপন আইইউআই ল্যাব বা চিকিৎসকের যাচাইকৃত ছবি নয়।"
+        },
+        "source_url": "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=900&q=85",
+        "disk": null,
+        "path": null,
+        "mime_type": null,
+        "size": null
+      }
+    ],
+    "site_settings": [
+      {
+        "key": "primary",
+        "default_locale": "en",
+        "brand_icon": "✳",
+        "_portrait": "demo-photo-hero",
+        "doctor_name": {
+          "en": "Dr. Shah Alam Talukder",
+          "bn": "ডাঃ শাহ্ আলম তালুকদার"
+        },
+        "subtitle": {
+          "en": "Women’s Health · Fertility · IUI",
+          "bn": "নারীস্বাস্থ্য · বন্ধ্যাত্ব · আইইউআই"
+        },
+        "doctor_biography": {
+          "en": "{doctor_name} is a {credential_lower} in the {department_full} at {institution}. His areas of focus include women’s reproductive health, infertility and IUI.",
+          "bn": "{doctor_name} {institution}ের {department}ের {credential}। নারী প্রজননস্বাস্থ্য, বন্ধ্যাত্ব ও আইইউআই তাঁর বিশেষ আগ্রহের ক্ষেত্র।"
+        },
+        "credential": {
+          "en": "Former Associate Professor",
+          "bn": "সাবেক সহযোগী অধ্যাপক"
+        },
+        "department": {
+          "en": "Obstetrics & Gynecology",
+          "bn": "প্রসূতি ও স্ত্রীরোগ বিভাগ"
+        },
+        "institution": {
+          "en": "Sher-e-Bangla Medical College",
+          "bn": "শের-ই-বাংলা মেডিকেল কলেজ"
+        },
+        "consultation_hours": {
+          "en": "10:00 AM – 2:00 PM and 5:00 PM – 8:00 PM",
+          "bn": "সকাল ১০টা – দুপুর ২টা এবং বিকাল ৫টা – রাত ৮টা"
+        },
+        "friday_note": {
+          "en": "Friday: By appointment",
+          "bn": "শুক্রবার: অ্যাপয়েন্টমেন্টের মাধ্যমে"
+        },
+        "address": {
+          "en": "4S Tower, 628 East Bogura Road, Barishal, Bangladesh",
+          "bn": "৪ এস টাওয়ার, ৬২৮ পূর্ব বগুড়া রোড, বরিশাল, বাংলাদেশ"
+        },
+        "footer_description": {
+          "en": "Obstetrics, gynecology, fertility counseling and IUI-focused care in Barishal.",
+          "bn": "বরিশালে প্রসূতি ও স্ত্রীরোগ, বন্ধ্যাত্ব এবং আইইউআই বিষয়ে পরামর্শ।"
+        },
+        "stock_notice": {
+          "en": "Illustrative stock photos — not verified images of Deepan IUI Lab or Dr. Talukder.",
+          "bn": "প্রতিনিধিত্বমূলক স্টক ছবি — দীপন আইইউআই ল্যাব বা চিকিৎসকের যাচাইকৃত ছবি নয়।"
+        },
+        "medical_disclaimer": {
+          "en": "Educational information only. A clinician must evaluate individual symptoms and treatment options.",
+          "bn": "শুধু শিক্ষামূলক তথ্য। ব্যক্তিগত উপসর্গ ও চিকিৎসা নির্ধারণে চিকিৎসকের মূল্যায়ন প্রয়োজন।"
+        },
+        "cta_title": {
+          "en": "Your wellbeing deserves thoughtful attention.",
+          "bn": "আপনার সুস্থতার জন্য যত্নশীল পরামর্শ।"
+        },
+        "cta_description": {
+          "en": "Send an appointment request through this website. Chamber staff will follow up.",
+          "bn": "এই ওয়েবসাইটের মাধ্যমে অ্যাপয়েন্টমেন্টের অনুরোধ পাঠান। চেম্বারের কর্মীরা পরে আপনার সঙ্গে যোগাযোগ করবেন।"
+        },
+        "cta_label": {
+          "en": "Request an Appointment",
+          "bn": "অ্যাপয়েন্টমেন্টের অনুরোধ"
+        },
+        "clinic_name": {
+          "en": "DEEPAN IUI LAB",
+          "bn": "দীপন আইইউআই ল্যাব"
+        },
+        "location_label": {
+          "en": "BARISHAL",
+          "bn": "বরিশাল"
+        },
+        "facebook_url": {
+          "en": "https://www.facebook.com/drshahalamtalukder/",
+          "bn": "https://www.facebook.com/drshahalamtalukder/"
+        },
+        "map_url": {
+          "en": "https://www.google.com/maps/search/?api=1&query=4S+Tower+628+East+Bogura+Road+Barishal",
+          "bn": "https://www.google.com/maps/search/?api=1&query=4S+Tower+628+East+Bogura+Road+Barishal"
+        },
+        "cta_target": {
+          "en": "contact",
+          "bn": "contact"
+        }
+      }
+    ],
+    "pages": [
+      {
+        "key": "home",
+        "label": {
+          "en": "Home",
+          "bn": "হোম"
+        },
+        "meta_title": {
+          "en": "{page_label} | {doctor_name}",
+          "bn": "{page_label} | {doctor_name}"
+        },
+        "meta_description": {
+          "en": "{doctor_name} — {credential_lower} of {department}, {institution}. {clinic_name_sentence}, Barishal.",
+          "bn": "{doctor_name} — {institution}এর {department} বিভাগের {credential}। {clinic_name_sentence}, বরিশাল।"
+        }
+      },
+      {
+        "key": "about",
+        "label": {
+          "en": "About",
+          "bn": "ডাক্তার পরিচিতি"
+        },
+        "meta_title": {
+          "en": "{page_label} | {doctor_name}",
+          "bn": "{page_label} | {doctor_name}"
+        },
+        "meta_description": {
+          "en": "{doctor_name} — {credential_lower} of {department}, {institution}. {clinic_name_sentence}, Barishal.",
+          "bn": "{doctor_name} — {institution}এর {department} বিভাগের {credential}। {clinic_name_sentence}, বরিশাল।"
+        }
+      },
+      {
+        "key": "services",
+        "label": {
+          "en": "Services",
+          "bn": "সেবাসমূহ"
+        },
+        "meta_title": {
+          "en": "{page_label} | {doctor_name}",
+          "bn": "{page_label} | {doctor_name}"
+        },
+        "meta_description": {
+          "en": "{doctor_name} — {credential_lower} of {department}, {institution}. {clinic_name_sentence}, Barishal.",
+          "bn": "{doctor_name} — {institution}এর {department} বিভাগের {credential}। {clinic_name_sentence}, বরিশাল।"
+        }
+      },
+      {
+        "key": "diagnostics",
+        "label": {
+          "en": "Diagnostic Center",
+          "bn": "ডায়াগনস্টিক সেন্টার"
+        },
+        "meta_title": {
+          "en": "{page_label} | {doctor_name}",
+          "bn": "{page_label} | {doctor_name}"
+        },
+        "meta_description": {
+          "en": "{doctor_name} — {credential_lower} of {department}, {institution}. {clinic_name_sentence}, Barishal.",
+          "bn": "{doctor_name} — {institution}এর {department} বিভাগের {credential}। {clinic_name_sentence}, বরিশাল।"
+        }
+      },
+      {
+        "key": "blog",
+        "label": {
+          "en": "Blog",
+          "bn": "ব্লগ"
+        },
+        "meta_title": {
+          "en": "{page_label} | {doctor_name}",
+          "bn": "{page_label} | {doctor_name}"
+        },
+        "meta_description": {
+          "en": "{doctor_name} — {credential_lower} of {department}, {institution}. {clinic_name_sentence}, Barishal.",
+          "bn": "{doctor_name} — {institution}এর {department} বিভাগের {credential}। {clinic_name_sentence}, বরিশাল।"
+        }
+      },
+      {
+        "key": "gallery",
+        "label": {
+          "en": "Gallery",
+          "bn": "গ্যালারি"
+        },
+        "meta_title": {
+          "en": "{page_label} | {doctor_name}",
+          "bn": "{page_label} | {doctor_name}"
+        },
+        "meta_description": {
+          "en": "{doctor_name} — {credential_lower} of {department}, {institution}. {clinic_name_sentence}, Barishal.",
+          "bn": "{doctor_name} — {institution}এর {department} বিভাগের {credential}। {clinic_name_sentence}, বরিশাল।"
+        }
+      },
+      {
+        "key": "contact",
+        "label": {
+          "en": "Contact",
+          "bn": "যোগাযোগ"
+        },
+        "meta_title": {
+          "en": "{page_label} | {doctor_name}",
+          "bn": "{page_label} | {doctor_name}"
+        },
+        "meta_description": {
+          "en": "{doctor_name} — {credential_lower} of {department}, {institution}. {clinic_name_sentence}, Barishal.",
+          "bn": "{doctor_name} — {institution}এর {department} বিভাগের {credential}। {clinic_name_sentence}, বরিশাল।"
+        }
+      },
+      {
+        "key": "article",
+        "label": {
+          "en": "Blog",
+          "bn": "ব্লগ"
+        },
+        "meta_title": {
+          "en": "{page_label} | {doctor_name}",
+          "bn": "{page_label} | {doctor_name}"
+        },
+        "meta_description": {
+          "en": "{doctor_name} — {credential_lower} of {department}, {institution}. {clinic_name_sentence}, Barishal.",
+          "bn": "{doctor_name} — {institution}এর {department} বিভাগের {credential}। {clinic_name_sentence}, বরিশাল।"
+        }
+      }
+    ],
+    "content_fields": [
+      {
+        "key": "home.appointment",
+        "value": {
+          "en": "Request an Appointment",
+          "bn": "অ্যাপয়েন্টমেন্টের অনুরোধ"
+        },
+        "_page": "home"
+      },
+      {
+        "key": "home.eyebrow",
+        "value": {
+          "en": "COMPASSIONATE WOMEN’S HEALTHCARE",
+          "bn": "যত্নশীল নারীস্বাস্থ্য সেবা"
+        },
+        "_page": "home"
+      },
+      {
+        "key": "home.herotitle",
+        "value": {
+          "en": "Care that listens. Expertise that guides.",
+          "bn": "মনোযোগ দিয়ে শোনা, অভিজ্ঞতার সঙ্গে পরামর্শ।"
+        },
+        "_page": "home"
+      },
+      {
+        "key": "home.herodesc",
+        "value": {
+          "en": "Consultations for obstetrics, gynecology, infertility and IUI-related care with {doctor_name}, {credential_lower}, {department_full}, {institution}.",
+          "bn": "{doctor_name}ের প্রসূতি ও স্ত্রীরোগ, বন্ধ্যাত্ব এবং আইইউআই-সংক্রান্ত পরামর্শ। তিনি {institution}ের {department}ের {credential}।"
+        },
+        "_page": "home"
+      },
+      {
+        "key": "home.visit",
+        "value": {
+          "en": "Visit {clinic_name_sentence}",
+          "bn": "{clinic_name_sentence}ে আসুন"
+        },
+        "_page": "home"
+      },
+      {
+        "key": "home.servicesTitle",
+        "value": {
+          "en": "Thoughtful care at every stage",
+          "bn": "জীবনের প্রতিটি পর্যায়ে সচেতন স্বাস্থ্যসেবা"
+        },
+        "_page": "home"
+      },
+      {
+        "key": "home.servicesDesc",
+        "value": {
+          "en": "Learn about common women’s health concerns and fertility treatment pathways. Specific procedures and availability should be confirmed with the chamber.",
+          "bn": "নারীস্বাস্থ্য ও বন্ধ্যাত্ব চিকিৎসার বিষয়গুলো সম্পর্কে জানুন। নির্দিষ্ট সেবার প্রাপ্যতা চেম্বারে নিশ্চিত করুন।"
+        },
+        "_page": "home"
+      },
+      {
+        "key": "home.doctorEyebrow",
+        "value": {
+          "en": "MEET YOUR DOCTOR",
+          "bn": "চিকিৎসক পরিচিতি"
+        },
+        "_page": "home"
+      },
+      {
+        "key": "home.doctorTitle",
+        "value": {
+          "en": "Dedicated to women’s wellbeing",
+          "bn": "নারীস্বাস্থ্য সেবায় নিবেদিত"
+        },
+        "_page": "home"
+      },
+      {
+        "key": "home.blogtitle",
+        "value": {
+          "en": "Health journal",
+          "bn": "স্বাস্থ্য ব্লগ"
+        },
+        "_page": "home"
+      },
+      {
+        "key": "ui.explore",
+        "value": {
+          "en": "Explore Services",
+          "bn": "সেবাসমূহ দেখুন"
+        }
+      },
+      {
+        "key": "ui.read",
+        "value": {
+          "en": "Read Article",
+          "bn": "লেখাটি পড়ুন"
+        }
+      },
+      {
+        "key": "ui.readmore",
+        "value": {
+          "en": "View details",
+          "bn": "বিস্তারিত দেখুন"
+        }
+      },
+      {
+        "key": "ui.filter_all",
+        "value": {
+          "en": "All",
+          "bn": "সব"
+        }
+      },
+      {
+        "key": "shared.qualification",
+        "value": {
+          "en": "Clinical background",
+          "bn": "পেশাগত পরিচিতি"
+        }
+      },
+      {
+        "key": "shared.hoursTitle",
+        "value": {
+          "en": "Consultation hours",
+          "bn": "রোগী দেখার সময়"
+        }
+      },
+      {
+        "key": "shared.visitTitle",
+        "value": {
+          "en": "At the chamber",
+          "bn": "চেম্বার"
+        }
+      },
+      {
+        "key": "shared.profession",
+        "value": {
+          "en": "{credential} · {department} · {institution}",
+          "bn": "{credential} · {department} · {institution}"
+        }
+      },
+      {
+        "key": "shared.visitText",
+        "value": {
+          "en": "{clinic_name_sentence}, {address_short}.",
+          "bn": "{clinic_name_sentence}, {address_short}।"
+        }
+      },
+      {
+        "key": "shared.gallerytitle",
+        "value": {
+          "en": "Our gallery",
+          "bn": "আমাদের গ্যালারি"
+        }
+      },
+      {
+        "key": "shared.gallerydesc",
+        "value": {
+          "en": "An editorial image gallery representing women’s healthcare and diagnostic environments. Stock photographs do not depict this doctor or actual facilities.",
+          "bn": "নারীস্বাস্থ্য ও ডায়াগনস্টিক পরিবেশের প্রতিনিধিত্বমূলক স্টক ছবি। এগুলো চিকিৎসক বা প্রতিষ্ঠানের প্রকৃত ছবি নয়।"
+        }
+      },
+      {
+        "key": "blog.blogheading",
+        "value": {
+          "en": "Insights for better health",
+          "bn": "সুস্বাস্থ্যের জন্য জ্ঞান"
+        },
+        "_page": "blog"
+      },
+      {
+        "key": "blog.blogintro",
+        "value": {
+          "en": "Educational reading on pregnancy, gynecological conditions, and fertility care.",
+          "bn": "গর্ভাবস্থা, স্ত্রীরোগ ও বন্ধ্যাত্ব চিকিৎসা সম্পর্কে শিক্ষামূলক তথ্য।"
+        },
+        "_page": "blog"
+      },
+      {
+        "key": "blog.tagtitle",
+        "value": {
+          "en": "Browse by tag",
+          "bn": "ট্যাগ অনুযায়ী দেখুন"
+        },
+        "_page": "blog"
+      },
+      {
+        "key": "blog.blogdesc",
+        "value": {
+          "en": "Friendly, general-education articles about reproductive and women’s health. These are not individual medical advice.",
+          "bn": "নারীস্বাস্থ্য ও প্রজননস্বাস্থ্য নিয়ে সহজ শিক্ষামূলক লেখা; ব্যক্তিগত চিকিৎসা পরামর্শ নয়।"
+        },
+        "_page": "blog"
+      },
+      {
+        "key": "contact.fb",
+        "value": {
+          "en": "Official Facebook Page",
+          "bn": "অফিসিয়াল ফেসবুক পেজ"
+        },
+        "_page": "contact"
+      },
+      {
+        "key": "contact.contacttitle",
+        "value": {
+          "en": "Visit us in Barishal",
+          "bn": "বরিশালে আমাদের চেম্বার"
+        },
+        "_page": "contact"
+      },
+      {
+        "key": "contact.contactdesc",
+        "value": {
+          "en": "Find chamber information and send an appointment request or message.",
+          "bn": "চেম্বারের তথ্য দেখুন এবং অ্যাপয়েন্টমেন্টের অনুরোধ বা বার্তা পাঠান।"
+        },
+        "_page": "contact"
+      },
+      {
+        "key": "contact.formtitle",
+        "value": {
+          "en": "Send an appointment request or message",
+          "bn": "অ্যাপয়েন্টমেন্টের অনুরোধ বা বার্তা পাঠান"
+        },
+        "_page": "contact"
+      },
+      {
+        "key": "contact.name",
+        "value": {
+          "en": "Patient / contact name",
+          "bn": "রোগী / যোগাযোগকারীর নাম"
+        },
+        "_page": "contact"
+      },
+      {
+        "key": "contact.phone",
+        "value": {
+          "en": "Phone number",
+          "bn": "ফোন নম্বর"
+        },
+        "_page": "contact"
+      },
+      {
+        "key": "contact.topic",
+        "value": {
+          "en": "Consultation type",
+          "bn": "পরামর্শের ধরন"
+        },
+        "_page": "contact"
+      },
+      {
+        "key": "contact.message",
+        "value": {
+          "en": "Brief message",
+          "bn": "সংক্ষিপ্ত বার্তা"
+        },
+        "_page": "contact"
+      },
+      {
+        "key": "contact.prepare",
+        "value": {
+          "en": "Submit appointment request",
+          "bn": "অ্যাপয়েন্টমেন্টের অনুরোধ পাঠান"
+        },
+        "_page": "contact"
+      },
+      {
+        "key": "contact.privacy",
+        "value": {
+          "en": "Your details will be stored and reviewed by chamber staff for follow-up. An appointment request does not confirm a visit.",
+          "bn": "আপনার তথ্য সংরক্ষণ করা হবে এবং যোগাযোগের জন্য চেম্বারের কর্মীরা তা পর্যালোচনা করবেন। অ্যাপয়েন্টমেন্টের অনুরোধ পাঠানো মানেই সাক্ষাতের সময় নিশ্চিত হওয়া নয়।"
+        },
+        "_page": "contact"
+      },
+      {
+        "key": "contact.addressLabel",
+        "value": {
+          "en": "Chamber address",
+          "bn": "চেম্বারের ঠিকানা"
+        },
+        "_page": "contact"
+      },
+      {
+        "key": "contact.hoursLabel",
+        "value": {
+          "en": "Patient visiting hours",
+          "bn": "রোগী দেখার সময়"
+        },
+        "_page": "contact"
+      },
+      {
+        "key": "contact.openmap",
+        "value": {
+          "en": "Find on Google Maps",
+          "bn": "গুগল ম্যাপে খুঁজুন"
+        },
+        "_page": "contact"
+      },
+      {
+        "key": "about.abouttitle",
+        "value": {
+          "en": "Experience rooted in women’s healthcare",
+          "bn": "নারীস্বাস্থ্য সেবায় অভিজ্ঞতা"
+        },
+        "_page": "about"
+      },
+      {
+        "key": "about.aboutdesc",
+        "value": {
+          "en": "Learn more about the doctor and the care topics supported by the chamber.",
+          "bn": "চিকিৎসক ও পরামর্শের বিষয় সম্পর্কে আরও জানুন।"
+        },
+        "_page": "about"
+      },
+      {
+        "key": "diagnostics.diagtitle",
+        "value": {
+          "en": "{clinic_name_sentence} & Diagnostic Center",
+          "bn": "{clinic_name_sentence} ও ডায়াগনস্টিক সেন্টার"
+        },
+        "_page": "diagnostics"
+      },
+      {
+        "key": "diagnostics.diagdesc",
+        "value": {
+          "en": "Chamber and laboratory information, with service availability confirmed directly by staff.",
+          "bn": "চেম্বার ও ল্যাবের তথ্য; সেবার প্রাপ্যতা সরাসরি নিশ্চিত করুন।"
+        },
+        "_page": "diagnostics"
+      },
+      {
+        "key": "diagnostics.diagnotice",
+        "value": {
+          "en": "A complete, verified test menu, prices and report delivery times have not been provided. Please confirm directly with the center before visiting.",
+          "bn": "পরীক্ষার পূর্ণ তালিকা, মূল্য ও রিপোর্টের সময় নিশ্চিত তথ্য হিসেবে দেওয়া হয়নি। যাওয়ার আগে কেন্দ্রে জেনে নিন।"
+        },
+        "_page": "diagnostics"
+      },
+      {
+        "key": "diagnostics.diagtags",
+        "value": {
+          "en": "Possible inquiry topics",
+          "bn": "যেসব বিষয়ে খোঁজ নিতে পারেন"
+        },
+        "_page": "diagnostics"
+      },
+      {
+        "key": "diagnostics.diagtagsdesc",
+        "value": {
+          "en": "Patients may ask about availability of fertility-related laboratory services, sample collection instructions, reports and appointment scheduling. No specific test is claimed to be available here.",
+          "bn": "বন্ধ্যাত্বসংক্রান্ত পরীক্ষার প্রাপ্যতা, নমুনা দেওয়ার নিয়ম, রিপোর্ট ও অ্যাপয়েন্টমেন্ট নিয়ে জানতে পারেন। এখানে কোনো নির্দিষ্ট পরীক্ষা নিশ্চিতভাবে উপলব্ধ বলা হচ্ছে না।"
+        },
+        "_page": "diagnostics"
+      },
+      {
+        "key": "services.servicePageTitle",
+        "value": {
+          "en": "Obstetrics, Gynecology & Fertility",
+          "bn": "প্রসূতি, স্ত্রীরোগ ও বন্ধ্যাত্ব"
+        },
+        "_page": "services"
+      },
+      {
+        "key": "services.servicePageDesc",
+        "value": {
+          "en": "Overview of care topics and when to seek professional advice.",
+          "bn": "চিকিৎসা ও কখন পরামর্শ নেওয়া উচিত সে সম্পর্কে ধারণা।"
+        },
+        "_page": "services"
+      },
+      {
+        "key": "contact.mode_label",
+        "value": {
+          "en": "Message type",
+          "bn": "বার্তার ধরন"
+        },
+        "_page": "contact"
+      },
+      {
+        "key": "contact.mode_appointment",
+        "value": {
+          "en": "Appointment request",
+          "bn": "অ্যাপয়েন্টমেন্টের অনুরোধ"
+        },
+        "_page": "contact"
+      },
+      {
+        "key": "contact.mode_general",
+        "value": {
+          "en": "General contact",
+          "bn": "সাধারণ যোগাযোগ"
+        },
+        "_page": "contact"
+      },
+      {
+        "key": "contact.submit_contact",
+        "value": {
+          "en": "Send message",
+          "bn": "বার্তা পাঠান"
+        },
+        "_page": "contact"
+      },
+      {
+        "key": "contact.success_appointment",
+        "value": {
+          "en": "Your appointment request has been received. Chamber staff will contact you to confirm the next step.",
+          "bn": "আপনার অ্যাপয়েন্টমেন্টের অনুরোধ পাওয়া গেছে। পরবর্তী ধাপ নিশ্চিত করতে চেম্বারের কর্মীরা আপনার সঙ্গে যোগাযোগ করবেন।"
+        },
+        "_page": "contact"
+      },
+      {
+        "key": "contact.success_contact",
+        "value": {
+          "en": "Your message has been received.",
+          "bn": "আপনার বার্তা পাওয়া গেছে।"
+        },
+        "_page": "contact"
+      },
+      {
+        "key": "contact.mode_apply",
+        "value": {
+          "en": "Apply",
+          "bn": "প্রয়োগ করুন"
+        },
+        "_page": "contact"
+      },
+      {
+        "key": "contact.validation_required",
+        "value": {
+          "en": "This field is required.",
+          "bn": "এই তথ্যটি প্রয়োজন।"
+        },
+        "_page": "contact"
+      },
+      {
+        "key": "contact.validation_invalid",
+        "value": {
+          "en": "Please enter a valid value.",
+          "bn": "সঠিক তথ্য লিখুন।"
+        },
+        "_page": "contact"
+      },
+      {
+        "key": "contact.validation_max",
+        "value": {
+          "en": "This value is too long.",
+          "bn": "এই তথ্যটি বেশি দীর্ঘ।"
+        },
+        "_page": "contact"
+      },
+      {
+        "key": "contact.save_failure",
+        "value": {
+          "en": "Your message could not be saved. Please try again.",
+          "bn": "আপনার বার্তাটি সংরক্ষণ করা যায়নি। আবার চেষ্টা করুন।"
+        },
+        "_page": "contact"
+      },
+      {
+        "key": "contact.submit_pending",
+        "value": {
+          "en": "Submitting…",
+          "bn": "পাঠানো হচ্ছে…"
+        },
+        "_page": "contact"
+      },
+      {
+        "key": "ui.empty_filter_results",
+        "value": {
+          "en": "No items found.",
+          "bn": "কোনো তথ্য পাওয়া যায়নি।"
+        }
+      },
+      {
+        "key": "ui.menu_close",
+        "value": {
+          "en": "Close navigation",
+          "bn": "নেভিগেশন বন্ধ করুন"
+        }
+      },
+      {
+        "key": "ui.switch_to_bn",
+        "value": {
+          "en": "বাংলা",
+          "bn": "বাংলা"
+        }
+      },
+      {
+        "key": "ui.switch_to_en",
+        "value": {
+          "en": "English",
+          "bn": "English"
+        }
+      },
+      {
+        "key": "ui.open_navigation",
+        "value": {
+          "en": "Open navigation",
+          "bn": "নেভিগেশন খুলুন"
+        }
+      },
+      {
+        "key": "ui.gallery_preview",
+        "value": {
+          "en": "Gallery image preview",
+          "bn": "গ্যালারির ছবির পূর্বরূপ"
+        }
+      },
+      {
+        "key": "ui.close_lightbox",
+        "value": {
+          "en": "Close",
+          "bn": "বন্ধ করুন"
+        }
+      },
+      {
+        "key": "footer.social_label",
+        "value": {
+          "en": "Facebook ↗",
+          "bn": "ফেসবুক ↗"
+        }
+      },
+      {
+        "key": "footer.copyright_format",
+        "value": {
+          "en": "© {year} {doctor_name} · {stock_notice}",
+          "bn": "© {year} {doctor_name} · {stock_notice}"
+        }
+      },
+      {
+        "key": "meta.title_format",
+        "value": {
+          "en": "{page_label} | {doctor_name}",
+          "bn": "{page_label} | {doctor_name}"
+        }
+      },
+      {
+        "key": "home.care_eyebrow",
+        "value": {
+          "en": "OUR AREAS OF CARE",
+          "bn": "আমাদের সেবার ক্ষেত্র"
+        },
+        "_page": "home"
+      },
+      {
+        "key": "home.journal_eyebrow",
+        "value": {
+          "en": "THE JOURNAL",
+          "bn": "স্বাস্থ্য বিষয়ক লেখা"
+        },
+        "_page": "home"
+      },
+      {
+        "key": "home.gallery_eyebrow",
+        "value": {
+          "en": "VISUAL STORIES",
+          "bn": "ছবির গল্প"
+        },
+        "_page": "home"
+      },
+      {
+        "key": "home.hero_alt",
+        "value": {
+          "en": "Illustrative healthcare portrait — not the actual doctor",
+          "bn": "স্বাস্থ্যসেবার প্রতীকী প্রতিকৃতি — প্রকৃত চিকিৎসকের ছবি নয়"
+        },
+        "_page": "home"
+      },
+      {
+        "key": "home.doctor_alt",
+        "value": {
+          "en": "Healthcare consultation illustration",
+          "bn": "স্বাস্থ্যসেবা পরামর্শের প্রতীকী ছবি"
+        },
+        "_page": "home"
+      },
+      {
+        "key": "about.image_alt",
+        "value": {
+          "en": "Illustrative consultation photo",
+          "bn": "পরামর্শের প্রতীকী ছবি"
+        },
+        "_page": "about"
+      },
+      {
+        "key": "diagnostics.image_alt",
+        "value": {
+          "en": "Illustrative lab stock photograph",
+          "bn": "ল্যাবের প্রতীকী স্টক ছবি"
+        },
+        "_page": "diagnostics"
+      },
+      {
+        "key": "shared.brand_target",
+        "value": {
+          "en": "home",
+          "bn": "home"
+        }
+      },
+      {
+        "key": "home.primary_target",
+        "value": {
+          "en": "contact",
+          "bn": "contact"
+        },
+        "_page": "home"
+      },
+      {
+        "key": "home.secondary_target",
+        "value": {
+          "en": "services",
+          "bn": "services"
+        },
+        "_page": "home"
+      },
+      {
+        "key": "home.doctor_target",
+        "value": {
+          "en": "about",
+          "bn": "about"
+        },
+        "_page": "home"
+      },
+      {
+        "key": "home.journal_target",
+        "value": {
+          "en": "blog",
+          "bn": "blog"
+        },
+        "_page": "home"
+      },
+      {
+        "key": "home.gallery_target",
+        "value": {
+          "en": "gallery",
+          "bn": "gallery"
+        },
+        "_page": "home"
+      },
+      {
+        "key": "diagnostics.contact_target",
+        "value": {
+          "en": "contact",
+          "bn": "contact"
+        },
+        "_page": "diagnostics"
+      },
+      {
+        "key": "home.article_count",
+        "value": 3,
+        "_page": "home"
+      },
+      {
+        "key": "home.gallery_count",
+        "value": 3,
+        "_page": "home"
+      },
+      {
+        "key": "home.doctor_image",
+        "value": null,
+        "_media": "demo-photo-consult",
+        "_page": "home"
+      },
+      {
+        "key": "about.image",
+        "value": null,
+        "_media": "demo-photo-care",
+        "_page": "about"
+      },
+      {
+        "key": "diagnostics.image",
+        "value": null,
+        "_media": "demo-photo-lab",
+        "_page": "diagnostics"
+      }
+    ],
+    "page_sections": [
+      {
+        "key": "home.hero",
+        "_page": "home",
+        "is_visible": true,
+        "sort_order": 0
+      },
+      {
+        "key": "home.care",
+        "_page": "home",
+        "is_visible": true,
+        "sort_order": 1
+      },
+      {
+        "key": "home.doctor",
+        "_page": "home",
+        "is_visible": true,
+        "sort_order": 2
+      },
+      {
+        "key": "home.journal",
+        "_page": "home",
+        "is_visible": true,
+        "sort_order": 3
+      },
+      {
+        "key": "home.gallery",
+        "_page": "home",
+        "is_visible": true,
+        "sort_order": 4
+      },
+      {
+        "key": "home.cta",
+        "_page": "home",
+        "is_visible": true,
+        "sort_order": 5
+      },
+      {
+        "key": "about.profile",
+        "_page": "about",
+        "is_visible": true,
+        "sort_order": 0
+      },
+      {
+        "key": "about.information",
+        "_page": "about",
+        "is_visible": true,
+        "sort_order": 1
+      },
+      {
+        "key": "about.cta",
+        "_page": "about",
+        "is_visible": true,
+        "sort_order": 2
+      },
+      {
+        "key": "services.services",
+        "_page": "services",
+        "is_visible": true,
+        "sort_order": 0
+      },
+      {
+        "key": "services.cta",
+        "_page": "services",
+        "is_visible": true,
+        "sort_order": 1
+      },
+      {
+        "key": "diagnostics.laboratory",
+        "_page": "diagnostics",
+        "is_visible": true,
+        "sort_order": 0
+      },
+      {
+        "key": "diagnostics.cta",
+        "_page": "diagnostics",
+        "is_visible": true,
+        "sort_order": 1
+      },
+      {
+        "key": "blog.posts",
+        "_page": "blog",
+        "is_visible": true,
+        "sort_order": 0
+      },
+      {
+        "key": "blog.cta",
+        "_page": "blog",
+        "is_visible": true,
+        "sort_order": 1
+      },
+      {
+        "key": "gallery.images",
+        "_page": "gallery",
+        "is_visible": true,
+        "sort_order": 0
+      },
+      {
+        "key": "gallery.cta",
+        "_page": "gallery",
+        "is_visible": true,
+        "sort_order": 1
+      },
+      {
+        "key": "contact.information_form",
+        "_page": "contact",
+        "is_visible": true,
+        "sort_order": 0
+      },
+      {
+        "key": "article.article",
+        "_page": "article",
+        "is_visible": true,
+        "sort_order": 0
+      },
+      {
+        "key": "article.cta",
+        "_page": "article",
+        "is_visible": true,
+        "sort_order": 1
+      }
+    ],
+    "navigation_items": [
+      {
+        "key": "header:home",
+        "label": {
+          "en": "Home",
+          "bn": "হোম"
+        },
+        "target": {
+          "en": "home",
+          "bn": "home"
+        },
+        "placement": "header",
+        "sort_order": 0,
+        "is_visible": true
+      },
+      {
+        "key": "header:about",
+        "label": {
+          "en": "About",
+          "bn": "ডাক্তার পরিচিতি"
+        },
+        "target": {
+          "en": "about",
+          "bn": "about"
+        },
+        "placement": "header",
+        "sort_order": 1,
+        "is_visible": true
+      },
+      {
+        "key": "header:services",
+        "label": {
+          "en": "Services",
+          "bn": "সেবাসমূহ"
+        },
+        "target": {
+          "en": "services",
+          "bn": "services"
+        },
+        "placement": "header",
+        "sort_order": 2,
+        "is_visible": true
+      },
+      {
+        "key": "header:diagnostics",
+        "label": {
+          "en": "Diagnostic Center",
+          "bn": "ডায়াগনস্টিক সেন্টার"
+        },
+        "target": {
+          "en": "diagnostics",
+          "bn": "diagnostics"
+        },
+        "placement": "header",
+        "sort_order": 3,
+        "is_visible": true
+      },
+      {
+        "key": "header:blog",
+        "label": {
+          "en": "Blog",
+          "bn": "ব্লগ"
+        },
+        "target": {
+          "en": "blog",
+          "bn": "blog"
+        },
+        "placement": "header",
+        "sort_order": 4,
+        "is_visible": true
+      },
+      {
+        "key": "header:gallery",
+        "label": {
+          "en": "Gallery",
+          "bn": "গ্যালারি"
+        },
+        "target": {
+          "en": "gallery",
+          "bn": "gallery"
+        },
+        "placement": "header",
+        "sort_order": 5,
+        "is_visible": true
+      },
+      {
+        "key": "header:contact",
+        "label": {
+          "en": "Contact",
+          "bn": "যোগাযোগ"
+        },
+        "target": {
+          "en": "contact",
+          "bn": "contact"
+        },
+        "placement": "header",
+        "sort_order": 6,
+        "is_visible": true
+      },
+      {
+        "key": "footer:about",
+        "label": {
+          "en": "About",
+          "bn": "ডাক্তার পরিচিতি"
+        },
+        "target": {
+          "en": "about",
+          "bn": "about"
+        },
+        "placement": "footer",
+        "sort_order": 0,
+        "is_visible": true
+      },
+      {
+        "key": "footer:services",
+        "label": {
+          "en": "Services",
+          "bn": "সেবাসমূহ"
+        },
+        "target": {
+          "en": "services",
+          "bn": "services"
+        },
+        "placement": "footer",
+        "sort_order": 1,
+        "is_visible": true
+      },
+      {
+        "key": "footer:blog",
+        "label": {
+          "en": "Blog",
+          "bn": "ব্লগ"
+        },
+        "target": {
+          "en": "blog",
+          "bn": "blog"
+        },
+        "placement": "footer",
+        "sort_order": 2,
+        "is_visible": true
+      },
+      {
+        "key": "footer:gallery",
+        "label": {
+          "en": "Gallery",
+          "bn": "গ্যালারি"
+        },
+        "target": {
+          "en": "gallery",
+          "bn": "gallery"
+        },
+        "placement": "footer",
+        "sort_order": 3,
+        "is_visible": true
+      }
+    ],
+    "care_cards": [
+      {
+        "key": "obstetrics",
+        "title": {
+          "en": "Obstetrics & Pregnancy Care",
+          "bn": "প্রসূতি ও গর্ভকালীন যত্ন"
+        },
+        "description": {
+          "en": "Preconception counseling, antenatal follow-up, pregnancy concerns and postnatal guidance.",
+          "bn": "গর্ভধারণের পূর্বপরামর্শ, গর্ভকালীন ফলোআপ, সমস্যা ও প্রসব-পরবর্তী নির্দেশনা।"
+        },
+        "icon": {
+          "en": "🤰",
+          "bn": "🤰"
+        },
+        "link_label": {
+          "en": "Learn More →",
+          "bn": "বিস্তারিত জানুন →"
+        },
+        "target": {
+          "en": "services",
+          "bn": "services"
+        },
+        "sort_order": 0,
+        "is_enabled": true
+      },
+      {
+        "key": "gynecology",
+        "title": {
+          "en": "Gynecology Consultation",
+          "bn": "স্ত্রীরোগ পরামর্শ"
+        },
+        "description": {
+          "en": "Menstrual health, PCOS, pelvic pain, fibroids, ovarian cysts and menopausal concerns.",
+          "bn": "মাসিকের সমস্যা, পিসিওএস, তলপেটের ব্যথা, ফাইব্রয়েড, ওভারিয়ান সিস্ট ও মেনোপজ।"
+        },
+        "icon": {
+          "en": "✿",
+          "bn": "✿"
+        },
+        "link_label": {
+          "en": "Learn More →",
+          "bn": "বিস্তারিত জানুন →"
+        },
+        "target": {
+          "en": "services",
+          "bn": "services"
+        },
+        "sort_order": 1,
+        "is_enabled": true
+      },
+      {
+        "key": "fertility",
+        "title": {
+          "en": "Infertility & IUI Guidance",
+          "bn": "বন্ধ্যাত্ব ও আইইউআই পরামর্শ"
+        },
+        "description": {
+          "en": "Fertility assessment, counseling and explanations of IUI treatment pathways.",
+          "bn": "ফার্টিলিটি মূল্যায়ন, পরামর্শ এবং আইইউআই চিকিৎসা সম্পর্কে ধারণা।"
+        },
+        "icon": {
+          "en": "♡",
+          "bn": "♡"
+        },
+        "link_label": {
+          "en": "Learn More →",
+          "bn": "বিস্তারিত জানুন →"
+        },
+        "target": {
+          "en": "services",
+          "bn": "services"
+        },
+        "sort_order": 2,
+        "is_enabled": true
+      },
+      {
+        "key": "diagnostics",
+        "title": {
+          "en": "Diagnostic Services",
+          "bn": "ডায়াগনস্টিক সেবা"
+        },
+        "description": {
+          "en": "Contact {clinic_name_sentence} for confirmed testing, preparation and report information.",
+          "bn": "পরীক্ষা, প্রস্তুতি ও রিপোর্টের তথ্য জানতে {clinic_name_sentence}ে যোগাযোগ করুন।"
+        },
+        "icon": {
+          "en": "🔬",
+          "bn": "🔬"
+        },
+        "link_label": {
+          "en": "Learn More →",
+          "bn": "বিস্তারিত জানুন →"
+        },
+        "target": {
+          "en": "diagnostics",
+          "bn": "diagnostics"
+        },
+        "sort_order": 3,
+        "is_enabled": true
+      }
+    ],
+    "services": [
+      {
+        "key": "pregnancy-antenatal-care",
+        "slug": "pregnancy-antenatal-care",
+        "title": {
+          "en": "Pregnancy and antenatal care",
+          "bn": "গর্ভকালীন ও প্রসূতি সেবা"
+        },
+        "body": {
+          "en": "Routine pregnancy consultations can cover nutrition, blood-pressure monitoring, prenatal testing, discomforts and planning for birth. Immediate assessment is important for heavy bleeding, severe pain, seizures or reduced fetal movement.",
+          "bn": "গর্ভাবস্থার নিয়মিত পরামর্শে পুষ্টি, রক্তচাপ, পরীক্ষা, অস্বস্তি ও প্রসবের প্রস্তুতি নিয়ে আলোচনা করা যায়। অতিরিক্ত রক্তপাত, প্রচণ্ড ব্যথা, খিঁচুনি বা শিশুর নড়াচড়া কমে গেলে দ্রুত চিকিৎসা নিন।"
+        },
+        "sort_order": 0,
+        "is_enabled": true
+      },
+      {
+        "key": "menstrual-gynecological-problems",
+        "slug": "menstrual-gynecological-problems",
+        "title": {
+          "en": "Menstrual and gynecological problems",
+          "bn": "মাসিক ও স্ত্রীরোগ সমস্যা"
+        },
+        "body": {
+          "en": "Irregular or heavy periods, painful menstruation, abnormal discharge, pelvic pain, fibroids, ovarian cysts and suspected PCOS may warrant evaluation. Tests and treatment depend on individual symptoms.",
+          "bn": "অনিয়মিত বা অতিরিক্ত মাসিক, মাসিকের ব্যথা, অস্বাভাবিক স্রাব, তলপেটের ব্যথা, ফাইব্রয়েড, ওভারিয়ান সিস্ট ও পিসিওএস-এ মূল্যায়ন দরকার হতে পারে। পরীক্ষা ও চিকিৎসা রোগীভেদে ভিন্ন।"
+        },
+        "sort_order": 1,
+        "is_enabled": true
+      },
+      {
+        "key": "infertility-iui",
+        "slug": "infertility-iui",
+        "title": {
+          "en": "Infertility assessment and IUI",
+          "bn": "বন্ধ্যাত্ব মূল্যায়ন ও আইইউআই"
+        },
+        "body": {
+          "en": "Fertility assessment can include reproductive history and investigations for one or both partners. IUI involves preparing sperm and placing it inside the uterus around ovulation when clinically appropriate; outcomes vary and it is not suitable for everyone.",
+          "bn": "বন্ধ্যাত্ব মূল্যায়নে প্রজনন ইতিহাস ও প্রয়োজনে উভয় সঙ্গীর পরীক্ষা থাকতে পারে। আইইউআই-তে উপযুক্ত সময়ে প্রক্রিয়াজাত শুক্রাণু জরায়ুতে দেওয়া হয়; ফলাফল ভিন্ন হতে পারে এবং এটি সবার জন্য উপযুক্ত নয়।"
+        },
+        "sort_order": 2,
+        "is_enabled": true
+      },
+      {
+        "key": "menopause-midlife-health",
+        "slug": "menopause-midlife-health",
+        "title": {
+          "en": "Menopause and midlife health",
+          "bn": "মেনোপজ ও মধ্যবয়সে স্বাস্থ্য"
+        },
+        "body": {
+          "en": "Consultation can address hot flashes, sleep, vaginal symptoms, bone health, and treatment choices. Bleeding after menopause should be assessed promptly.",
+          "bn": "হঠাৎ গরম লাগা, ঘুমের সমস্যা, যোনির অস্বস্তি, হাড়ের স্বাস্থ্য ও চিকিৎসার বিকল্প নিয়ে আলোচনা করা যায়। মেনোপজের পরে রক্তপাত হলে দ্রুত চিকিৎসকের পরামর্শ নিন।"
+        },
+        "sort_order": 3,
+        "is_enabled": true
+      },
+      {
+        "key": "postnatal-reproductive-health",
+        "slug": "postnatal-reproductive-health",
+        "title": {
+          "en": "Postnatal and reproductive health",
+          "bn": "প্রসব-পরবর্তী ও প্রজননস্বাস্থ্য"
+        },
+        "body": {
+          "en": "Postnatal reviews, family-planning discussions, and concerns after pregnancy are important parts of continuing care.",
+          "bn": "প্রসব-পরবর্তী ফলোআপ, পরিবার পরিকল্পনা ও গর্ভাবস্থার পরের যেকোনো উদ্বেগে ধারাবাহিক পরামর্শ গুরুত্বপূর্ণ।"
+        },
+        "sort_order": 4,
+        "is_enabled": true
+      }
+    ],
+    "consultation_options": [
+      {
+        "key": "obstetrics",
+        "label": {
+          "en": "Obstetrics & Pregnancy Care",
+          "bn": "প্রসূতি ও গর্ভকালীন যত্ন"
+        },
+        "sort_order": 0,
+        "is_active": true
+      },
+      {
+        "key": "gynecology",
+        "label": {
+          "en": "Gynecology Consultation",
+          "bn": "স্ত্রীরোগ পরামর্শ"
+        },
+        "sort_order": 1,
+        "is_active": true
+      },
+      {
+        "key": "fertility",
+        "label": {
+          "en": "Infertility & IUI Guidance",
+          "bn": "বন্ধ্যাত্ব ও আইইউআই পরামর্শ"
+        },
+        "sort_order": 2,
+        "is_active": true
+      },
+      {
+        "key": "diagnostics",
+        "label": {
+          "en": "Diagnostic Services",
+          "bn": "ডায়াগনস্টিক সেবা"
+        },
+        "sort_order": 3,
+        "is_active": true
+      }
+    ],
+    "categories": [
+      {
+        "slug": "clinical",
+        "label": {
+          "en": "Clinical Care",
+          "bn": "চিকিৎসা"
+        },
+        "sort_order": 0,
+        "for_blog": true,
+        "for_gallery": true
+      },
+      {
+        "slug": "wellness",
+        "label": {
+          "en": "Women’s Health",
+          "bn": "নারীস্বাস্থ্য"
+        },
+        "sort_order": 1,
+        "for_blog": true,
+        "for_gallery": true
+      },
+      {
+        "slug": "facility",
+        "label": {
+          "en": "Facility & Lab",
+          "bn": "চেম্বার ও ল্যাব"
+        },
+        "sort_order": 2,
+        "for_blog": false,
+        "for_gallery": true
+      }
+    ],
+    "posts": [
+      {
+        "slug": "pregnancy-care",
+        "title": {
+          "en": "A practical guide to antenatal care",
+          "bn": "গর্ভকালীন যত্নের সহজ নির্দেশিকা"
+        },
+        "excerpt": {
+          "en": "Understanding routine prenatal visits, warning signs and questions to ask during pregnancy.",
+          "bn": "গর্ভাবস্থায় নিয়মিত চেকআপ, সতর্কতার লক্ষণ ও চিকিৎসককে কী জিজ্ঞেস করবেন।"
+        },
+        "body": {
+          "en": [
+            "Antenatal care provides an opportunity to monitor the health of the pregnant person and developing baby, identify risks, and plan appropriate care. The schedule and tests are tailored to medical history and stage of pregnancy.",
+            "Discuss medications, nutrition, blood pressure, diabetes screening and any new symptoms with your clinician. Seek urgent assessment for heavy bleeding, severe abdominal pain, seizures, severe headache with visual changes or reduced fetal movements later in pregnancy."
+          ],
+          "bn": [
+            "গর্ভকালীন সেবায় মা ও শিশুর স্বাস্থ্য পর্যবেক্ষণ, ঝুঁকি শনাক্তকরণ এবং প্রয়োজনমতো চিকিৎসার পরিকল্পনা করা হয়। ইতিহাস ও গর্ভকাল অনুযায়ী পরীক্ষা এবং ফলোআপ ভিন্ন হতে পারে।",
+            "ওষুধ, পুষ্টি, রক্তচাপ, ডায়াবেটিস ও নতুন উপসর্গ সম্পর্কে চিকিৎসকের সঙ্গে কথা বলুন। অতিরিক্ত রক্তপাত, প্রচণ্ড পেটব্যথা, খিঁচুনি, চোখে ঝাপসা দেখা-সহ তীব্র মাথাব্যথা বা গর্ভের শিশুর নড়াচড়া কমে গেলে দ্রুত চিকিৎসা নিন।"
+          ]
+        },
+        "editorial_badge": {
+          "en": "PREGNANCY",
+          "bn": "গর্ভাবস্থা"
+        },
+        "image_alt": {
+          "en": "A practical guide to antenatal care",
+          "bn": "গর্ভকালীন যত্নের সহজ নির্দেশিকা"
+        },
+        "meta_title": {
+          "en": "A practical guide to antenatal care",
+          "bn": "গর্ভকালীন যত্নের সহজ নির্দেশিকা"
+        },
+        "meta_description": {
+          "en": "Understanding routine prenatal visits, warning signs and questions to ask during pregnancy.",
+          "bn": "গর্ভাবস্থায় নিয়মিত চেকআপ, সতর্কতার লক্ষণ ও চিকিৎসককে কী জিজ্ঞেস করবেন।"
+        },
+        "_category": "wellness",
+        "_media": "demo-photo-pregnancy",
+        "sort_order": 0,
+        "on_homepage": true,
+        "status": "published"
+      },
+      {
+        "slug": "pcos",
+        "title": {
+          "en": "PCOS: symptoms, evaluation and care",
+          "bn": "পিসিওএস: লক্ষণ, পরীক্ষা ও যত্ন"
+        },
+        "excerpt": {
+          "en": "Why irregular periods, acne and other symptoms may need a tailored evaluation.",
+          "bn": "অনিয়মিত মাসিক, ব্রণসহ বিভিন্ন লক্ষণে কেন ব্যক্তিভিত্তিক পরীক্ষা দরকার।"
+        },
+        "body": {
+          "en": [
+            "Polycystic ovary syndrome (PCOS) can involve irregular menstrual cycles, androgen-related symptoms and metabolic health concerns. Diagnosis relies on clinical assessment and sometimes laboratory tests or imaging.",
+            "Management depends on symptoms and personal goals, including whether pregnancy is desired. Do not begin hormonal or fertility medicines without a clinician’s guidance."
+          ],
+          "bn": [
+            "পলিসিস্টিক ওভারি সিনড্রোমে (পিসিওএস) মাসিক অনিয়ম, হরমোনজনিত লক্ষণ ও বিপাকীয় স্বাস্থ্যঝুঁকি থাকতে পারে। রোগ নির্ণয়ে চিকিৎসা মূল্যায়ন এবং প্রয়োজনে পরীক্ষা বা আল্ট্রাসনোগ্রাম লাগে।",
+            "চিকিৎসা উপসর্গ ও ভবিষ্যৎ পরিকল্পনার ওপর নির্ভর করে। চিকিৎসকের পরামর্শ ছাড়া হরমোন বা বন্ধ্যাত্বের ওষুধ শুরু করবেন না।"
+          ]
+        },
+        "editorial_badge": {
+          "en": "GYNECOLOGY",
+          "bn": "স্ত্রীরোগ"
+        },
+        "image_alt": {
+          "en": "PCOS: symptoms, evaluation and care",
+          "bn": "পিসিওএস: লক্ষণ, পরীক্ষা ও যত্ন"
+        },
+        "meta_title": {
+          "en": "PCOS: symptoms, evaluation and care",
+          "bn": "পিসিওএস: লক্ষণ, পরীক্ষা ও যত্ন"
+        },
+        "meta_description": {
+          "en": "Why irregular periods, acne and other symptoms may need a tailored evaluation.",
+          "bn": "অনিয়মিত মাসিক, ব্রণসহ বিভিন্ন লক্ষণে কেন ব্যক্তিভিত্তিক পরীক্ষা দরকার।"
+        },
+        "_category": "clinical",
+        "_media": "demo-photo-care",
+        "sort_order": 1,
+        "on_homepage": true,
+        "status": "published"
+      },
+      {
+        "slug": "fertility-first-visit",
+        "title": {
+          "en": "What happens at a fertility consultation?",
+          "bn": "বন্ধ্যাত্ব পরামর্শের প্রথম সাক্ষাতে কী হয়?"
+        },
+        "excerpt": {
+          "en": "How a conversation about medical history and testing can help identify the next step.",
+          "bn": "চিকিৎসা ইতিহাস ও পরীক্ষা পরবর্তী সিদ্ধান্তে কীভাবে সাহায্য করে।"
+        },
+        "body": {
+          "en": [
+            "A fertility consultation often reviews menstrual history, how long pregnancy has been attempted, previous pregnancies, medications and relevant health conditions. Assessment may involve both partners when appropriate.",
+            "Options depend on the findings and may include lifestyle advice, investigations, timed intercourse, or discussion of assisted reproduction such as IUI. No treatment offers a guaranteed outcome."
+          ],
+          "bn": [
+            "প্রথম সাক্ষাতে মাসিকের ইতিহাস, কতদিন ধরে গর্ভধারণের চেষ্টা হচ্ছে, পূর্ববর্তী গর্ভধারণ, ওষুধ ও অন্যান্য রোগ সম্পর্কে আলোচনা হতে পারে। প্রয়োজনে উভয় সঙ্গীর মূল্যায়ন গুরুত্বপূর্ণ।",
+            "ফলাফল অনুযায়ী জীবনযাত্রার পরামর্শ, পরীক্ষা, নির্দিষ্ট সময়ে গর্ভধারণের চেষ্টা অথবা আইইউআই-এর মতো চিকিৎসার আলোচনা হতে পারে। কোনো পদ্ধতিতেই সফলতার নিশ্চয়তা নেই।"
+          ]
+        },
+        "editorial_badge": {
+          "en": "FERTILITY",
+          "bn": "প্রজননস্বাস্থ্য"
+        },
+        "image_alt": {
+          "en": "What happens at a fertility consultation?",
+          "bn": "বন্ধ্যাত্ব পরামর্শের প্রথম সাক্ষাতে কী হয়?"
+        },
+        "meta_title": {
+          "en": "What happens at a fertility consultation?",
+          "bn": "বন্ধ্যাত্ব পরামর্শের প্রথম সাক্ষাতে কী হয়?"
+        },
+        "meta_description": {
+          "en": "How a conversation about medical history and testing can help identify the next step.",
+          "bn": "চিকিৎসা ইতিহাস ও পরীক্ষা পরবর্তী সিদ্ধান্তে কীভাবে সাহায্য করে।"
+        },
+        "_category": "clinical",
+        "_media": "demo-photo-consult",
+        "sort_order": 2,
+        "on_homepage": true,
+        "status": "published"
+      },
+      {
+        "slug": "menopause",
+        "title": {
+          "en": "Understanding the menopause transition",
+          "bn": "মেনোপজের পরিবর্তনগুলো বুঝে নিন"
+        },
+        "excerpt": {
+          "en": "Common changes, symptom management and when a medical review is important.",
+          "bn": "সাধারণ পরিবর্তন, উপসর্গের যত্ন ও কখন চিকিৎসকের কাছে যাবেন।"
+        },
+        "body": {
+          "en": [
+            "Perimenopause can cause menstrual changes, sleep difficulties, hot flashes and mood symptoms. Other conditions can cause similar symptoms, so individual assessment matters.",
+            "Treatment options vary depending on medical history, preferences and personal risk factors. Postmenopausal bleeding should be evaluated promptly."
+          ],
+          "bn": [
+            "মেনোপজের আগে মাসিকের পরিবর্তন, ঘুমের সমস্যা, হঠাৎ গরম লাগা ও মানসিক পরিবর্তন দেখা দিতে পারে। একই রকম লক্ষণ অন্য কারণেও হতে পারে।",
+            "চিকিৎসা ব্যক্তির স্বাস্থ্য ইতিহাস ও ঝুঁকি অনুযায়ী নির্ধারিত হয়। মেনোপজের পরে রক্তপাত হলে দ্রুত মূল্যায়ন জরুরি।"
+          ]
+        },
+        "editorial_badge": {
+          "en": "WOMEN’S HEALTH",
+          "bn": "নারীস্বাস্থ্য"
+        },
+        "image_alt": {
+          "en": "Understanding the menopause transition",
+          "bn": "মেনোপজের পরিবর্তনগুলো বুঝে নিন"
+        },
+        "meta_title": {
+          "en": "Understanding the menopause transition",
+          "bn": "মেনোপজের পরিবর্তনগুলো বুঝে নিন"
+        },
+        "meta_description": {
+          "en": "Common changes, symptom management and when a medical review is important.",
+          "bn": "সাধারণ পরিবর্তন, উপসর্গের যত্ন ও কখন চিকিৎসকের কাছে যাবেন।"
+        },
+        "_category": "wellness",
+        "_media": "demo-photo-doctor",
+        "sort_order": 3,
+        "on_homepage": false,
+        "status": "published"
+      }
+    ],
+    "gallery_images": [
+      {
+        "key": "demo-gallery-1",
+        "caption": {
+          "en": "Healthcare environment",
+          "bn": "স্বাস্থ্যসেবার পরিবেশ"
+        },
+        "alt_text": {
+          "en": "Healthcare environment",
+          "bn": "স্বাস্থ্যসেবার পরিবেশ"
+        },
+        "_category": "facility",
+        "_media": "demo-photo-clinic",
+        "sort_order": 0,
+        "is_visible": true,
+        "on_homepage": true
+      },
+      {
+        "key": "demo-gallery-2",
+        "caption": {
+          "en": "Consultation and care",
+          "bn": "পরামর্শ ও চিকিৎসা"
+        },
+        "alt_text": {
+          "en": "Consultation and care",
+          "bn": "পরামর্শ ও চিকিৎসা"
+        },
+        "_category": "clinical",
+        "_media": "demo-photo-consult",
+        "sort_order": 1,
+        "is_visible": true,
+        "on_homepage": true
+      },
+      {
+        "key": "demo-gallery-3",
+        "caption": {
+          "en": "Laboratory research",
+          "bn": "ল্যাবরেটরি কার্যক্রম"
+        },
+        "alt_text": {
+          "en": "Laboratory research",
+          "bn": "ল্যাবরেটরি কার্যক্রম"
+        },
+        "_category": "facility",
+        "_media": "demo-photo-lab",
+        "sort_order": 2,
+        "is_visible": true,
+        "on_homepage": true
+      },
+      {
+        "key": "demo-gallery-4",
+        "caption": {
+          "en": "Pregnancy wellbeing",
+          "bn": "গর্ভকালীন সুস্থতা"
+        },
+        "alt_text": {
+          "en": "Pregnancy wellbeing",
+          "bn": "গর্ভকালীন সুস্থতা"
+        },
+        "_category": "wellness",
+        "_media": "demo-photo-pregnancy",
+        "sort_order": 3,
+        "is_visible": true,
+        "on_homepage": false
+      },
+      {
+        "key": "demo-gallery-5",
+        "caption": {
+          "en": "Healthcare professionals",
+          "bn": "স্বাস্থ্যকর্মীদের সেবা"
+        },
+        "alt_text": {
+          "en": "Healthcare professionals",
+          "bn": "স্বাস্থ্যকর্মীদের সেবা"
+        },
+        "_category": "clinical",
+        "_media": "demo-photo-team",
+        "sort_order": 4,
+        "is_visible": true,
+        "on_homepage": false
+      },
+      {
+        "key": "demo-gallery-6",
+        "caption": {
+          "en": "Medical facilities",
+          "bn": "চিকিৎসা কেন্দ্র"
+        },
+        "alt_text": {
+          "en": "Medical facilities",
+          "bn": "চিকিৎসা কেন্দ্র"
+        },
+        "_category": "facility",
+        "_media": "demo-photo-interior",
+        "sort_order": 5,
+        "is_visible": true,
+        "on_homepage": false
+      },
+      {
+        "key": "demo-gallery-7",
+        "caption": {
+          "en": "Women’s health",
+          "bn": "নারীস্বাস্থ্য"
+        },
+        "alt_text": {
+          "en": "Women’s health",
+          "bn": "নারীস্বাস্থ্য"
+        },
+        "_category": "wellness",
+        "_media": "demo-photo-care",
+        "sort_order": 6,
+        "is_visible": true,
+        "on_homepage": false
+      },
+      {
+        "key": "demo-gallery-8",
+        "caption": {
+          "en": "Clinical guidance",
+          "bn": "চিকিৎসা পরামর্শ"
+        },
+        "alt_text": {
+          "en": "Clinical guidance",
+          "bn": "চিকিৎসা পরামর্শ"
+        },
+        "_category": "clinical",
+        "_media": "demo-photo-doctor",
+        "sort_order": 7,
+        "is_visible": true,
+        "on_homepage": false
+      }
+    ]
+  },
+  "intentional_changes": {
+    "contact.formtitle": {
+      "en": "Send an appointment request or message",
+      "bn": "অ্যাপয়েন্টমেন্টের অনুরোধ বা বার্তা পাঠান"
+    },
+    "contact.name": {
+      "en": "Patient / contact name",
+      "bn": "রোগী / যোগাযোগকারীর নাম"
+    },
+    "contact.contactdesc": {
+      "en": "Find chamber information and send an appointment request or message.",
+      "bn": "চেম্বারের তথ্য দেখুন এবং অ্যাপয়েন্টমেন্টের অনুরোধ বা বার্তা পাঠান।"
+    },
+    "contact.prepare": {
+      "en": "Submit appointment request",
+      "bn": "অ্যাপয়েন্টমেন্টের অনুরোধ পাঠান"
+    },
+    "contact.privacy": {
+      "en": "Your details will be stored and reviewed by chamber staff for follow-up. An appointment request does not confirm a visit.",
+      "bn": "আপনার তথ্য সংরক্ষণ করা হবে এবং যোগাযোগের জন্য চেম্বারের কর্মীরা তা পর্যালোচনা করবেন। অ্যাপয়েন্টমেন্টের অনুরোধ পাঠানো মানেই সাক্ষাতের সময় নিশ্চিত হওয়া নয়।"
+    },
+    "home.appointment": {
+      "en": "Request an Appointment",
+      "bn": "অ্যাপয়েন্টমেন্টের অনুরোধ"
+    },
+    "SiteSetting.cta_description": {
+      "en": "Send an appointment request through this website. Chamber staff will follow up.",
+      "bn": "এই ওয়েবসাইটের মাধ্যমে অ্যাপয়েন্টমেন্টের অনুরোধ পাঠান। চেম্বারের কর্মীরা পরে আপনার সঙ্গে যোগাযোগ করবেন।"
+    }
+  },
+  "literal_localizations": {
+    "contact.mode_label": {
+      "en": "Message type",
+      "bn": "বার্তার ধরন"
+    },
+    "contact.mode_appointment": {
+      "en": "Appointment request",
+      "bn": "অ্যাপয়েন্টমেন্টের অনুরোধ"
+    },
+    "contact.mode_general": {
+      "en": "General contact",
+      "bn": "সাধারণ যোগাযোগ"
+    },
+    "contact.submit_contact": {
+      "en": "Send message",
+      "bn": "বার্তা পাঠান"
+    },
+    "contact.success_appointment": {
+      "en": "Your appointment request has been received. Chamber staff will contact you to confirm the next step.",
+      "bn": "আপনার অ্যাপয়েন্টমেন্টের অনুরোধ পাওয়া গেছে। পরবর্তী ধাপ নিশ্চিত করতে চেম্বারের কর্মীরা আপনার সঙ্গে যোগাযোগ করবেন।"
+    },
+    "contact.success_contact": {
+      "en": "Your message has been received.",
+      "bn": "আপনার বার্তা পাওয়া গেছে।"
+    },
+    "contact.mode_apply": {
+      "en": "Apply",
+      "bn": "প্রয়োগ করুন"
+    },
+    "contact.validation_required": {
+      "en": "This field is required.",
+      "bn": "এই তথ্যটি প্রয়োজন।"
+    },
+    "contact.validation_invalid": {
+      "en": "Please enter a valid value.",
+      "bn": "সঠিক তথ্য লিখুন।"
+    },
+    "contact.validation_max": {
+      "en": "This value is too long.",
+      "bn": "এই তথ্যটি বেশি দীর্ঘ।"
+    },
+    "contact.save_failure": {
+      "en": "Your message could not be saved. Please try again.",
+      "bn": "আপনার বার্তাটি সংরক্ষণ করা যায়নি। আবার চেষ্টা করুন।"
+    },
+    "contact.submit_pending": {
+      "en": "Submitting…",
+      "bn": "পাঠানো হচ্ছে…"
+    },
+    "ui.empty_filter_results": {
+      "en": "No items found.",
+      "bn": "কোনো তথ্য পাওয়া যায়নি।"
+    },
+    "ui.menu_close": {
+      "en": "Close navigation",
+      "bn": "নেভিগেশন বন্ধ করুন"
+    },
+    "ui.switch_to_bn": {
+      "en": "বাংলা",
+      "bn": "বাংলা"
+    },
+    "ui.switch_to_en": {
+      "en": "English",
+      "bn": "English"
+    },
+    "ui.open_navigation": {
+      "en": "Open navigation",
+      "bn": "নেভিগেশন খুলুন"
+    },
+    "ui.gallery_preview": {
+      "en": "Gallery image preview",
+      "bn": "গ্যালারির ছবির পূর্বরূপ"
+    },
+    "ui.close_lightbox": {
+      "en": "Close",
+      "bn": "বন্ধ করুন"
+    },
+    "footer.social_label": {
+      "en": "Facebook ↗",
+      "bn": "ফেসবুক ↗"
+    },
+    "footer.copyright_format": {
+      "en": "© {year} {doctor_name} · {stock_notice}",
+      "bn": "© {year} {doctor_name} · {stock_notice}"
+    },
+    "meta.title_format": {
+      "en": "{page_label} | {doctor_name}",
+      "bn": "{page_label} | {doctor_name}"
+    },
+    "home.care_eyebrow": {
+      "en": "OUR AREAS OF CARE",
+      "bn": "আমাদের সেবার ক্ষেত্র"
+    },
+    "home.journal_eyebrow": {
+      "en": "THE JOURNAL",
+      "bn": "স্বাস্থ্য বিষয়ক লেখা"
+    },
+    "home.gallery_eyebrow": {
+      "en": "VISUAL STORIES",
+      "bn": "ছবির গল্প"
+    },
+    "home.hero_alt": {
+      "en": "Illustrative healthcare portrait — not the actual doctor",
+      "bn": "স্বাস্থ্যসেবার প্রতীকী প্রতিকৃতি — প্রকৃত চিকিৎসকের ছবি নয়"
+    },
+    "home.doctor_alt": {
+      "en": "Healthcare consultation illustration",
+      "bn": "স্বাস্থ্যসেবা পরামর্শের প্রতীকী ছবি"
+    },
+    "about.image_alt": {
+      "en": "Illustrative consultation photo",
+      "bn": "পরামর্শের প্রতীকী ছবি"
+    },
+    "diagnostics.image_alt": {
+      "en": "Illustrative lab stock photograph",
+      "bn": "ল্যাবের প্রতীকী স্টক ছবি"
+    }
+  }
+}
