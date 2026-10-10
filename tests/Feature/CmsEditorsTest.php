@@ -22,8 +22,8 @@ class CmsEditorsTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        if (DB::connection()->getDatabaseName() !== 'doctor_portfolio_test') {
-            throw new \RuntimeException('Use doctor_portfolio_test; CMS verification must not edit owner content.');
+        if (DB::connection()->getDatabaseName() !== 'doctor_portfolio_testing') {
+            throw new \RuntimeException('Use doctor_portfolio_testing; CMS verification must not edit owner content.');
         }
         DB::beginTransaction();
         $this->beforeApplicationDestroyed(fn () => DB::rollBack());

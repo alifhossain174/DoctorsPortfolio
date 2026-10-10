@@ -20,8 +20,8 @@ class PublicPresentationTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        if (DB::connection()->getDatabaseName() !== 'doctor_portfolio_test') {
-            throw new \RuntimeException('Use the dedicated doctor_portfolio_test database.');
+        if (DB::connection()->getDatabaseName() !== 'doctor_portfolio_testing') {
+            throw new \RuntimeException('Use the dedicated doctor_portfolio_testing database.');
         }
         DB::beginTransaction();
         $this->beforeApplicationDestroyed(fn () => DB::rollBack());

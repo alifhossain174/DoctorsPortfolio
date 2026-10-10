@@ -11,7 +11,7 @@ class ImportFailureTest extends TestCase
 {
     public function test_failed_import_rolls_back_all_content_and_completion_marker(): void
     {
-        if (DB::connection()->getDatabaseName() !== 'doctor_portfolio_test') {
+        if (DB::connection()->getDatabaseName() !== 'doctor_portfolio_testing') {
             throw new \RuntimeException('Test database guard failed.');
         }
         DB::beginTransaction();

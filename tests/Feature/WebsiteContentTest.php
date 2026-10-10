@@ -27,8 +27,8 @@ class WebsiteContentTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        if (DB::connection()->getDatabaseName() !== 'doctor_portfolio_test') {
-            throw new \RuntimeException('These tests may run only in doctor_portfolio_test.');
+        if (DB::connection()->getDatabaseName() !== 'doctor_portfolio_testing') {
+            throw new \RuntimeException('These tests may run only in doctor_portfolio_testing.');
         }
         // Migrate the dedicated test database once outside tests; every test rolls back DML.
         DB::beginTransaction();
@@ -65,6 +65,7 @@ class WebsiteContentTest extends TestCase
         $post->update(['title' => ['en' => 'Owner edit', 'bn' => ''], 'status' => 'draft', 'on_homepage' => false]);
         SiteSetting::firstOrFail()->update(['address' => ['en' => 'Edited address', 'bn' => null]]);
         NavigationItem::where('key', 'header:about')->firstOrFail()->update(['is_visible' => false]);
+        GalleryImage::where('key', 'demo-gallery-2')->firstOrFail()->update(['is_visible' => false, 'on_homepage' => false]);
         GalleryImage::where('key', 'demo-gallery-1')->delete();
         $user = User::factory()->create();
         $password = $user->password;
@@ -74,6 +75,8 @@ class WebsiteContentTest extends TestCase
         $this->assertSame('Edited address', SiteSetting::firstOrFail()->address['en']);
         $this->assertFalse(NavigationItem::where('key', 'header:about')->firstOrFail()->is_visible);
         $this->assertSame(7, GalleryImage::count());
+        $this->assertFalse(GalleryImage::where('key', 'demo-gallery-2')->firstOrFail()->is_visible);
+        $this->assertFalse(GalleryImage::where('key', 'demo-gallery-2')->firstOrFail()->on_homepage);
         $this->assertSame($password, $user->fresh()->password);
         $result = app(InitialWebsiteImporter::class)->import(repairMissing: true);
         $this->assertSame(1, array_sum($result['created']));

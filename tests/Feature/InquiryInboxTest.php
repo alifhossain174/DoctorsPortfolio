@@ -25,8 +25,8 @@ class InquiryInboxTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        if (DB::connection()->getDatabaseName() !== 'doctor_portfolio_test') {
-            throw new \RuntimeException('Inbox verification requires doctor_portfolio_test.');
+        if (DB::connection()->getDatabaseName() !== 'doctor_portfolio_testing') {
+            throw new \RuntimeException('Inbox verification requires doctor_portfolio_testing.');
         }
         DB::beginTransaction();
         $this->beforeApplicationDestroyed(fn () => DB::rollBack());

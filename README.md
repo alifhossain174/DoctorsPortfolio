@@ -46,7 +46,7 @@ php artisan config:clear
 php artisan app:check-database
 ```
 
-If connection fails, start the existing XAMPP service, verify this database and local DB_* values, then rerun those two commands. Do not substitute SQLite or reset databases. Future database tests must use a separate `doctor_portfolio_test` schema; never run destructive test migrations against the development schema.
+If connection fails, start the existing XAMPP service, verify this database and local DB_* values, then rerun those two commands. Do not substitute SQLite or reset databases. Database tests must use the separate `doctor_portfolio_testing` schema; never run destructive test migrations against the development schema.
 
 ## Assets
 
@@ -114,16 +114,18 @@ On a new dedicated MySQL/MariaDB database run `php artisan migrate`, then `php a
 
 Only to deliberately restore missing original demo records run `php artisan website:repair-initial-content`. It preserves all existing edits/publication/visibility/passwords, but recreates missing demo rows in their original enabled/visible/published state and checks the original snapshot checksum. Do not use it as a routine update command or use migrate:fresh. See docs/SEED_CONTENT_REPORT.md for actual counts/mappings and remote-photo limitations.
 
-Focused tests use only `doctor_portfolio_test`, with an explicit guard and per-test DML rollback. Create that dedicated schema with utf8mb4, apply migrations without seeding, then run tests (PowerShell):
+Tests use only `doctor_portfolio_testing`, with central configuration/actual-connection guards and per-test DML rollback. The setup script creates only that utf8mb4 schema on the existing local service and applies non-destructive migrations without seeding. Run in a separate PowerShell window so test overrides do not affect ordinary development:
 
 ```powershell
-$env:DB_DATABASE = 'doctor_portfolio_test'
-php artisan migrate
-Remove-Item Env:DB_DATABASE
+$env:APP_ENV = 'testing'
+$env:DB_CONNECTION = 'mysql'
+$env:DB_DATABASE = 'doctor_portfolio_testing'
+$env:DB_URL = ''
+php scripts/prepare-test-database.php
 php artisan test
 ```
 
-Keep .env set to doctor_portfolio for development; phpunit.xml selects the isolated test schema. No RefreshDatabase/migrate:fresh or test records in the development database. Admin provisioning is an explicit interactive command, separate from initialization. The contact form saves appointment requests/general messages locally before success; the protected Appointments/Contact Messages inboxes manage those same saved records.
+Keep .env set to doctor_portfolio for development; phpunit.xml selects the isolated test schema. Unsafe cached configuration/DB_URL causes an early failure. Close the separate shell after testing. Do not run the rollback suite while committed manual fixtures remain; remove only owned fixture IDs first. No RefreshDatabase/migrate:fresh or development test records. Admin provisioning is an explicit interactive command, separate from initialization. The contact form saves requests/messages before success; the protected inboxes manage those same records.
 
 Run interaction checks without extra packages: `node --test tests/JavaScript/public-interactions.test.mjs`. See docs/PUBLIC_VERIFICATION.md for Step 4 route/structure results and the manual desktop/mobile checklist. Browser automation was unavailable, so screenshots are not claimed. Article CRUD must reuse resources/views/admin/partials/paragraph-repeater.blade.php and plain localized paragraph arrays; no rich-text editor is installed.
 
@@ -176,3 +178,10 @@ Existing installations explicitly run php artisan db:seed for the four missing-o
 Dynamic /robots.txt and /sitemap.xml use current database pages/publications and actual update times, exclude private/internal/legacy/filter URLs and recompute synchronously with immediate revalidation. Do not deploy a static public/robots.txt that shadows Laravel. Admin/preview/error privacy/index headers are enforced. No medical structured data, fake original dates, queue or external service is added.
 
 Verified 126 PHP tests/9 JS checks/build; real protected editor changes reached public HTML immediately in both locales. A separate release without frontend or initialization snapshots matched all 22 page-locale responses and read those same database changes. Scoped test fixtures/account/private copied env were cleaned. Source CSS/DOM remain preserved; browser pixel/mobile and real cPanel review are still manual/later.
+
+
+## Verification and private document root (Step14)
+
+[TEST_REPORT](docs/TEST_REPORT.md) records the actual isolated-engine/full-suite/live-HTTP checks and fixes; [MANUAL_ACCEPTANCE_CHECKLIST](docs/MANUAL_ACCEPTANCE_CHECKLIST.md) gives pending1440px/390px visual comparison routes/actions. Automated checks pass; browser render/pixel and real cPanel acceptance are not claimed.
+
+The root .htaccess denies project/private/reference files when this folder is beneath XAMPP htdocs; public/.htaccess explicitly permits the intended public tree and uploads retain their stricter protection. Serve through php artisan serve from the project root or an Apache document root pointed at public/. Never expose the Laravel root or copy .env/vendor/storage into public_html. Production Apache2.4/AllowOverride support must be checked on the real host. To inspect the unchanged reference, use a separate localhost-only server: php -S 127.0.0.1:8786 -t frontend; stop it after QA. No dynamic layout loads that reference renderer.

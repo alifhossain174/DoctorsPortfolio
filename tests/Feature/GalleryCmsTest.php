@@ -22,8 +22,8 @@ class GalleryCmsTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        if (DB::connection()->getDatabaseName() !== 'doctor_portfolio_test') {
-            throw new \RuntimeException('Use the isolated doctor_portfolio_test database.');
+        if (DB::connection()->getDatabaseName() !== 'doctor_portfolio_testing') {
+            throw new \RuntimeException('Use the isolated doctor_portfolio_testing database.');
         }
         DB::beginTransaction();
         $this->beforeApplicationDestroyed(fn () => DB::rollBack());
@@ -309,14 +309,14 @@ class GalleryCmsTest extends TestCase
         auth()->logout();
         $this->flushSession();
         foreach ($actions as [$method,$url,$data]) {
-            $this->$method($url,$data)->assertRedirect(route('admin.login'));
+            $this->$method($url, $data)->assertRedirect(route('admin.login'));
         }
         $user = User::create(['name' => 'Test non-admin', 'email' => Str::uuid().'@example.test', 'password' => bin2hex(random_bytes(24))]);
         $this->actingAs($user);
         foreach ($actions as [$method,$url,$data]) {
-            $this->$method($url,$data)->assertForbidden();
+            $this->$method($url, $data)->assertForbidden();
         }
-        $this->assertSame(8,GalleryImage::count());
-        $this->assertSame('Healthcare environment',$image->fresh()->caption['en']);
+        $this->assertSame(8, GalleryImage::count());
+        $this->assertSame('Healthcare environment', $image->fresh()->caption['en']);
     }
 }

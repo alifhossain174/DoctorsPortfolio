@@ -1,5 +1,11 @@
 # Admin interface and authentication
 
+## Shared spacing correction — 2026-10-11
+
+Admin cards now include 20px inner padding below 640px and 24px at larger widths. This shared default covers settings, fixed-page editors, page cards, collection forms, filters, media and deletion panels. The settings group menu explicitly uses 12px padding. Table shells retain `p-0` because their headers/cells already supply padding; the dashboard inquiry table uses the same convention. Existing explicit card padding remains a utility override rather than being added twice. Fieldsets, settings grid content and inputs allow shrinking within available width, and long card text can wrap. Future ordinary cards should use `admin-card` directly; use `p-0` only for deliberately padded children such as table cells.
+
+No public CSS/templates, frontend reference, content values, form submission behavior or localization mechanism changed. Vite build succeeded; targeted existing tests passed (2 tests, 244 assertions), covering every settings group, eight page editors, page/navigation screens and dashboard sign-in. The compiled stylesheet is served by the running app (HTTP 200, 35,470 bytes). Browser inventory was empty, so the supplied screenshots establish the original issue; fresh desktop/mobile render inspection remains manual.
+
 Current owner Step 12: Appointments and Contact Messages are active private destinations over the actual saved Inquiry rows. Scoped filtering/pagination/details, explicit read/status/notes/manual appointment time, handler/history and confirmed local deletion are implemented. Dashboard uses real counts/recent private links. All admin responses are no-store/noindex with private errors/logs; no GET mutation, public patient API or notification. See [ADMIN_INQUIRIES](ADMIN_INQUIRIES.md). Earlier availability descriptions below are retained as historical step evidence.
 
 Current owner Step 10: Gallery is now an active sidebar destination with bilingual caption/alt/media/category CRUD, pagination and accessible global ordering. Staff inbox remains pending; earlier gallery-pending statements below are historical. See [GALLERY_CMS](GALLERY_CMS.md).

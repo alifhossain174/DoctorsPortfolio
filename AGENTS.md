@@ -15,6 +15,7 @@
 - No destructive database resets or overwrite of owner's content. Use migrations and non-destructive imports. Do not touch unrelated databases or global services.
 - Work incrementally and reuse existing components; do not re-audit the whole source or rewrite completed modules in every step. Avoid unnecessary packages, abstractions, and repeated tests. Each step is implemented and verified before moving on. At the start of later steps read the project docs. If a documentation artifact is missing, reconstruct it from the actual project and this contract instead of stopping merely for the missing document. Real missing dependencies or inaccessible infrastructure must be reported accurately.
 - Do not spawn sub-agents unless the owner explicitly authorizes delegation.
+- Automated application tests must use MySQL/MariaDB `doctor_portfolio_testing`, with `APP_ENV=testing`, no `DB_URL`, and the central configuration/actual-schema guard in `tests/TestCase.php`. Use per-test DML rollback and non-destructive test migrations; no RefreshDatabase, migrate:fresh, owner-schema fixtures or patient cleanup outside that testing schema. Live HTTP checks use `APP_ENV=local` with debug off to exercise CSRF while explicitly retaining the same isolated database.
 
 ## Content ownership and inquiry contract
 

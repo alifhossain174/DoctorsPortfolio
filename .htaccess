@@ -1,0 +1,5 @@
+# The Laravel project root is private, including when placed under XAMPP htdocs.
+# Only public/ explicitly grants HTTP access. Production should expose public/ only.
+<IfModule mod_authz_core.c>
+    Require all denied
+</IfModule>

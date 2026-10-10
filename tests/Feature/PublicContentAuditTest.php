@@ -24,7 +24,7 @@ class PublicContentAuditTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        if (DB::connection()->getDatabaseName() !== 'doctor_portfolio_test') {
+        if (DB::connection()->getDatabaseName() !== 'doctor_portfolio_testing') {
             throw new \RuntimeException('Public content audit requires the isolated MySQL test schema.');
         }
         DB::beginTransaction();
