@@ -72,7 +72,7 @@ final class MediaManager
                 throw ValidationException::withMessages(['replacement_id' => 'The selected image is missing or invalid. Choose another image.']);
             }
             $count = 0;
-            foreach (['posts', 'galleryImages', 'contentFields', 'settings', 'pages'] as $relation) {
+            foreach (['posts', 'galleryImages', 'contentFields', 'settings', 'pages', 'ogPosts'] as $relation) {
                 $query = $source->$relation();
                 $foreignKey = $query->getForeignKeyName();
                 $count += $query->update([$foreignKey => $target->id]);

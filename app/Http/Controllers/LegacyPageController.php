@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use App\Models\Post;
 use App\Services\PublicUrl;
+use App\Services\PublishedArticle;
 use Illuminate\Http\Request;
 
 final class LegacyPageController extends Controller
@@ -21,7 +21,7 @@ final class LegacyPageController extends Controller
     {
         $slug = $request->query('id');
         abort_unless(is_string($slug) && preg_match('/^[a-z0-9]+(?:-[a-z0-9]+)*$/D', $slug), 404);
-        $post = Post::published()->where('slug', $slug)->firstOrFail();
+        $post = app(PublishedArticle::class)->find($slug);
 
         return redirect($urls->route('article', ['post' => $post->slug]), 301);
     }

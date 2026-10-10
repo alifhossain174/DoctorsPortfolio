@@ -1,5 +1,8 @@
 # Step 5 admin interface and authentication
 
+Current owner Step 9: Categories and Articles are implemented and active sidebar links, with bilingual paragraph authoring, safe publication, slug history, private preview and public pagination. Gallery/staff inbox remain pending. See [EDITORIAL_CMS](EDITORIAL_CMS.md); earlier category/article-pending statements below are historical.
+
+
 Step 5 implemented 2026-10-10; Step 6 extends it with the media library and shared picker (see MEDIA_MANAGER). Public templates, assets, original frontend and initialized content remain unchanged. The private UI uses standard Laravel routes/controllers/FormRequests/Blade, locally compiled Tailwind and vanilla JavaScript; no frontend framework or new dependency.
 
 Current Step 8: Home Care Cards, Services and Consultation Options are active sidebar destinations with separate CRUD/order/visibility screens. CARE_CONTENT documents these 24 guarded routes and snapshot behavior. Article/category/gallery and staff inbox destinations stay non-links until implemented; prior module-availability descriptions below are historical.

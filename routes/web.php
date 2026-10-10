@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\CareCollectionController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\MediaController;
@@ -32,6 +34,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/pages/{page:key}/edit', [PageContentController::class, 'edit'])->name('pages.edit');
         Route::put('/pages/{page:key}', [PageContentController::class, 'update'])->name('pages.update');
         Route::resource('navigation', NavigationController::class)->parameters(['navigation' => 'navigationItem'])->except('show');
+        Route::resource('categories', CategoryController::class)->except('show');
+        Route::put('/categories/{category}/reassign', [CategoryController::class, 'reassign'])->name('categories.reassign');
+        Route::resource('articles', ArticleController::class)->parameters(['articles' => 'post'])->except('show');
+        Route::patch('/articles/{post}/publication', [ArticleController::class, 'publication'])->name('articles.publication');
+        Route::get('/articles/{post}/preview', [ArticleController::class, 'preview'])->middleware('public.locale')->name('articles.preview');
         foreach (array_keys(config('care_collections')) as $collection) {
             Route::get('/'.$collection, [CareCollectionController::class, 'index'])->defaults('collection', $collection)->name($collection.'.index');
             Route::get('/'.$collection.'/create', [CareCollectionController::class, 'create'])->defaults('collection', $collection)->name($collection.'.create');
@@ -50,7 +57,7 @@ Route::middleware('public.locale')->group(function () {
     foreach (['about', 'services', 'diagnostics', 'blog', 'gallery', 'contact'] as $page) {
         Route::get('/'.$page, [PublicPageController::class, 'show'])->defaults('page', $page)->name($page);
     }
-    Route::get('/blog/{post:slug}', [PublicPageController::class, 'article'])->name('article');
+    Route::get('/blog/{post}', [PublicPageController::class, 'article'])->name('article');
     foreach (['index' => 'home', 'about' => 'about', 'services' => 'services', 'diagnostics' => 'diagnostics', 'blog' => 'blog', 'gallery' => 'gallery', 'contact' => 'contact'] as $entry => $page) {
         Route::get('/'.$entry.'.html', [LegacyPageController::class, 'page'])->defaults('page', $page)->name('legacy.'.$page);
     }

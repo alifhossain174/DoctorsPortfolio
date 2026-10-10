@@ -1,5 +1,8 @@
 # Media manager — Step 6
 
+Current owner Step 9: Post OG media is now the sixth ownership path; library usage/counts, delete protection and atomic replace-all include it. Category/article forms reuse the existing picker, with no remote download service or image substitution. See [EDITORIAL_CMS](EDITORIAL_CMS.md). Older five-path statements below describe Step 7.
+
+
 Implemented 2026-10-10. Standard protected Laravel controllers/FormRequests/Blade, locally compiled admin Tailwind and small vanilla enhancements. No new packages, queue, thumbnails, remote downloader, storage link or runtime Node service.
 
 ## Library and ownership

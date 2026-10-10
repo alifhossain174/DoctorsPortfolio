@@ -15,7 +15,7 @@ final class PublicUrl
     public function current(Request $request, string $locale, array $categories = []): string
     {
         $name = $request->route()->getName();
-        $parameters = $name === 'article' ? ['post' => $request->route('post')] : [];
+        $parameters = in_array($name, ['article', 'admin.articles.preview'], true) ? ['post' => $request->route('post')] : [];
 
         return route($name, array_merge($parameters, $this->query($request, $name, $categories), ['locale' => $locale]));
     }
@@ -25,6 +25,9 @@ final class PublicUrl
         $query = [];
         if (in_array($page, ['blog', 'gallery'], true)) {
             $category = $request->query('category');
+            if ($page === 'blog' && $request->query->has('category')) {
+                abort_unless(is_string($category) && in_array($category, array_merge(['all'], $categories), true), 404);
+            }
             if (is_string($category) && in_array($category, array_merge(['all'], $categories), true)) {
                 $query['category'] = $category;
             }

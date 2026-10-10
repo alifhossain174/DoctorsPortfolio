@@ -12,6 +12,7 @@ use App\Models\NavigationItem;
 use App\Models\Page;
 use App\Models\PageSection;
 use App\Models\Post;
+use App\Models\PostSlugRedirect;
 use App\Models\Service;
 use App\Models\SiteSetting;
 use Illuminate\Support\Facades\DB;
@@ -52,6 +53,9 @@ final class InitialWebsiteImporter
                     $identity = array_key_exists('key', $row) ? 'key' : 'slug';
                     if ($model::where($identity, $row[$identity])->exists()) {
                         continue; // Preserve edits, timestamps, publication and visibility.
+                    }
+                    if ($table === 'posts' && PostSlugRedirect::where('slug', $row['slug'])->whereHas('post')->exists()) {
+                        continue; // Explicit repair must also recognize an owner's renamed original article.
                     }
                     foreach (['_media' => [MediaAsset::class, 'key', 'media_asset_id'], '_page' => [Page::class, 'key', 'page_id'], '_category' => [Category::class, 'slug', 'category_id'], '_portrait' => [MediaAsset::class, 'key', 'portrait_media_asset_id']] as $reference => [$related, $column, $foreignKey]) {
                         if (isset($row[$reference])) {

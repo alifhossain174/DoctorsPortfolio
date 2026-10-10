@@ -1,5 +1,8 @@
 # Care and consultation editors — Step 8
 
+Current owner Step 9: Categories and Articles are implemented and active sidebar links, with bilingual paragraph authoring, safe publication, slug history, private preview and public pagination. Gallery/staff inbox remain pending. See [EDITORIAL_CMS](EDITORIAL_CMS.md); earlier category/article-pending statements below are historical.
+
+
 Implemented 2026-10-10. This step completes the care-card/service/consultation scope previously listed as roadmap item 9. Navigation was already implemented in the owner's Step 7. Existing initialized records and owner content were retained; no migration, reseed, new package or owner credentials were needed.
 
 | Editor | Independent content owner | Public location |

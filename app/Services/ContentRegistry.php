@@ -137,7 +137,7 @@ final class ContentRegistry
             'integer' => ['integer', 'min:0', 'max:24'],
             'boolean' => ['boolean'],
             'media' => [],
-            default => ['string', 'max:'.($type === 'textarea' ? 15000 : 500)],
+            default => ['string', 'max:'.($definition['max_length'] ?? ($type === 'textarea' ? 15000 : 500))],
         };
     }
 }

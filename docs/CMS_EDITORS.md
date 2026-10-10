@@ -1,5 +1,8 @@
 # Shared settings, fixed pages and navigation
 
+Current owner Step 9: Categories and Articles are implemented and active sidebar links, with bilingual paragraph authoring, safe publication, slug history, private preview and public pagination. Gallery/staff inbox remain pending. See [EDITORIAL_CMS](EDITORIAL_CMS.md); earlier category/article-pending statements below are historical.
+
+
 Step 7, implemented 2026-10-10. Sign in through `/admin/login`; Website Settings, Page Content and Navigation are now active destinations. The full original bilingual content remains initialized. No owner account, inquiry fixture, new medical fact or replacement stock photo was added.
 
 Step 8 now adds independent care-card, service-block and consultation-option editors; see CARE_CONTENT. This supersedes the historical pending status for those three collections below. Diagnostics continues to use this fixed-page editor and canonical clinic/CTA sources. Article/category/gallery and staff inbox modules remain pending.

@@ -50,7 +50,7 @@ class PublicPresentationTest extends TestCase
         foreach (['pregnancy-care', 'pcos', 'fertility-first-visit', 'menopause'] as $slug) {
             $this->get('/article.html?id='.$slug.'&locale=bn&evil=x')->assertStatus(301)->assertRedirect('/blog/'.$slug.'?locale=bn');
         }
-        $this->get('/blog.html?category=facility&locale=en')->assertRedirect('/blog?locale=en');
+        $this->get('/blog.html?category=facility&locale=en')->assertNotFound();
         $this->get('/gallery.html?category=facility&page=2&locale=en')->assertRedirect('/gallery?locale=en&category=facility&page=2');
         foreach (['', '?id=missing', '?id[]=pcos', '?id=../pcos'] as $suffix) {
             $this->get('/article.html'.$suffix)->assertNotFound();
@@ -74,7 +74,7 @@ class PublicPresentationTest extends TestCase
         $this->get('/blog?category=clinical&locale=bn')->assertSee(Post::where('slug', 'pcos')->firstOrFail()->title['bn'])->assertDontSee('data-category="wellness"', false);
         $this->assertCount(3, $this->xpath($this->get('/gallery?category=facility')->getContent())->query('//figure[@data-category="facility"]'));
         $this->assertCount(8, $this->xpath($this->get('/gallery?category[]=facility')->getContent())->query('//figure'));
-        $this->assertCount(4, $this->xpath($this->get('/blog?category=facility')->getContent())->query('//article'));
+        $this->get('/blog?category=facility')->assertNotFound();
         Post::published()->whereHas('category', fn ($query) => $query->where('slug', 'clinical'))->update(['status' => 'draft']);
         $this->get('/blog?category=clinical&locale=en')->assertSee(app(WebsiteContent::class)->text('ui.empty_filter_results'))->assertDontSee('class="card article-card"', false);
         $this->assertSame(0, Inquiry::count());

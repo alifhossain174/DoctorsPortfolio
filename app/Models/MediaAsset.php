@@ -38,6 +38,11 @@ class MediaAsset extends CmsModel
         return $this->hasMany(Page::class, 'og_media_asset_id');
     }
 
+    public function ogPosts(): HasMany
+    {
+        return $this->hasMany(Post::class, 'og_media_asset_id');
+    }
+
     public function url(): string
     {
         if ($this->path) {
@@ -61,6 +66,6 @@ class MediaAsset extends CmsModel
 
     public function inUse(): bool
     {
-        return $this->posts()->exists() || $this->galleryImages()->exists() || $this->contentFields()->exists() || $this->settings()->exists() || $this->pages()->exists();
+        return $this->posts()->exists() || $this->galleryImages()->exists() || $this->contentFields()->exists() || $this->settings()->exists() || $this->pages()->exists() || $this->ogPosts()->exists();
     }
 }

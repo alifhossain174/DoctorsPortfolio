@@ -11,20 +11,23 @@ use App\Models\Page;
 use App\Models\Post;
 use App\Models\Service;
 use App\Services\PublicUrl;
+use App\Services\PublishedArticle;
 use App\Services\WebsiteContent;
 use Illuminate\Http\Request;
 
 class PublicPageController extends Controller
 {
-    public function article(Request $request, WebsiteContent $site, Post $post)
+    public function article(Request $request, WebsiteContent $site, string $post)
     {
-        abort_unless($post->status === 'published' && $post->published_at && $post->published_at->lte(now()), 404);
-        $post->load(['category', 'mediaAsset']);
+        $record = app(PublishedArticle::class)->find($post);
+        if ($record->slug !== $post) {
+            return redirect(app(PublicUrl::class)->route('article', ['post' => $record->slug]), 301);
+        }
 
-        return $this->show($request, $site, 'article', $post);
+        return $this->show($request, $site, 'article', $record);
     }
 
-    public function show(Request $request, WebsiteContent $site, string $page = 'home', ?Post $post = null)
+    public function show(Request $request, WebsiteContent $site, string $page = 'home', ?Post $post = null, bool $preview = false)
     {
         $pageRecord = Page::with('sections')->where('key', $page)->firstOrFail();
         $categories = in_array($page, ['blog', 'gallery'], true)
@@ -40,7 +43,9 @@ class PublicPageController extends Controller
             } elseif ($filter !== 'all') {
                 $builder->whereHas('category', fn ($category) => $category->where('slug', $filter));
             }
-            $posts = $builder->get();
+            $posts = $page === 'blog'
+                ? $builder->paginate(config('editorial.blog_per_page'), ['*'], 'page', $query['page'] ?? 1)->appends(['locale' => app()->getLocale(), ...array_intersect_key($query, ['category' => true])])
+                : $builder->get();
         }
         if (in_array($page, ['home', 'gallery'], true)) {
             $builder = GalleryImage::visible()->with(['category', 'mediaAsset'])->orderBy('sort_order')->orderBy('id');
@@ -55,8 +60,9 @@ class PublicPageController extends Controller
 
         return view('public.page', [
             'site' => $site, 'urls' => app(PublicUrl::class), 'page' => $page, 'pageRecord' => $pageRecord, 'post' => $post,
+            'preview' => $preview,
             'label' => $pageRecord->localized('label'), 'locale' => app()->getLocale(),
-            'metaTitle' => $post?->localized('meta_title') ?: ($pageRecord->localized('meta_title') ?: $site->text('meta.title_format', ['page_label' => $pageRecord->localized('label')])),
+            'metaTitle' => $post?->localized('meta_title') ?: ($post ? $site->text('meta.title_format', ['page_label' => $post->localized('title')]) : ($pageRecord->localized('meta_title') ?: $site->text('meta.title_format', ['page_label' => $pageRecord->localized('label')]))),
             'metaDescription' => $post?->localized('meta_description') ?: ($pageRecord->localized('meta_description') ?: ($post?->localized('excerpt') ?: $site->setting('doctor_biography'))),
             'visible' => fn ($key) => (bool) ($sections->get($page.'.'.$key)?->is_visible ?? false),
             'navigation' => NavigationItem::orderBy('sort_order')->orderBy('id')->get()->groupBy('placement'),
