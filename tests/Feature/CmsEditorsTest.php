@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Services\CmsEditor;
 use App\Services\ContentRegistry;
 use App\Services\InitialWebsiteImporter;
+use Database\Seeders\InquiryFormContentSeeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Tests\TestCase;
@@ -26,6 +27,7 @@ class CmsEditorsTest extends TestCase
         DB::beginTransaction();
         $this->beforeApplicationDestroyed(fn () => DB::rollBack());
         app(InitialWebsiteImporter::class)->import();
+        $this->seed(InquiryFormContentSeeder::class);
         $admin = User::create(['name' => 'Test editor', 'email' => Str::uuid().'@example.test', 'password' => bin2hex(random_bytes(24))]);
         $admin->forceFill(['is_admin' => true])->save();
         $this->actingAs($admin);

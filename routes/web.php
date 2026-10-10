@@ -66,5 +66,5 @@ Route::middleware('public.locale')->group(function () {
         Route::get('/'.$entry.'.html', [LegacyPageController::class, 'page'])->defaults('page', $page)->name('legacy.'.$page);
     }
     Route::get('/article.html', [LegacyPageController::class, 'article'])->name('legacy.article');
-    Route::post('/inquiries', [InquiryController::class, 'store'])->middleware('throttle:10,1')->name('inquiries.store');
+    Route::post('/inquiries', [InquiryController::class, 'store'])->middleware('throttle:inquiries')->name('inquiries.store');
 });

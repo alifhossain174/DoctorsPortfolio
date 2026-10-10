@@ -37,7 +37,13 @@ function setup() {
     const alreadyInert = new Element(); alreadyInert.inert = true;
     ids.lightbox.parentElement = { children: [sibling, alreadyInert, ids.lightbox] };
     const filter = new Element(); filter.parentElement = new Element();
-    const mode = new Element(); mode.form = { requestSubmit() { this.submitted = true; } };
+    const mode = new Element(); mode.value = 'appointment';
+    const form = new Element(); form.dataset = {appointmentSubmit:'Appointment from DB',contactSubmit:'Contact from DB',pending:'Pending from DB'};
+    const topic = new Element(); topic.options = [{value:1}];
+    const message = new Element(); const submit = new Element();
+    form.querySelector = s => ({'[data-form-mode]':mode,'#topic':topic,'#patientMessage':message,'button[type="submit"]':submit}[s]);
+    form.querySelectorAll = () => [topic];
+    ids.appointmentForm = form; ids.formStatus = new Element();
     document.querySelectorAll = selector => selector === '.filters .filter' ? [filter] : selector.startsWith('.gallery-item') ? [item] : selector === '.filters[aria-busy]' ? [filter.parentElement] : [];
     document.querySelector = () => mode;
     const window = new Element();
@@ -46,7 +52,7 @@ function setup() {
     window.media = new Element(); window.matchMedia = () => window.media;
     ids.menuBtn.dataset = { openLabel: 'Open from database', closeLabel: 'Close from database' };
     vm.runInNewContext(fs.readFileSync('public/assets/public.js','utf8'), { document, window, location: { href: 'http://localhost/gallery' }, URL });
-    return { ids, document, window, item, sibling, alreadyInert, filter, mode };
+    return { ids, document, window, item, sibling, alreadyInert, filter, mode, form, topic, message, submit };
 }
 
 test('mobile menu opens, closes on Escape/outside/resizing, and updates localized accessible labels', () => {
@@ -90,12 +96,22 @@ test('lightbox supports Enter/Space, escaped DOM copy, focus trapping/restoratio
     assert.equal(ids.lightbox.classList.contains('open'), false);
 });
 
-test('filters retain native server navigation and contact mode changes only its GET form', () => {
-    const { filter, mode, window } = setup();
+test('filters retain native navigation; mode only enhances native POST fields and pending is honest', () => {
+    const { filter, mode, window, form, topic, message, submit, ids } = setup();
     assert.equal(filter.fire('click', { button: 0 }).defaultPrevented, undefined);
     assert.equal(filter.parentElement.attributes['aria-busy'], 'true');
     window.fire('pageshow');
     assert.equal(filter.parentElement.attributes['aria-busy'], undefined);
-    mode.fire('change');
-    assert.equal(mode.form.submitted, true);
+    assert.equal(topic.required, true);
+    mode.value = 'contact'; mode.fire('change');
+    assert.equal(topic.hidden, true); assert.equal(topic.disabled, true);
+    assert.equal(message.required, true); assert.equal(submit.textContent, 'Contact from DB ↗');
+    assert.equal(form.fire('submit').defaultPrevented, undefined);
+    assert.equal(ids.formStatus.textContent, 'Pending from DB'); assert.equal(submit.disabled, true);
+    window.fire('pageshow'); assert.equal(submit.disabled, false);
+    assert.equal(ids.formStatus.textContent, '');
+    mode.value = 'appointment'; topic.options=[]; mode.fire('change');
+    assert.equal(topic.hidden, false); assert.equal(message.required, false); assert.equal(submit.disabled, true);
+    mode.value = 'contact'; mode.fire('change'); assert.equal(submit.disabled, false);
+    assert.doesNotMatch(fs.readFileSync('public/assets/public.js','utf8'), /clipboard|window\.open|facebook/i);
 });

@@ -43,9 +43,9 @@ final class WebsiteContent
         return $this->fields->get($key)?->mediaAsset?->url() ?? '';
     }
 
-    public function target(string $target): string
+    public function target(string $target, array $parameters = []): string
     {
-        return in_array($target, PublicTarget::ROUTES, true) ? app(PublicUrl::class)->route($target) : $this->external($target);
+        return in_array($target, PublicTarget::ROUTES, true) ? app(PublicUrl::class)->route($target, $target === 'contact' ? array_intersect_key($parameters, ['kind' => true]) : []) : $this->external($target);
     }
 
     public function external(string $url): string

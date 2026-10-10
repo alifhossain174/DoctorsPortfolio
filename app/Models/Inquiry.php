@@ -13,7 +13,7 @@ class Inquiry extends Model
 
     protected $fillable = ['kind', 'name', 'phone', 'email', 'consultation_option_id', 'message', 'locale'];
 
-    protected $hidden = ['public_reference', 'name', 'phone', 'email', 'message', 'consultation_key', 'consultation_label', 'internal_notes', 'confirmed_visit_at', 'handled_by', 'handled_at'];
+    protected $hidden = ['submission_token_hash', 'submission_fingerprint', 'public_reference', 'name', 'phone', 'email', 'message', 'consultation_key', 'consultation_label', 'internal_notes', 'confirmed_visit_at', 'handled_by', 'handled_at'];
 
     protected function casts(): array
     {
@@ -28,7 +28,7 @@ class Inquiry extends Model
             if ($inquiry->kind === 'appointment') {
                 $option = ConsultationOption::where('is_active', true)->findOrFail($inquiry->consultation_option_id);
                 $inquiry->consultation_key = $option->key;
-                $inquiry->consultation_label = $option->label;
+                $inquiry->consultation_label = ['en' => $option->localized('label', 'en'), 'bn' => $option->localized('label', 'bn')];
             } else {
                 $inquiry->consultation_option_id = null;
                 $inquiry->consultation_key = null;

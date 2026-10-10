@@ -10,6 +10,7 @@ use App\Models\MediaAsset;
 use App\Models\Service;
 use App\Models\User;
 use App\Services\InitialWebsiteImporter;
+use Database\Seeders\InquiryFormContentSeeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Tests\TestCase;
@@ -25,6 +26,7 @@ class CareCollectionsTest extends TestCase
         DB::beginTransaction();
         $this->beforeApplicationDestroyed(fn () => DB::rollBack());
         app(InitialWebsiteImporter::class)->import();
+        $this->seed(InquiryFormContentSeeder::class);
         $admin = User::create(['name' => 'Test care editor', 'email' => Str::uuid().'@example.test', 'password' => bin2hex(random_bytes(24))]);
         $admin->forceFill(['is_admin' => true])->save();
         $this->actingAs($admin);
@@ -71,7 +73,7 @@ class CareCollectionsTest extends TestCase
             $this->assertSame(['01', '02', '03', '04', '05'], $numbers[1]);
             $this->assertSame(4, $this->optionCount($this->get('/contact?locale='.$locale)->assertOk()->getContent()));
         }
-        $this->assertSame(0, $this->optionCount($this->get('/contact?mode=contact')->getContent()));
+        $this->assertSame(4, $this->optionCount($this->get('/contact?kind=contact')->getContent()));
         $this->assertArrayNotHasKey('appointment_selectable', config('cms_models.Service'));
     }
 
@@ -262,7 +264,7 @@ class CareCollectionsTest extends TestCase
         $this->put('/admin/pages/diagnostics', ['fields' => $fields])->assertSessionHasNoErrors();
         $this->put('/admin/settings/clinic', ['settings' => ['clinic_name' => ['en' => 'Shared clinic name', 'bn' => 'চেম্বারের অভিন্ন নাম'], 'address' => ['en' => 'Shared owner address', 'bn' => 'মালিকের অভিন্ন ঠিকানা']]])->assertSessionHasNoErrors();
         $this->assertSame($original, $notice->fresh()->value);
-        $this->get('/diagnostics?locale=en')->assertSee('Diagnostic information')->assertSee('Inquiry topics')->assertSee('Shared clinic name')->assertSee('Shared owner address')->assertSee($original['en'])->assertSee('alt="Owner selected lab image"', false)->assertSee(e($image->url()), false)->assertSee('href="'.route('contact', ['locale' => 'en']).'"', false);
+        $this->get('/diagnostics?locale=en')->assertSee('Diagnostic information')->assertSee('Inquiry topics')->assertSee('Shared clinic name')->assertSee('Shared owner address')->assertSee($original['en'])->assertSee('alt="Owner selected lab image"', false)->assertSee(e($image->url()), false)->assertSee('href="'.e(route('contact', ['locale' => 'en', 'kind' => 'appointment'])).'"', false);
         $this->get('/diagnostics?locale=bn')->assertSee('ডায়াগনস্টিক তথ্য')->assertSee('যোগাযোগের বিষয়')->assertSee('চেম্বারের অভিন্ন নাম')->assertSee('মালিকের অভিন্ন ঠিকানা')->assertSee($original['bn'])->assertSee('alt="মালিকের নির্বাচিত ল্যাবের ছবি"', false);
         $target = ContentField::where('key', 'diagnostics.contact_target')->firstOrFail();
         $this->put('/admin/pages/diagnostics', ['fields' => [$target->id => ['value' => ['en' => 'services']]]])->assertSessionHasErrors('fields.'.$target->id.'.value.en');
@@ -284,7 +286,7 @@ class CareCollectionsTest extends TestCase
         $this->get('/?locale=bn')->assertSee($empty['bn'])->assertDontSee('class="card service-card"', false);
         $this->get('/services?locale=en')->assertSee($empty['en'])->assertDontSee('<span class="eyebrow">01</span>', false);
         $this->assertSame(0, $this->optionCount($this->get('/contact')->getContent()));
-        $this->get('/contact?mode=contact')->assertOk()->assertSee('name="kind" value="contact"', false);
+        $this->get('/contact?mode=contact')->assertOk()->assertSee('value="contact" selected', false);
         ConsultationOption::query()->delete(); // Isolated test transaction, no owner database.
         $this->get('/admin/consultation-options')->assertOk()->assertSee('No Appointment consultation options yet');
         $this->post('/admin/consultation-options', ['item' => ['key' => 'first-new', 'label' => ['en' => 'First new option'], 'is_active' => '1']])->assertSessionHasNoErrors();

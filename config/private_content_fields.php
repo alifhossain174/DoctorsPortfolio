@@ -9,6 +9,8 @@ $field = static fn (string $owner, string $type, bool $required, array $rules, b
 
 return [
     'Inquiry' => [
+        'submission_token_hash' => $field('Inquiry', 'private-technical', false, ['string', 'size:64'], false),
+        'submission_fingerprint' => $field('Inquiry', 'private-technical', false, ['string', 'size:64'], false),
         'public_reference' => $field('Inquiry', 'reference', true, ['string', 'size:26'], false),
         'kind' => $field('Inquiry', 'select', true, ['in:appointment,contact'], false),
         'name' => $field('Inquiry', 'text', true, ['string', 'max:80']),

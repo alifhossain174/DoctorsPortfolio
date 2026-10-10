@@ -2,9 +2,12 @@
 
 use App\Http\Middleware\RequireAdmin;
 use App\Http\Middleware\SetPublicLocale;
+use App\Http\Requests\StoreInquiryRequest;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -18,5 +21,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->redirectUsersTo(fn () => route('admin.dashboard'));
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        $exceptions->render(function (HttpException $exception, Request $request) {
+            if ($exception->getStatusCode() === 419 && $request->isMethod('POST') && $request->is('inquiries')) {
+                return StoreInquiryRequest::feedback($request, 'contact.submission_expired');
+            }
+        });
     })->create();

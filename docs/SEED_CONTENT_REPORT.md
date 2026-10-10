@@ -230,3 +230,18 @@ Final development-database verification (separate from test fixtures): **22 HTTP
 ## Owner Step 10 gallery preservation check
 
 No new seed/migration was necessary. Read-only verification on doctor_portfolio confirmed all eight original GalleryImage rows match initialization input for English/Bengali captions and alt, category/media references, source order and visible/homepage flags. Source Bengali literals are preserved, not retranslated. Category totals remain facility 3, clinical 3, wellness 2; first three remain homepage-selected. Ten reference hashes and snapshot checksum match the audit. Development remains nine external/zero local media, with no fake inquiries or owner account/content changes. Gallery CRUD tests run only in doctor_portfolio_test rollback transactions; normal seeding continues to preserve edits and intentional deletions. See GALLERY_CMS and IMPLEMENTATION_STATUS for exact tests.
+
+
+## Owner Step 11 supplemental form initialization
+
+Migration 000005 ran on doctor_portfolio and doctor_portfolio_test. Explicit db:seed on the development database skipped the completed original importer and created only five missing ContentField values with both English/Bangla translations through InquiryFormContentSeeder. The initialization-only UTF-8 input is database/seeders/data/inquiry-form.json; separate marker inquiry-form-v1 completes transactionally and later seeds skip it, preserving edits/intentional deletions. Original initial-website.json checksum remains f9b83ae17b0c94d661188b31833d585e2dd9a246871c2110eddb40d62742b9d8; all 81 mappings and owner-specified exact form/privacy/success/CTA copy remain unchanged.
+
+| New key → ContentField.value {en,bn} | English | Bangla |
+| --- | --- | --- |
+| contact.submission_expired | Please reload the form and try again. | ফর্মটি আবার খুলে চেষ্টা করুন। |
+| contact.rate_limited | Too many requests. Please wait a minute and try again. | অনেকবার অনুরোধ পাঠানো হয়েছে। এক মিনিট অপেক্ষা করে আবার চেষ্টা করুন। |
+| contact.submission_rejected | Your request could not be accepted. Please review the form and try again. | আপনার অনুরোধটি গ্রহণ করা যায়নি। ফর্মটি দেখে আবার চেষ্টা করুন। |
+| contact.reference_label | Reference | রেফারেন্স |
+| contact.consultation_help | For appointment requests only. General contact does not need a consultation type. | শুধু অ্যাপয়েন্টমেন্টের অনুরোধের জন্য। সাধারণ যোগাযোগের জন্য পরামর্শের ধরন প্রয়োজন নেই। |
+
+Actual development counts after this import: site_settings1, pages8, content_fields93, page_sections20, navigation_items11, care_cards4, services5, consultation_options4, categories3, posts4, gallery_images8, media_assets9 = **170 content records + two completion markers**. Existing users1 unchanged; inquiries0. All four cards/five services/four options/eight gallery mappings retain source values/order/visibility/Bangla. Nine images remain external URL records, zero local replacements; original external fonts/assets remain unresolved network dependencies, with no new availability/download claim. Real HTTP test submissions were made only in doctor_portfolio_test and cleaned by owned fixture IDs/hashes; test database content/users/inquiries/markers/history returned to zero. INQUIRY_WORKFLOW records the actual results and Step12 inbox integration boundary.

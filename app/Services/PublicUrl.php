@@ -36,8 +36,11 @@ final class PublicUrl
                 $query['page'] = (int) $number;
             }
         }
-        if ($page === 'contact' && in_array($request->query('mode'), ['appointment', 'contact'], true)) {
-            $query['mode'] = $request->query('mode');
+        if ($page === 'contact') {
+            $kind = $request->query->has('kind') ? $request->query('kind') : $request->query('mode');
+            if (in_array($kind, ['appointment', 'contact'], true)) {
+                $query['kind'] = $kind;
+            }
         }
 
         return $query;

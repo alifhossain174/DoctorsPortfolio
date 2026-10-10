@@ -24,10 +24,36 @@ document.querySelectorAll('.filters .filter').forEach(link => {
         }
     });
 });
-document.querySelector('[data-form-mode]')?.addEventListener('change', event => {
-    // This GET changes the form mode; it never submits an inquiry.
-    event.target.form.requestSubmit();
-});
+const inquiryForm = document.getElementById('appointmentForm');
+if (inquiryForm) {
+    const mode = inquiryForm.querySelector('[data-form-mode]');
+    const topic = inquiryForm.querySelector('#topic');
+    const message = inquiryForm.querySelector('#patientMessage');
+    const submit = inquiryForm.querySelector('button[type="submit"]');
+    const updateMode = () => {
+        const appointment = mode.value === 'appointment';
+        inquiryForm.querySelectorAll('[data-appointment-field]').forEach(element => { element.hidden = !appointment; });
+        topic.disabled = !appointment;
+        topic.required = appointment;
+        message.required = !appointment;
+        submit.disabled = appointment && topic.options.length === 0;
+        submit.textContent = `${appointment ? inquiryForm.dataset.appointmentSubmit : inquiryForm.dataset.contactSubmit} ↗`;
+    };
+    mode.addEventListener('change', updateMode);
+    updateMode();
+    inquiryForm.addEventListener('submit', () => {
+        // Native POST remains responsible for saving. Pending is never a success claim.
+        submit.disabled = true;
+        inquiryForm.setAttribute('aria-busy', 'true');
+        document.getElementById('formStatus').textContent = inquiryForm.dataset.pending;
+    });
+    window.addEventListener('pageshow', () => {
+        inquiryForm.removeAttribute('aria-busy');
+        const status = document.getElementById('formStatus');
+        if (status.textContent === inquiryForm.dataset.pending) status.textContent = '';
+        updateMode();
+    });
+}
 
 const dialog = document.getElementById('lightbox');
 const closeButton = document.getElementById('closeLightbox');

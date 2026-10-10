@@ -15,6 +15,7 @@ use App\Models\User;
 use App\Services\ContentRegistry;
 use App\Services\InitialWebsiteImporter;
 use Database\Seeders\DatabaseSeeder;
+use Database\Seeders\InquiryFormContentSeeder;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
@@ -33,6 +34,7 @@ class WebsiteContentTest extends TestCase
         DB::beginTransaction();
         $this->beforeApplicationDestroyed(fn () => DB::rollBack());
         app(InitialWebsiteImporter::class)->import();
+        $this->seed(InquiryFormContentSeeder::class);
     }
 
     public function test_exact_initial_inventory_bilingual_bodies_slugs_and_relationships(): void
@@ -114,16 +116,20 @@ class WebsiteContentTest extends TestCase
     public function test_inquiries_save_before_success_with_separate_modes_and_snapshots(): void
     {
         $option = ConsultationOption::where('key', 'obstetrics')->firstOrFail();
-        $this->post('/inquiries', ['locale' => 'en', 'kind' => 'appointment', 'name' => 'Test patient', 'phone' => 'Test phone', 'consultation_option_id' => $option->id, 'message' => 'Test message'])->assertRedirect('/contact?locale=en&mode=appointment')->assertSessionHas('inquiry_success');
+        $html = $this->get('/contact')->getContent();
+        preg_match('/name="submission_token" value="([^"]+)"/', $html, $token);
+        $this->post('/inquiries', ['submission_token' => $token[1], 'locale' => 'en', 'kind' => 'appointment', 'name' => 'Test patient', 'phone' => '+880 01234', 'consultation_option_id' => $option->id, 'message' => 'Test message'])->assertRedirect('/contact?locale=en&kind=appointment')->assertSessionHas('inquiry_success');
         $inquiry = Inquiry::firstOrFail();
         $this->assertSame($option->label, $inquiry->consultation_label);
         $this->assertTrue($option->inquiries->contains($inquiry));
         $this->assertSame('new', $inquiry->status);
         $this->assertArrayNotHasKey('name', $inquiry->toArray());
-        $this->post('/inquiries', ['locale' => 'en', 'kind' => 'contact', 'name' => 'Test contact', 'phone' => 'Test phone', 'consultation_option_id' => $option->id])->assertRedirect('/contact?locale=en&mode=contact');
+        $html = $this->get('/contact')->getContent();
+        preg_match('/name="submission_token" value="([^"]+)"/', $html, $token);
+        $this->post('/inquiries', ['submission_token' => $token[1], 'message' => 'Contact question', 'locale' => 'en', 'kind' => 'contact', 'name' => 'Test contact', 'phone' => '01234', 'consultation_option_id' => $option->id])->assertRedirect('/contact?locale=en&kind=contact');
         $this->assertNull(Inquiry::where('kind', 'contact')->firstOrFail()->consultation_option_id);
         $this->post('/inquiries', ['kind' => 'appointment', 'name' => ''])->assertSessionHasErrors();
-        $this->get('/contact?mode=contact&locale=bn')->assertOk()->assertDontSee('name="consultation_option_id"', false);
+        $this->get('/contact?mode=contact&locale=bn')->assertOk()->assertSee('value="contact" selected', false);
         $this->get('/gallery?category=facility')->assertOk();
         $this->assertSame(2, Inquiry::count());
         $this->assertNotSame($inquiry->public_reference, Inquiry::where('kind', 'contact')->firstOrFail()->public_reference);

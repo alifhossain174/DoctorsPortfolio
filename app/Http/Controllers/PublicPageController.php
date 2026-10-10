@@ -10,6 +10,7 @@ use App\Models\NavigationItem;
 use App\Models\Page;
 use App\Models\Post;
 use App\Models\Service;
+use App\Services\InquirySubmissionTokens;
 use App\Services\PublicUrl;
 use App\Services\PublishedArticle;
 use App\Services\WebsiteContent;
@@ -72,7 +73,8 @@ class PublicPageController extends Controller
             'services' => $page === 'services' ? Service::where('is_enabled', true)->orderBy('sort_order')->orderBy('id')->get() : collect(),
             'posts' => $posts, 'images' => $images, 'categories' => $categories,
             'options' => $page === 'contact' ? ConsultationOption::where('is_active', true)->orderBy('sort_order')->orderBy('id')->get() : collect(),
-            'mode' => $query['mode'] ?? 'appointment', 'filter' => $filter,
+            'mode' => $query['kind'] ?? 'appointment', 'filter' => $filter,
+            'submissionToken' => $page === 'contact' ? app(InquirySubmissionTokens::class)->issue($request) : null,
         ]);
     }
 }

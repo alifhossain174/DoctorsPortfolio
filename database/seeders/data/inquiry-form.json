@@ -1,0 +1,22 @@
+{
+  "contact.submission_expired": {
+    "en": "Please reload the form and try again.",
+    "bn": "ফর্মটি আবার খুলে চেষ্টা করুন।"
+  },
+  "contact.rate_limited": {
+    "en": "Too many requests. Please wait a minute and try again.",
+    "bn": "অনেকবার অনুরোধ পাঠানো হয়েছে। এক মিনিট অপেক্ষা করে আবার চেষ্টা করুন।"
+  },
+  "contact.submission_rejected": {
+    "en": "Your request could not be accepted. Please review the form and try again.",
+    "bn": "আপনার অনুরোধটি গ্রহণ করা যায়নি। ফর্মটি দেখে আবার চেষ্টা করুন।"
+  },
+  "contact.reference_label": {
+    "en": "Reference",
+    "bn": "রেফারেন্স"
+  },
+  "contact.consultation_help": {
+    "en": "For appointment requests only. General contact does not need a consultation type.",
+    "bn": "শুধু অ্যাপয়েন্টমেন্টের অনুরোধের জন্য। সাধারণ যোগাযোগের জন্য পরামর্শের ধরন প্রয়োজন নেই।"
+  }
+}

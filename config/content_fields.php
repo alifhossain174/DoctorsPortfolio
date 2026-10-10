@@ -90,4 +90,9 @@ return [
     'home.doctor_image' => ['type' => 'media', 'localized' => false, 'required' => false, 'screen_group' => 'home', 'owner' => 'ContentField'],
     'about.image' => ['type' => 'media', 'localized' => false, 'required' => false, 'screen_group' => 'about', 'owner' => 'ContentField'],
     'diagnostics.image' => ['type' => 'media', 'localized' => false, 'required' => false, 'screen_group' => 'diagnostics', 'owner' => 'ContentField'],
+    'contact.submission_expired' => ['type' => 'textarea', 'localized' => true, 'required' => true, 'screen_group' => 'contact', 'owner' => 'ContentField'],
+    'contact.rate_limited' => ['type' => 'textarea', 'localized' => true, 'required' => true, 'screen_group' => 'contact', 'owner' => 'ContentField'],
+    'contact.submission_rejected' => ['type' => 'textarea', 'localized' => true, 'required' => true, 'screen_group' => 'contact', 'owner' => 'ContentField'],
+    'contact.reference_label' => ['type' => 'textarea', 'localized' => true, 'required' => true, 'screen_group' => 'contact', 'owner' => 'ContentField'],
+    'contact.consultation_help' => ['type' => 'textarea', 'localized' => true, 'required' => true, 'screen_group' => 'contact', 'owner' => 'ContentField'],
 ];

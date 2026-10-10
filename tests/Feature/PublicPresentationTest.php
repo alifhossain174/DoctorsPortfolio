@@ -9,6 +9,7 @@ use App\Models\Post;
 use App\Models\SiteSetting;
 use App\Services\InitialWebsiteImporter;
 use App\Services\WebsiteContent;
+use Database\Seeders\InquiryFormContentSeeder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ViewErrorBag;
@@ -25,6 +26,7 @@ class PublicPresentationTest extends TestCase
         DB::beginTransaction();
         $this->beforeApplicationDestroyed(fn () => DB::rollBack());
         app(InitialWebsiteImporter::class)->import();
+        $this->seed(InquiryFormContentSeeder::class);
     }
 
     public function test_locale_priority_fallback_same_article_and_whitelisted_queries(): void
@@ -39,7 +41,7 @@ class PublicPresentationTest extends TestCase
         $this->assertStringNotContainsString('evil=', $html);
         $this->assertStringNotContainsString('page=2', $html);
         $this->get('/gallery?locale=en&category=facility&page=2&evil=x')->assertSee('/gallery?category=facility&amp;page=2&amp;locale=bn', false)->assertDontSee('evil=');
-        $this->get('/contact?mode=contact&locale=bn')->assertSee('/contact?mode=contact&amp;locale=en', false)->assertSee('name="locale" value="bn"', false);
+        $this->get('/contact?mode=contact&locale=bn')->assertSee('/contact?kind=contact&amp;locale=en', false)->assertSee('name="locale" value="bn"', false);
     }
 
     public function test_all_legacy_links_redirect_only_to_published_internal_routes(): void
@@ -102,10 +104,10 @@ class PublicPresentationTest extends TestCase
 
     public function test_hidden_locale_is_validated_and_errors_redirect_internally_without_false_success(): void
     {
-        $this->withHeader('Referer', 'https://example.org/')->post('/inquiries', ['locale' => 'bn', 'kind' => 'contact', 'name' => ''])->assertRedirect('/contact?locale=bn&mode=contact')->assertSessionHasErrors('name')->assertSessionMissing('inquiry_success');
+        $this->withHeader('Referer', 'https://example.org/')->post('/inquiries', ['locale' => 'bn', 'kind' => 'contact', 'name' => ''])->assertRedirect('/contact?locale=bn&kind=contact')->assertSessionHasErrors('name')->assertSessionMissing('inquiry_success');
         $this->post('/inquiries', ['locale' => 'evil', 'kind' => 'contact', 'name' => 'Test', 'phone' => 'Test'])->assertSessionHasErrors('locale')->assertSessionMissing('inquiry_success');
         $this->assertSame(0, Inquiry::count());
-        $this->get('/contact?locale=bn&mode=contact')->assertSee('lang="bn"', false)->assertDontSee('name="consultation_option_id"', false);
+        $this->get('/contact?locale=bn&kind=contact')->assertSee('lang="bn"', false)->assertSee('value="contact" selected', false);
     }
 
     public function test_shared_admin_repeater_keeps_escaped_plain_paragraph_arrays(): void

@@ -1,6 +1,6 @@
 # DoctorPortfolio
 
-Standalone Laravel 12 / PHP 8.2 application with Blade, Eloquent and vanilla JavaScript. Steps 3–10 supply initialized public pages, private authentication/dashboard/profile, media, settings/page/navigation editors, care/service/consultation editors and category/article and gallery CRUD. Staff inbox screens remain later steps. Read AGENTS.md and docs/IMPLEMENTATION_STATUS.md before continuing.
+Standalone Laravel 12 / PHP 8.2 application with Blade, Eloquent and vanilla JavaScript. Steps 3–11 supply initialized public pages, private authentication/dashboard/profile, media, settings/page/navigation editors, care/service/consultation editors and category/article and gallery CRUD. Hardened bilingual appointment/contact submissions now save synchronously. Staff inbox screens are Step 12. Read AGENTS.md and docs/IMPLEMENTATION_STATUS.md before continuing.
 
 ## Local setup (PowerShell, project root)
 
@@ -35,7 +35,7 @@ Enter your own name, a unique email and password at the prompts. Password and co
 
 Visit http://127.0.0.1:8000/admin/login. Dashboard, Website Settings, Page Content, Navigation, Home Care Cards, Services, Consultation Options, Categories, Articles, Gallery, Media and Profile are available; other sidebar destinations are marked Soon without dead links. Website Settings provides twelve groups; Page Content covers home/about/services/diagnostics/blog/gallery/contact/article. Use English / বাংলা tabs and save normally; both translations remain in one form, and public pages read changes on the next request. Shared facts are edited once. Optional section visibility and homepage counts are supported; layout/order/styles remain fixed. See docs/CMS_EDITORS.md for routes, exact controls, safe links and metadata fallback. OG values can be stored now; public OG/remaining SEO rendering is Step 13.
 
-Profile changes and password changes require your current password. Logout is POST-only; password changes invalidate other sessions on their next admin request. There is no registration, password-reset email service or user-management module. See docs/ADMIN_INTERFACE.md for security and reusable editor controls. For an existing initialized installation, run `php artisan migrate` and `npm run build` after updating; there is no need to reseed for Step 9. The additive article OG/slug-redirect migration has already run on both dedicated local databases. Existing content and credentials are retained.
+Profile changes and password changes require your current password. Logout is POST-only; password changes invalidate other sessions on their next admin request. There is no registration, password-reset email service or user-management module. See docs/ADMIN_INTERFACE.md for security and reusable editor controls. For an existing initialized installation, run `php artisan migrate` and `npm run build` after updating; for the Step 11 update also run php artisan db:seed once to initialize five new feedback/help labels without replacing existing content. The additive article OG/slug-redirect migration has already run on both dedicated local databases. Existing content and credentials are retained.
 
 Start **MySQL** from XAMPP Control Panel. XAMPP here exposes **MariaDB 10.4.32** at 127.0.0.1:3306. The dedicated `doctor_portfolio` database is connected and explicitly initialized with the full original bilingual content. For another machine, create only this dedicated database with utf8mb4/utf8mb4_unicode_ci in phpMyAdmin and set the matching local credentials in private `.env`. Never use an unrelated database. The Step 3 non-destructive migrations and import have run locally; no fake inquiries or default users exist.
 
@@ -142,3 +142,17 @@ Saved drafts/future articles can be previewed in both languages through authenti
 Use `/admin/gallery` for image/category, bilingual caption/alt, independent public/homepage flags, search/filter/pagination and accessible Move up/down controls. Moves use the entire collection, including hidden entries and other categories/pages. Gallery categories must have gallery applicability; in-use category/media deletion is blocked. Removing an entry retains shared image records/files. All eight original entries and their Bengali captions remain unchanged; no Step 10 migration or reseed is required.
 
 Browse library → Upload image → Choose image now retains picker mode and returns the local asset to the unsaved editor. Without JavaScript, upload first, then open/reload the form and select it. Public gallery applies filters/visibility before pagination (9/page initially), retains original classes/850px and 550px breakpoints/lightbox and the shared stock-image notice. Empty states use existing localized UI copy; Home remains first three visible homepage-selected images, with count controlled by Page Content. See [GALLERY_CMS](docs/GALLERY_CMS.md) for exact fields/routes/tests and manual mobile/lightbox review.
+
+
+## Appointment and General contact submissions (Step 11)
+
+Both modes use the existing contact card and POST /inquiries. Appointment CTAs link to /contact?kind=appointment&locale=en|bn; General can use kind=contact. Name/phone are required, source limits stay 80/40/500, General message is required, and only Appointment accepts an active consultation choice. Bengali digits/leading zeros and plain message line breaks are retained. The kind selector works without JavaScript; JS enhances appointment-only hiding and pending feedback. Separate Facebook links are ordinary independent links. Save commits before truthful success; requests do not confirm visits.
+
+For an existing installation run these explicit, non-destructive commands:
+
+```powershell
+php artisan migrate
+php artisan db:seed
+```
+
+Migration 000005 adds nullable private duplicate-protection columns. The original completed import skips and a separate create-missing-only marker initializes five localized feedback/help fields. Subsequent normal seeds preserve edits/deletions; no credentials or inquiries are seeded. Edit copy under Website Settings → Contact form & feedback copy. Keep file sessions/cache writable: CSRF, a separate session-bound unique submission token, honeypot and 10/minute file-cache limiter protect native POST. No SMTP or email notification is used; database/private staff inbox is the notification mechanism. The Step 12 inbox and its end-to-end visibility test are still pending. See docs/INQUIRY_WORKFLOW.md for rules, actual localhost commit/retry/CSRF checks, failure behavior and manual review.
