@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\InquiryController;
 use App\Http\Controllers\LegacyPageController;
@@ -19,6 +20,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::put('/profile/password', [ProfileController::class, 'password'])->name('password.update');
+        Route::resource('media', MediaController::class)->parameters(['media' => 'media'])->except('show');
+        Route::put('/media/{media}/references', [MediaController::class, 'replace'])->name('media.replace');
     });
 });
 

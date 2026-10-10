@@ -1,4 +1,48 @@
 // Optional enhancement for ordinary admin POST forms; no content or client routing.
+// Same-origin picker messages change only a selected reference, never website content.
+document.querySelectorAll('[data-media-picker]').forEach(picker => {
+    const select = picker.querySelector('[data-media-select]');
+    const preview = picker.querySelector('[data-media-preview]');
+    let libraryWindow;
+    const showPreview = () => {
+        const option = select.selectedOptions[0];
+        const url = option?.dataset.url ?? '';
+        preview.hidden = !url;
+        if (url) { preview.src = url; preview.alt = option.dataset.alt ?? ''; }
+        else { preview.removeAttribute('src'); preview.alt = ''; }
+    };
+    select.addEventListener('change', showPreview);
+    showPreview();
+    picker.querySelector('[data-media-browse]').addEventListener('click', event => {
+        // If a popup is blocked, retain the ordinary library link.
+        libraryWindow = window.open(event.currentTarget.href, '_blank', 'width=1100,height=800');
+        if (libraryWindow) event.preventDefault();
+    });
+    window.addEventListener('message', event => {
+        if (event.origin !== window.location.origin || !libraryWindow || event.source !== libraryWindow) return;
+        const data = event.data;
+        if (data?.type !== 'doctor-portfolio:media' || !Number.isSafeInteger(data.id) || data.id < 1 || typeof data.title !== 'string' || typeof data.url !== 'string' || typeof data.alt !== 'string') return;
+        let url;
+        try { url = new URL(data.url, window.location.href); } catch { return; }
+        if (!['http:', 'https:'].includes(url.protocol) || url.username || url.password) return;
+        let option = [...select.options].find(option => option.value === String(data.id));
+        if (!option) { option = new Option(`#${data.id} · ${data.title}`, String(data.id)); select.add(option); }
+        option.dataset.url = url.href; option.dataset.alt = data.alt;
+        select.value = String(data.id); showPreview(); select.focus();
+    });
+});
+document.querySelectorAll('[data-media-choose]').forEach(button => button.addEventListener('click', () => {
+    if (!window.opener) { button.textContent = `Image ID ${button.dataset.mediaId} — select it in your editor`; return; }
+    window.opener.postMessage({ type: 'doctor-portfolio:media', id: Number(button.dataset.mediaId), url: button.dataset.mediaUrl, title: button.dataset.mediaTitle, alt: button.dataset.mediaAlt }, window.location.origin);
+    window.close();
+}));
+document.querySelectorAll('[data-copy-url]').forEach(button => button.addEventListener('click', async () => {
+    const input = document.getElementById(button.dataset.copyUrl);
+    const status = button.parentElement.querySelector('[data-copy-status]');
+    try { await navigator.clipboard.writeText(input.value); status.textContent = 'Public URL copied.'; }
+    catch { input.focus(); input.select(); status.textContent = 'Select and copy this URL using your keyboard.'; }
+}));
+
 document.addEventListener('submit', (event) => {
     const form = event.target;
     if (!(form instanceof HTMLFormElement) || !form.hasAttribute('data-prevent-double-submit')) return;

@@ -10,7 +10,7 @@ class MediaAsset extends CmsModel
 {
     protected function casts(): array
     {
-        return ['title' => 'array', 'alt_text' => 'array', 'provenance_note' => 'array', 'stock_note' => 'array', 'size' => 'integer', 'width' => 'integer', 'height' => 'integer'];
+        return ['title' => 'array', 'alt_text' => 'array', 'caption' => 'array', 'provenance_note' => 'array', 'stock_note' => 'array', 'size' => 'integer', 'width' => 'integer', 'height' => 'integer'];
     }
 
     public function posts(): HasMany
@@ -37,13 +37,25 @@ class MediaAsset extends CmsModel
     {
         if ($this->path) {
             // Public raster uploads only; never emit arbitrary disks, SVG or traversal paths.
-            if ($this->disk !== 'public' || ! preg_match('~^uploads/[A-Za-z0-9/_-]+\.(?:jpg|jpeg|png|webp|gif)$~iD', $this->path)) {
+            if ($this->disk !== 'public-media' || ! self::safePath($this->path)) {
                 return '';
             }
 
-            return Storage::disk('public')->url($this->path);
+            $url = Storage::disk('public-media')->url($this->path);
+
+            return PublicTarget::safeExternal($url) ? $url : '';
         }
 
         return PublicTarget::safeExternal($this->source_url) ? $this->source_url : '';
+    }
+
+    public static function safePath(string $path): bool
+    {
+        return (bool) preg_match('~^images/[0-9]{4}/(?:0[1-9]|1[0-2])/[a-f0-9]{32}\.(?:jpg|png|webp)$~D', $path);
+    }
+
+    public function inUse(): bool
+    {
+        return $this->posts()->exists() || $this->galleryImages()->exists() || $this->contentFields()->exists() || $this->settings()->exists();
     }
 }

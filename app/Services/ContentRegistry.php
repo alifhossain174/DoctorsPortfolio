@@ -87,8 +87,15 @@ final class ContentRegistry
         if ($owner === 'MediaAsset') {
             $local = ! empty($attributes['path']);
             $external = ! empty($attributes['source_url']);
-            if ($local === $external || ($local && ($attributes['disk'] ?? null) !== 'public')) {
-                throw ValidationException::withMessages(['path' => 'Choose a public local path or an external URL, exclusively.']);
+            if ($local === $external || ($local && ($attributes['disk'] ?? null) !== 'public-media') || ($external && ! empty($attributes['disk']))) {
+                throw ValidationException::withMessages(['path' => 'Choose a public-media local image or an external URL, exclusively.']);
+            }
+            if ($local) {
+                $extension = pathinfo($attributes['path'], PATHINFO_EXTENSION);
+                $mime = ['jpg' => 'image/jpeg', 'png' => 'image/png', 'webp' => 'image/webp'][$extension] ?? null;
+                if (! $mime || ($attributes['mime_type'] ?? null) !== $mime || empty($attributes['size']) || empty($attributes['width']) || empty($attributes['height']) || config('media.max_pixels') < $attributes['width'] * $attributes['height']) {
+                    throw ValidationException::withMessages(['path' => 'A local image requires matching MIME, byte size and valid dimensions.']);
+                }
             }
         }
 

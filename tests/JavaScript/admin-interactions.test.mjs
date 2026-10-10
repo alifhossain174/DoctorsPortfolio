@@ -91,3 +91,47 @@ test('delete cancellation makes no request and confirmation submits once with ex
     assert.equal(checkbox.checked, true); assert.equal(form.submissions, 1);
     form.requestSubmit(button); assert.equal(form.submissions, 1);
 });
+
+function mediaSetup() {
+    const document = new Element(); document.body = new Element();
+    const create = () => { const item = new Element(); item.document = document; return item; };
+    const picker = create(), select = create(), preview = create(), browse = create();
+    const empty = create(); empty.value = ''; select.options = [empty]; select.value = '';
+    Object.defineProperty(select, 'selectedOptions', { get: () => select.options.filter(option=>option.value===select.value) });
+    select.add = option => select.options.push(option);
+    browse.href = 'https://example.test/admin/media?picker=1';
+    picker.querySelector = selector => ({ '[data-media-select]':select,'[data-media-preview]':preview,'[data-media-browse]':browse })[selector];
+    const choose = create(); choose.dataset = { mediaId:'9',mediaUrl:'https://example.test/uploads/image.png',mediaTitle:'Selected title',mediaAlt:'Selected alt' };
+    const copy = create(), input = create(), status = create(); copy.dataset.copyUrl='public-url'; input.value='https://example.test/uploads/image.png'; input.select=()=>{input.selected=true;}; copy.parentElement={querySelector:()=>status};
+    document.querySelectorAll = selector => ({ '[data-media-picker]':[picker],'[data-media-choose]':[choose],'[data-copy-url]':[copy] })[selector] ?? [];
+    document.getElementById = id => id==='public-url' ? input : null;
+    const window = create(); const popup = {}; window.matchMedia=()=>create();
+    window.location={origin:'https://example.test',href:'https://example.test/admin/media/9/edit'};
+    window.open=()=>popup; window.close=()=>{window.closed=true;};
+    window.opener={postMessage:(message,origin)=>{window.sent={message,origin};}};
+    const navigator={clipboard:{writeText: async ()=>{ throw Error('Unavailable'); }}};
+    function Option(text,value) { const option=create(); option.text=text; option.value=value; return option; }
+    vm.runInNewContext(fs.readFileSync('resources/js/admin.js','utf8'),{document,window,navigator,Option,URL,HTMLFormElement:Element,queueMicrotask});
+    return { document,window,popup,select,preview,browse,choose,copy,input,status };
+}
+
+test('shared media picker accepts only its same-origin popup and updates a reference without submitting', () => {
+    const {window,popup,select,preview,browse,choose} = mediaSetup();
+    assert.equal(preview.hidden,true);
+    assert.equal(browse.fire('click',{currentTarget:browse}).defaultPrevented,true);
+    const data={type:'doctor-portfolio:media',id:14,title:'<img onerror=unsafe>',alt:'বাংলা',url:'https://example.test/uploads/image.png'};
+    window.fire('message',{origin:'https://attacker.test',source:popup,data}); assert.equal(select.value,'');
+    window.fire('message',{origin:window.location.origin,source:{},data}); assert.equal(select.value,'');
+    window.fire('message',{origin:window.location.origin,source:popup,data:{...data,url:'javascript:alert(1)'}}); assert.equal(select.value,'');
+    window.fire('message',{origin:window.location.origin,source:popup,data});
+    assert.equal(select.value,'14'); assert.equal(preview.hidden,false); assert.equal(preview.alt,'বাংলা');
+    assert.equal(select.options.at(-1).text,'#14 · <img onerror=unsafe>');
+    select.value=''; select.fire('change'); assert.equal(preview.hidden,true);
+    choose.fire('click'); assert.equal(window.sent.origin,window.location.origin); assert.equal(window.sent.message.id,9); assert.equal(window.closed,true);
+});
+
+test('copy URL falls back to keyboard selection when clipboard access fails', async () => {
+    const {copy,input,status} = mediaSetup();
+    copy.fire('click'); await new Promise(setImmediate);
+    assert.equal(input.selected,true); assert.match(status.textContent,/keyboard/);
+});

@@ -30,6 +30,16 @@ return [
 
     'disks' => [
 
+        // Public website images only. No symlink, private records or user-selected paths.
+        'public-media' => [
+            'driver' => 'local',
+            'root' => env('PUBLIC_MEDIA_ROOT', public_path('uploads')),
+            'url' => env('PUBLIC_MEDIA_URL', rtrim(env('APP_URL', 'http://localhost'), '/').'/uploads'),
+            'visibility' => 'public',
+            'throw' => true,
+            'report' => false,
+        ],
+
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app/private'),

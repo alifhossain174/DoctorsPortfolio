@@ -12,7 +12,7 @@ return [
         ['label' => 'Categories', 'route' => null, 'icon' => 'categories'],
         ['label' => 'Articles', 'route' => null, 'icon' => 'articles'],
         ['label' => 'Gallery', 'route' => null, 'icon' => 'gallery'],
-        ['label' => 'Media', 'route' => null, 'icon' => 'media'],
+        ['label' => 'Media', 'route' => 'admin.media.index', 'icon' => 'media'],
     ],
     'Inbox' => [
         ['label' => 'Appointments', 'route' => null, 'icon' => 'appointments'],

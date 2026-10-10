@@ -1,0 +1,27 @@
+# Apache 2.4. Deploy this file to the configured PUBLIC_MEDIA_ROOT as well.
+# Requires AllowOverride Options FileInfo AuthConfig (or equivalent host rules).
+Options -Indexes -ExecCGI -Includes -MultiViews
+DirectoryIndex disabled
+AcceptPathInfo Off
+SetHandler default-handler
+RemoveHandler .php .php3 .php4 .php5 .php7 .php8 .phtml .phar .cgi .pl .py .shtml .html .htm
+RemoveType .php .php3 .php4 .php5 .php7 .php8 .phtml .phar .cgi .pl .py .shtml .html .htm
+<If "%{REQUEST_URI} =~ m#(?:^|/)\.deleting(?:/|$)#">
+    Require all denied
+</If>
+# Only generated raster filenames are publicly readable; everything else is denied.
+<FilesMatch "(?i)^(?![a-f0-9]{32}\.(?:jpg|png|webp)$)">
+    Require all denied
+</FilesMatch>
+<FilesMatch "(?i)^[a-f0-9]{32}\.jpg$">
+    ForceType image/jpeg
+</FilesMatch>
+<FilesMatch "(?i)^[a-f0-9]{32}\.png$">
+    ForceType image/png
+</FilesMatch>
+<FilesMatch "(?i)^[a-f0-9]{32}\.webp$">
+    ForceType image/webp
+</FilesMatch>
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+</IfModule>

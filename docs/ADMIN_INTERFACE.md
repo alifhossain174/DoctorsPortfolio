@@ -1,6 +1,6 @@
 # Step 5 admin interface and authentication
 
-Implemented 2026-10-10. Public templates, assets, original frontend and initialized content remain unchanged. The private UI uses standard Laravel routes/controllers/FormRequests/Blade, locally compiled Tailwind and vanilla JavaScript; no frontend framework or new dependency.
+Step 5 implemented 2026-10-10; Step 6 extends it with the media library and shared picker (see MEDIA_MANAGER). Public templates, assets, original frontend and initialized content remain unchanged. The private UI uses standard Laravel routes/controllers/FormRequests/Blade, locally compiled Tailwind and vanilla JavaScript; no frontend framework or new dependency.
 
 ## Available routes
 
@@ -28,7 +28,7 @@ No owner account was created as part of this implementation. Tests used random d
 
 ## Interface and reusable controls
 
-The jade/slate workspace has a responsive header, desktop sidebar/mobile overlay navigation, system fonts, consistent cards/table/form fields, badges, focus outlines, flash/validation messages and honest empty states. All 13 requested destinations are present: Dashboard; Website Settings; Page Content; Navigation; Home Care Cards; Services; Categories; Articles; Gallery; Media; Appointments; Contact Messages; Profile. Only Dashboard and Profile have routes/links. Pending modules are non-interactive Soon labels. Dashboard counts actual published posts, visible gallery entries and new appointment/contact inquiries; page/media totals describe existing records. It contains no sample staff activity or invented bookings. Further dashboard work remains a later step.
+The jade/slate workspace has a responsive header, desktop sidebar/mobile overlay navigation, system fonts, consistent cards/table/form fields, badges, focus outlines, flash/validation messages and honest empty states. All 13 requested destinations are present: Dashboard; Website Settings; Page Content; Navigation; Home Care Cards; Services; Categories; Articles; Gallery; Media; Appointments; Contact Messages; Profile. Dashboard, Profile and Media now have routes/links (Step 6); other modules remain non-interactive Soon labels. Dashboard counts actual published posts, visible gallery entries and new appointment/contact inquiries; page/media totals describe existing records. It contains no sample staff activity or invented bookings. Further dashboard work remains a later step.
 
 Private views/components are under resources/views/admin and resources/views/components/admin. Public layout never loads admin Vite entries. Admin CSS scans private views/components, admin.js and Laravel's built-in Tailwind pagination view. Admin pagination explicitly calls pagination::tailwind; it does not globally change future public pagination or include Bootstrap.
 
@@ -41,7 +41,7 @@ Private views/components are under resources/views/admin and resources/views/com
 | x-admin.validation-summary / badge / button / breadcrumbs / empty-state | Consistent escaped private UI; named error bags for account/password forms |
 | admin.partials.flash | Status message, live region and optional vanilla dismissal |
 | x-admin.delete-confirmation | CSRF+DELETE form, native dialog with cancel/Escape/backdrop and explicit confirmation; without JS, required confirmation checkbox remains. Future action validates confirm_delete=accepted, authorizes deletion and protects usage relations |
-| x-admin.media-picker | Disabled truthful placeholder showing current media title; sends no changed media reference; no fabricated picker/upload route |
+| x-admin.media-picker | Step 6: native existing-asset select/preview, paginated same-origin library popup; ordinary parent form saves a validated FK; no shared-file deletion on reference removal |
 
 Without JavaScript both translation panels remain visible; normal forms still submit. With JS, tabs have keyboard arrows/Home/End and selected/panel semantics; invalid hidden controls reveal their panel. Unsaved values remain unchanged and both translations submit. Mobile sidebar temporarily traps focus/inerts background, restores focus/overflow on close and supports Escape/backdrop/desktop resize. Delete dialog and double-submit enhancements retain standard form semantics. No SPA/client router, content API, JavaScript translation dictionary or raw HTML editor exists.
 

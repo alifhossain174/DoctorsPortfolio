@@ -1,6 +1,6 @@
 ﻿# DoctorPortfolio
 
-Standalone Laravel 12 / PHP 8.2 application with Blade, Eloquent and vanilla JavaScript. Steps 3–5 supply initialized public pages and a private admin dashboard, sign-in and profile. Content editors and staff inbox screens are later steps. Read AGENTS.md and docs/IMPLEMENTATION_STATUS.md before continuing.
+Standalone Laravel 12 / PHP 8.2 application with Blade, Eloquent and vanilla JavaScript. Steps 3–6 supply initialized public pages, private authentication/dashboard/profile and an image library with reusable media picker. Content editors and staff inbox screens are later steps. Read AGENTS.md and docs/IMPLEMENTATION_STATUS.md before continuing.
 
 ## Local setup (PowerShell, project root)
 
@@ -33,7 +33,7 @@ php artisan admin:create
 
 Enter your own name, a unique email and password at the prompts. Password and confirmation are hidden, with no visible fallback. Use at least 12 characters with uppercase, lowercase, a number and a symbol; the UTF-8 limit is 72 bytes to avoid bcrypt truncation. Credentials cannot be passed as command arguments or supplied with --no-interaction. The command creates a hashed admin account atomically and never overwrites/promotes an existing account. No owner account has been created during implementation; only disposable test accounts were used in the isolated test database.
 
-Visit http://127.0.0.1:8000/admin/login. Dashboard and Profile are available; other sidebar destinations are marked Soon without dead links. Profile changes and password changes require your current password. Logout is POST-only; password changes invalidate other sessions on their next admin request. There is no registration, password-reset email service or user-management module. See docs/ADMIN_INTERFACE.md for security and reusable editor controls.
+Visit http://127.0.0.1:8000/admin/login. Dashboard, Profile and Media are available; other sidebar destinations are marked Soon without dead links. Profile changes and password changes require your current password. Logout is POST-only; password changes invalidate other sessions on their next admin request. There is no registration, password-reset email service or user-management module. See docs/ADMIN_INTERFACE.md for security and reusable editor controls.
 
 Start **MySQL** from XAMPP Control Panel. XAMPP here exposes **MariaDB 10.4.32** at 127.0.0.1:3306. The dedicated `doctor_portfolio` database is connected and explicitly initialized with the full original bilingual content. For another machine, create only this dedicated database with utf8mb4/utf8mb4_unicode_ci in phpMyAdmin and set the matching local credentials in private `.env`. Never use an unrelated database. The Step 3 non-destructive migrations and import have run locally; no fake inquiries or default users exist.
 
@@ -95,7 +95,13 @@ npm run build
 
 ## cPanel artifacts
 
-Build locally and deploy **public/build/manifest.json plus every referenced file under public/build/assets/** even though public/build is Git-ignored. Deploy production Composer vendor (`composer install --no-dev --optimize-autoloader`) and the application outside the web root; expose only public/. Keep frontend/, docs/, .env, private storage and temporary directories outside public_html. Do not deploy node_modules or public/hot. Production has its own private .env, preserved APP_KEY, APP_DEBUG=false, HTTPS/session settings, and writable storage/bootstrap/cache. Local uploaded public media and its storage link/host-compatible alternative are handled in later steps. See docs/ARCHITECTURE.md for the shared-hosting strategy.
+Build locally and deploy **public/build/manifest.json plus every referenced file under public/build/assets/** even though public/build is Git-ignored. Deploy production Composer vendor (`composer install --no-dev --optimize-autoloader`) and the application outside the web root; expose only public/. Keep frontend/, docs/, .env, private storage and temporary directories outside public_html. Do not deploy node_modules or public/hot. Production has its own private .env, preserved APP_KEY, APP_DEBUG=false, HTTPS/session settings, and writable storage/bootstrap/cache. Public images use the configured public-media disk with tracked upload safety rules; no storage link is required. See docs/MEDIA_MANAGER.md and docs/ARCHITECTURE.md for the shared-hosting strategy.
+
+## Image library
+
+Run `php artisan migrate` to apply the new nullable media caption column, then use `/admin/media`. Upload JPEG/PNG/WebP up to 5 MiB, 6000 pixels per edge and 24 million pixels. Edit English/Bangla title, alt, caption and provenance/stock notes; copy public URLs, inspect usage and explicitly replace references before deleting an in-use image. Replacing/removing one reference never deletes a shared file. Original external records remain URLs until you choose real uploads; no demo images were downloaded in Step 6.
+
+The **public-media** disk defaults to `public/uploads` and `APP_URL/uploads`, without `storage:link`. For split cPanel layouts set private `PUBLIC_MEDIA_ROOT` to the account's absolute public_html/uploads path and `PUBLIC_MEDIA_URL` to its HTTPS /uploads URL, deploy public/uploads/.htaccess there and verify host overrides/MIME/handler rules. Runtime files are ignored; the safety .htaccess/.gitignore are tracked. Do not store private documents/inquiries on this disk. See docs/MEDIA_MANAGER.md for setup, PHP limits, shared-picker usage and synchronous failure recovery. Public external images and Google Fonts remain network dependencies.
 
 ## Content initialization and tests
 

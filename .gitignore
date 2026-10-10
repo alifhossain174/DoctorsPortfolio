@@ -19,7 +19,9 @@
 /public/build
 /public/hot
 /public/storage
-/public/uploads/
+/public/uploads/*
+!/public/uploads/.htaccess
+!/public/uploads/.gitignore
 /bootstrap/cache/*
 !/bootstrap/cache/.gitignore
 /storage/app/private/*
