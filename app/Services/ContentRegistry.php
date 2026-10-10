@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Rules\ContentFormat;
 use App\Rules\PublicTarget;
+use App\Rules\RequiredPlaceholder;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
@@ -52,6 +53,10 @@ final class ContentRegistry
             $rules['key'] = ['required', 'string', 'max:100'];
             $definition = $this->definition($attributes['key'] ?? '');
             $this->addRules($rules, 'value', $definition);
+            if ($attributes['key'] === 'footer.copyright_format') {
+                $rules['value.en'][] = new RequiredPlaceholder('year');
+                $rules['value.bn'][] = new RequiredPlaceholder('year');
+            }
             $rules['media_asset_id'] = $definition['type'] === 'media' ? ['nullable', 'integer', 'exists:media_assets,id'] : ['prohibited'];
             if ($definition['type'] === 'media') {
                 $rules['value'] = ['prohibited'];
@@ -126,7 +131,7 @@ final class ContentRegistry
             'icon' => ['string', 'in:🤰,✿,♡,🔬,✚,✳'],
             'target' => ['string', 'max:2048', new PublicTarget],
             'url' => ['string', 'max:4096', new PublicTarget(externalOnly: true)],
-            'format' => ['string', 'max:15000', new ContentFormat],
+            'format' => ['string', 'max:'.($definition['max_length'] ?? 15000), new ContentFormat],
             'integer' => ['integer', 'min:0', 'max:24'],
             'boolean' => ['boolean'],
             'media' => [],

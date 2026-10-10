@@ -15,7 +15,7 @@ final class MediaController extends AdminController
     public function index(Request $request)
     {
         $filter = $request->validate(['q' => ['nullable', 'string', 'max:100'], 'kind' => ['nullable', Rule::in(['local', 'external'])], 'picker' => ['nullable', Rule::in(['1'])], 'page' => ['nullable', 'integer', 'min:1']]);
-        $media = MediaAsset::query()->withCount(['posts', 'galleryImages', 'contentFields', 'settings'])
+        $media = MediaAsset::query()->withCount(['posts', 'galleryImages', 'contentFields', 'settings', 'pages'])
             ->when($filter['q'] ?? null, fn ($query, $q) => $query->where(function ($query) use ($q) {
                 $query->where('title->en', 'like', '%'.$q.'%')->orWhere('title->bn', 'like', '%'.$q.'%');
             }))
@@ -40,9 +40,9 @@ final class MediaController extends AdminController
 
     public function edit(MediaAsset $media)
     {
-        $media->load(['posts', 'galleryImages', 'contentFields', 'settings']);
+        $media->load(['posts', 'galleryImages', 'contentFields', 'settings', 'pages']);
         $usages = [];
-        foreach (['posts' => 'Article', 'galleryImages' => 'Gallery', 'contentFields' => 'Page field', 'settings' => 'Doctor portrait'] as $relation => $label) {
+        foreach (['posts' => 'Article', 'galleryImages' => 'Gallery', 'contentFields' => 'Page field', 'settings' => 'Doctor portrait', 'pages' => 'Page OG image'] as $relation => $label) {
             foreach ($media->$relation as $record) {
                 $usages[] = ['type' => $label, 'identity' => $record->slug ?? $record->key, 'label' => $record->localized('title', 'en') ?: ($record->slug ?? $record->key)];
             }

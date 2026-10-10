@@ -4,9 +4,9 @@
 return [
     'Overview' => [['label' => 'Dashboard', 'route' => 'admin.dashboard', 'icon' => 'dashboard']],
     'Website' => [
-        ['label' => 'Website Settings', 'route' => null, 'icon' => 'settings'],
-        ['label' => 'Page Content', 'route' => null, 'icon' => 'pages'],
-        ['label' => 'Navigation', 'route' => null, 'icon' => 'navigation'],
+        ['label' => 'Website Settings', 'route' => 'admin.settings.edit', 'icon' => 'settings'],
+        ['label' => 'Page Content', 'route' => 'admin.pages.index', 'icon' => 'pages'],
+        ['label' => 'Navigation', 'route' => 'admin.navigation.index', 'icon' => 'navigation'],
         ['label' => 'Home Care Cards', 'route' => null, 'icon' => 'cards'],
         ['label' => 'Services', 'route' => null, 'icon' => 'services'],
         ['label' => 'Categories', 'route' => null, 'icon' => 'categories'],

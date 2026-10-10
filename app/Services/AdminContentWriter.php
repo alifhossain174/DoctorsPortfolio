@@ -15,7 +15,7 @@ final class AdminContentWriter
     {
         Gate::authorize('access-admin');
 
-        return DB::transaction(function () use ($record, $input) {
+        $updated = DB::transaction(function () use ($record, $input) {
             $record = $record->newQuery()->lockForUpdate()->findOrFail($record->getKey());
             $registry = app(ContentRegistry::class);
             $fields = $registry->fields(class_basename($record));
@@ -60,5 +60,9 @@ final class AdminContentWriter
 
             return $record;
         });
+        // Only request-scoped snapshots exist. Subsequent reads see a fresh database snapshot.
+        app()->forgetInstance(WebsiteContent::class);
+
+        return $updated;
     }
 }

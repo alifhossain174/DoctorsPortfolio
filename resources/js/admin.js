@@ -1,4 +1,16 @@
 // Optional enhancement for ordinary admin POST forms; no content or client routing.
+// Hide only the unused link input. Language panels retain all selected values.
+document.querySelectorAll('[data-target-control]').forEach(control => {
+    const kind = control.querySelector('[data-target-kind]');
+    const update = () => control.querySelectorAll('[data-target-part]').forEach(part => {
+        const active = part.dataset.targetPart === kind.value;
+        part.hidden = !active;
+        part.querySelectorAll('input,select').forEach(input => { input.disabled = !active; });
+    });
+    kind.addEventListener('change', update);
+    update();
+});
+
 // Same-origin picker messages change only a selected reference, never website content.
 document.querySelectorAll('[data-media-picker]').forEach(picker => {
     const select = picker.querySelector('[data-media-select]');

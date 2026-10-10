@@ -1,6 +1,6 @@
 ﻿# DoctorPortfolio
 
-Standalone Laravel 12 / PHP 8.2 application with Blade, Eloquent and vanilla JavaScript. Steps 3–6 supply initialized public pages, private authentication/dashboard/profile and an image library with reusable media picker. Content editors and staff inbox screens are later steps. Read AGENTS.md and docs/IMPLEMENTATION_STATUS.md before continuing.
+Standalone Laravel 12 / PHP 8.2 application with Blade, Eloquent and vanilla JavaScript. Steps 3–7 supply initialized public pages, private authentication/dashboard/profile, a media library, shared settings, all eight fixed-page editors and navigation editing. Collection CRUD and staff inbox screens are later steps. Read AGENTS.md and docs/IMPLEMENTATION_STATUS.md before continuing.
 
 ## Local setup (PowerShell, project root)
 
@@ -33,7 +33,9 @@ php artisan admin:create
 
 Enter your own name, a unique email and password at the prompts. Password and confirmation are hidden, with no visible fallback. Use at least 12 characters with uppercase, lowercase, a number and a symbol; the UTF-8 limit is 72 bytes to avoid bcrypt truncation. Credentials cannot be passed as command arguments or supplied with --no-interaction. The command creates a hashed admin account atomically and never overwrites/promotes an existing account. No owner account has been created during implementation; only disposable test accounts were used in the isolated test database.
 
-Visit http://127.0.0.1:8000/admin/login. Dashboard, Profile and Media are available; other sidebar destinations are marked Soon without dead links. Profile changes and password changes require your current password. Logout is POST-only; password changes invalidate other sessions on their next admin request. There is no registration, password-reset email service or user-management module. See docs/ADMIN_INTERFACE.md for security and reusable editor controls.
+Visit http://127.0.0.1:8000/admin/login. Dashboard, Website Settings, Page Content, Navigation, Media and Profile are available; other sidebar destinations are marked Soon without dead links. Website Settings provides twelve groups; Page Content covers home/about/services/diagnostics/blog/gallery/contact/article. Use English / বাংলা tabs and save normally; both translations remain in one form, and public pages read changes on the next request. Shared facts are edited once. Optional section visibility and homepage counts are supported; layout/order/styles remain fixed. See docs/CMS_EDITORS.md for routes, exact controls, safe links and metadata fallback. OG values can be stored now; public OG/remaining SEO rendering is Step 13.
+
+Profile changes and password changes require your current password. Logout is POST-only; password changes invalidate other sessions on their next admin request. There is no registration, password-reset email service or user-management module. See docs/ADMIN_INTERFACE.md for security and reusable editor controls. For an existing initialized installation, run `php artisan migrate` and `npm run build` after updating; there is no need to reseed for Step 7. Existing content and credentials are retained.
 
 Start **MySQL** from XAMPP Control Panel. XAMPP here exposes **MariaDB 10.4.32** at 127.0.0.1:3306. The dedicated `doctor_portfolio` database is connected and explicitly initialized with the full original bilingual content. For another machine, create only this dedicated database with utf8mb4/utf8mb4_unicode_ci in phpMyAdmin and set the matching local credentials in private `.env`. Never use an unrelated database. The Step 3 non-destructive migrations and import have run locally; no fake inquiries or default users exist.
 

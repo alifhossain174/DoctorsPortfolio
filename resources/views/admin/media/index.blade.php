@@ -20,7 +20,7 @@
     <article class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xs">
         <a href="{{ route('admin.media.edit', $asset) }}" class="flex aspect-[4/3] items-center justify-center bg-slate-100"><img src="{{ $asset->url() }}" alt="{{ $asset->localized('alt_text','en') }}" class="h-full w-full object-contain" loading="lazy" referrerpolicy="no-referrer"></a>
         <div class="space-y-3 p-5"><div class="flex items-start justify-between gap-2"><h2 class="min-w-0 break-words text-sm font-semibold">{{ $asset->localized('title','en') }}</h2><x-admin.badge :tone="$asset->path ? 'success' : 'warning'">{{ $asset->path ? 'Local' : 'External' }}</x-admin.badge></div>
-        <p class="text-xs text-slate-500">ID {{ $asset->id }} · {{ $asset->posts_count + $asset->gallery_images_count + $asset->content_fields_count + $asset->settings_count }} references @if ($asset->width) · {{ $asset->width }} × {{ $asset->height }} @endif</p>
+        <p class="text-xs text-slate-500">ID {{ $asset->id }} · {{ $asset->posts_count + $asset->gallery_images_count + $asset->content_fields_count + $asset->settings_count + $asset->pages_count }} references @if ($asset->width) · {{ $asset->width }} × {{ $asset->height }} @endif</p>
         <div class="flex flex-wrap items-center gap-3"><x-admin.button variant="secondary" :href="route('admin.media.edit',$asset)">Details</x-admin.button>
         @if (($filter['picker'] ?? null) === '1')<button type="button" class="admin-button admin-button-primary" data-media-choose data-media-id="{{ $asset->id }}" data-media-url="{{ $asset->url() }}" data-media-title="{{ $asset->localized('title','en') }}" data-media-alt="{{ $asset->localized('alt_text','en') }}">Choose image</button>@endif</div>
         </div>

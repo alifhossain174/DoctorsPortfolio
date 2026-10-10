@@ -70,6 +70,30 @@ test('language tabs preserve unsaved inputs, submit both languages and reveal in
     editor.fire('invalid', { target: bnInput }); assert.equal(bnPanel.hidden, false);
 });
 
+test('destination selector retains inactive values and keeps each language independent', () => {
+    const document = new Element(); document.body = new Element();
+    const make = () => { const item = new Element(); item.document = document; return item; };
+    const controls = ['en','bn'].map(language => {
+        const control = make(), kind = make(), internal = make(), external = make();
+        const route = make(), url = make(); route.value = 'services'; url.value = 'https://example.test/'+language;
+        kind.value = 'internal'; internal.dataset.targetPart = 'internal'; external.dataset.targetPart = 'external';
+        internal.querySelectorAll = () => [route]; external.querySelectorAll = () => [url];
+        control.querySelector = () => kind; control.querySelectorAll = () => [internal, external];
+        return { control, kind, internal, external, route, url };
+    });
+    document.querySelectorAll = selector => selector === '[data-target-control]' ? controls.map(item=>item.control) : [];
+    document.getElementById = () => null;
+    const window = make(); window.matchMedia = () => make();
+    vm.runInNewContext(fs.readFileSync('resources/js/admin.js','utf8'), { document, window, HTMLFormElement: Element, queueMicrotask });
+    const [en, bn] = controls;
+    assert.equal(en.external.hidden, true); assert.equal(en.route.disabled, false); assert.equal(en.url.disabled, true);
+    en.kind.value = 'external'; en.kind.fire('change');
+    assert.equal(en.external.hidden, false); assert.equal(en.route.disabled, true); assert.equal(en.url.disabled, false);
+    assert.equal(en.route.value, 'services'); assert.equal(bn.kind.value, 'internal'); assert.equal(bn.route.disabled, false);
+    en.kind.value = 'internal'; en.kind.fire('change');
+    assert.equal(en.url.value, 'https://example.test/en'); assert.equal(en.route.value, 'services');
+});
+
 test('mobile sidebar traps focus, restores background and closes by keyboard/backdrop/resize', () => {
     const { document,window,sidebar,toggle,backdrop,close,last } = setup();
     toggle.fire('click'); assert.equal(sidebar.classList.contains('hidden'), false);

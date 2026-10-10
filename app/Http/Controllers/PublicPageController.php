@@ -56,8 +56,8 @@ class PublicPageController extends Controller
         return view('public.page', [
             'site' => $site, 'urls' => app(PublicUrl::class), 'page' => $page, 'pageRecord' => $pageRecord, 'post' => $post,
             'label' => $pageRecord->localized('label'), 'locale' => app()->getLocale(),
-            'metaTitle' => $post?->localized('meta_title') ?: $pageRecord->localized('meta_title'),
-            'metaDescription' => $post?->localized('meta_description') ?: $pageRecord->localized('meta_description'),
+            'metaTitle' => $post?->localized('meta_title') ?: ($pageRecord->localized('meta_title') ?: $site->text('meta.title_format', ['page_label' => $pageRecord->localized('label')])),
+            'metaDescription' => $post?->localized('meta_description') ?: ($pageRecord->localized('meta_description') ?: ($post?->localized('excerpt') ?: $site->setting('doctor_biography'))),
             'visible' => fn ($key) => (bool) ($sections->get($page.'.'.$key)?->is_visible ?? false),
             'navigation' => NavigationItem::orderBy('sort_order')->orderBy('id')->get()->groupBy('placement'),
             'cards' => $page === 'home' ? CareCard::where('is_enabled', true)->orderBy('sort_order')->orderBy('id')->get() : collect(),

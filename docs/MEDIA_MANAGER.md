@@ -4,6 +4,8 @@ Implemented 2026-10-10. Standard protected Laravel controllers/FormRequests/Blad
 
 ## Library and ownership
 
+Step 7 extends usage to a fifth owner: `Page.og_media_asset_id` / `Page::ogImage` / `MediaAsset::pages`. Library usage counts/details, unused-delete protection and atomic reference replacement include these records, even though public OG tags are deferred to Step 13. Shared settings/page editors now use this same picker for hero/page/OG image references. Slot-specific alt text remains with its existing owner.
+
 Media is active in the sidebar at `/admin/media`. It provides 24-image pagination, title search (English/Bangla), local/external filters, original-ratio previews, upload, bilingual descriptions, public URL copying, usage list and unused deletion. Dashboard availability now identifies Media as implemented. Protected resource routes use `auth`, `admin`, `auth.session` and the inherited AdminController guard; writes use CSRF and normal POST/PUT/PATCH/DELETE with internal redirects.
 
 `MediaAsset` stores localized `title`, `alt_text`, **caption** (new nullable JSON column), `provenance_note`, `stock_note`, plus code-owned identity/source/disk/path/MIME/size/dimensions/original-filename metadata. Registry definitions are in `config/media_fields.php`, referenced by `config/cms_models.php`. Required English title, optional Bangla fallback and all language-key/length validation reuse ContentRegistry and AdminContentWriter. English-only updates retain existing Bangla. Unknown technical fields, raw paths and source URLs cannot be changed by an editor request. External URLs are retained from explicit initialization; this manager cannot add arbitrary remote fetch targets.

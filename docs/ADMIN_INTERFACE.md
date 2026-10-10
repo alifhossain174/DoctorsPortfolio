@@ -4,6 +4,8 @@ Step 5 implemented 2026-10-10; Step 6 extends it with the media library and shar
 
 ## Available routes
 
+Step 7 also activates Website Settings, Page Content and Navigation: GET /admin/settings + PUT /admin/settings/{group}; GET /admin/pages + GET/PUT /admin/pages/{page:key} (edit screen ends /edit); standard /admin/navigation resource except show. These use the same protected controller/Gate/session/CSRF boundary. CMS_EDITORS documents the twelve groups, all eight pages, safe targets, localized controls, shared-source links, atomic saves and metadata scope; CONTENT_MATRIX lists exact fields/renderers. Collection/inbox destinations remain Soon.
+
 | Method | Path | Name | Guard/purpose |
 | --- | --- | --- | --- |
 | GET | /admin | admin.dashboard | auth, admin, auth.session; real database overview |

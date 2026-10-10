@@ -1,0 +1,41 @@
+<?php
+
+// Private screen organization only. Values and translations are database-owned.
+return [
+    'groups' => [
+        'doctor' => ['label' => 'Doctor identity & profile', 'help' => 'Canonical identity and qualifications, reused on home, about and metadata.', 'settings' => ['doctor_name', 'doctor_biography', 'credential', 'department', 'institution'], 'fields' => []],
+        'clinic' => ['label' => 'Clinic & visiting hours', 'help' => 'One address and schedule feed the topbar, visit information, contact and footer.', 'settings' => ['clinic_name', 'address', 'consultation_hours', 'friday_note', 'location_label'], 'fields' => []],
+        'branding' => ['label' => 'Branding & hero image', 'help' => 'The brand structure stays fixed. Home/about secondary image slots belong to their page screens.', 'settings' => ['subtitle', 'brand_icon', 'portrait_media_asset_id'], 'fields' => ['shared.brand_target', 'home.hero_alt']],
+        'social' => ['label' => 'Facebook & Maps', 'help' => 'Standalone social/location links only. Inquiry submissions and appointment CTAs stay on this website.', 'settings' => ['facebook_url', 'map_url'], 'fields' => ['contact.fb', 'contact.openmap', 'footer.social_label']],
+        'topbar' => ['label' => 'Topbar', 'help' => 'The topbar reads the shared clinic address, hours and Friday text. Edit their source rather than a duplicate.', 'settings' => [], 'fields' => []],
+        'footer' => ['label' => 'Footer & copyright', 'help' => 'Keep {year} in both non-empty copyright translations; code supplies the current year. Footer links are in Navigation.', 'settings' => ['footer_description'], 'fields' => ['footer.copyright_format']],
+        'cta' => ['label' => 'Shared appointment CTA', 'help' => 'Shared CTA copy appears wherever its page section is enabled. Its target remains the contact page.', 'settings' => ['cta_title', 'cta_description', 'cta_label', 'cta_target'], 'fields' => []],
+        'notices' => ['label' => 'Educational & stock notices', 'help' => 'These required notices remain visible. Do not invent medical claims or image provenance. Diagnostics also has its own page notice.', 'settings' => ['medical_disclaimer', 'stock_notice'], 'fields' => []],
+        'locale' => ['label' => 'Default language', 'help' => 'Validated URL locale and saved visitor preference take priority over this default.', 'settings' => ['default_locale'], 'fields' => []],
+        'ui' => ['label' => 'Shared buttons & interaction labels', 'help' => 'Buttons, All filter label, empty states, language switch, menu and lightbox labels. Switching behavior is code-owned.', 'settings' => [], 'fields' => []],
+        'information' => ['label' => 'Shared information & headings', 'help' => 'Reused qualification, hours, visit and gallery headings. Fact placeholders point to the canonical settings.', 'settings' => [], 'fields' => []],
+        'forms' => ['label' => 'Contact form & feedback copy', 'help' => 'Both inquiry modes share this copy. Form actions/status codes are fixed; requests are not confirmed bookings.', 'settings' => [], 'fields' => ['contact.formtitle', 'contact.name', 'contact.phone', 'contact.topic', 'contact.message', 'contact.prepare', 'contact.privacy', 'contact.mode_label', 'contact.mode_appointment', 'contact.mode_general', 'contact.submit_contact', 'contact.success_appointment', 'contact.success_contact', 'contact.mode_apply', 'contact.validation_required', 'contact.validation_invalid', 'contact.validation_max', 'contact.save_failure', 'contact.submit_pending']],
+    ],
+    'labels' => [
+        'doctor_name' => 'Doctor name', 'doctor_biography' => 'Biography / introduction', 'credential' => 'Credential / designation', 'department' => 'Department', 'institution' => 'Institution',
+        'clinic_name' => 'Chamber / laboratory name', 'address' => 'Address', 'consultation_hours' => 'Visiting hours', 'friday_note' => 'Friday text', 'location_label' => 'Hero location label',
+        'subtitle' => 'Brand subtitle', 'brand_icon' => 'Brand symbol', 'portrait_media_asset_id' => 'Home hero / portrait image', 'facebook_url' => 'Facebook URL', 'map_url' => 'Maps URL',
+        'footer_description' => 'Footer description', 'medical_disclaimer' => 'Educational / medical disclaimer', 'stock_notice' => 'Stock-photo notice', 'default_locale' => 'Default locale',
+        'cta_title' => 'CTA title', 'cta_description' => 'CTA description', 'cta_label' => 'CTA button label', 'cta_target' => 'CTA destination',
+        'home.herotitle' => 'Hero title', 'home.herodesc' => 'Hero introduction', 'home.visit' => 'Hero visit label', 'home.eyebrow' => 'Hero eyebrow', 'home.appointment' => 'Appointment button label',
+        'home.servicesTitle' => 'Care section title', 'home.servicesDesc' => 'Care section introduction', 'home.doctorEyebrow' => 'Doctor section eyebrow', 'home.doctorTitle' => 'Doctor section title',
+        'home.blogtitle' => 'Journal section title', 'home.care_eyebrow' => 'Care section eyebrow', 'home.journal_eyebrow' => 'Journal section eyebrow', 'home.gallery_eyebrow' => 'Gallery section eyebrow',
+        'home.hero_alt' => 'Home hero alternative text', 'home.doctor_alt' => 'Doctor section alternative text', 'home.doctor_image' => 'Doctor section image',
+        'home.article_count' => 'Homepage article count', 'home.gallery_count' => 'Homepage gallery count',
+        'about.abouttitle' => 'Hero title', 'about.aboutdesc' => 'Hero introduction', 'about.image' => 'Profile image', 'about.image_alt' => 'Profile image alternative text',
+        'services.servicePageTitle' => 'Hero title', 'services.servicePageDesc' => 'Hero introduction',
+        'diagnostics.diagtitle' => 'Hero title', 'diagnostics.diagdesc' => 'Hero introduction', 'diagnostics.diagnotice' => 'Diagnostic information notice',
+        'diagnostics.diagtags' => 'Information section heading', 'diagnostics.diagtagsdesc' => 'Information section copy', 'diagnostics.image' => 'Laboratory image', 'diagnostics.image_alt' => 'Laboratory image alternative text',
+        'blog.blogheading' => 'Hero title', 'blog.blogintro' => 'Hero introduction', 'blog.tagtitle' => 'Category filter heading', 'blog.blogdesc' => 'Original unused description (retained)',
+        'contact.contacttitle' => 'Hero title', 'contact.contactdesc' => 'Hero introduction', 'contact.addressLabel' => 'Address heading', 'contact.hoursLabel' => 'Hours heading',
+        'shared.qualification' => 'Qualification heading', 'shared.hoursTitle' => 'Hours heading', 'shared.visitTitle' => 'Visit heading', 'shared.profession' => 'Profession description',
+        'shared.visitText' => 'Shared visit information', 'shared.gallerytitle' => 'Gallery heading', 'shared.gallerydesc' => 'Gallery introduction', 'shared.brand_target' => 'Brand link destination',
+        'meta.title_format' => 'Default document-title format', 'footer.copyright_format' => 'Copyright format', 'footer.social_label' => 'Footer Facebook label',
+        'label' => 'Page eyebrow / label', 'meta_title' => 'Meta title', 'meta_description' => 'Meta description', 'og_title' => 'Open Graph title', 'og_description' => 'Open Graph description', 'og_media_asset_id' => 'Open Graph image',
+    ],
+];

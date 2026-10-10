@@ -1,0 +1,15 @@
+@extends('admin.layouts.app')
+@section('title',($creating ? 'Add' : 'Edit').' navigation · DoctorPortfolio')
+@section('heading','Navigation link')
+@section('content')
+<x-admin.breadcrumbs :items="[['label'=>'Dashboard','href'=>route('admin.dashboard')],['label'=>'Navigation','href'=>route('admin.navigation.index',['placement'=>$item->placement])],['label'=>$creating ? 'Add link' : 'Edit link']]"/>
+<div class="mb-7 flex flex-wrap items-end justify-between gap-4"><h1 class="text-3xl font-semibold tracking-tight">{{ $creating ? 'Add navigation link' : 'Edit navigation link' }}</h1><x-admin.button variant="secondary" :href="$previewUrl" target="_blank" rel="noopener">View page ↗</x-admin.button></div>
+<form method="post" action="{{ $creating ? route('admin.navigation.store') : route('admin.navigation.update',$item) }}" class="admin-card max-w-4xl space-y-7" data-prevent-double-submit>@csrf @if(!$creating) @method('PUT') @endif<x-admin.validation-summary/>
+    <x-admin.cms-field name="item[label]" label="Link label" :definition="$definitions['label']" :value="$item->label" hint="Separate English/Bangla labels belong to one localized database field."/>
+    <x-admin.cms-field name="item[target]" label="Destination" :definition="$definitions['target']" :value="$item->target" hint="Internal targets use named public route keys. External URLs must be HTTP(S) without credentials; admin/nonexistent routes and executable URLs are rejected."/>
+    <div class="grid gap-5 sm:grid-cols-2"><div><label class="admin-label" for="placement">Placement</label><select id="placement" name="item[placement]" class="admin-field">@foreach(['header','footer'] as $placement)@if($creating || str_starts_with($item->key,'custom:') || $item->placement===$placement)<option value="{{ $placement }}" @selected(old('item.placement',$item->placement)===$placement)>{{ ucfirst($placement) }}</option>@endif @endforeach</select><p class="mt-2 text-xs text-slate-500">Original entries keep their placement for shared labels.</p></div><x-admin.input name="item[sort_order]" label="Display order" type="number" min="0" max="65535" :value="$item->sort_order" required hint="Lower numbers appear first; ties retain stable record order."/></div>
+    <label class="flex items-center gap-2 text-sm"><input type="hidden" name="item[is_visible]" value="0"><input type="checkbox" class="h-4 w-4 accent-jade-700" name="item[is_visible]" value="1" @checked((bool)old('item.is_visible',$item->is_visible))>Visible in {{ $item->placement }} navigation</label>
+    <div class="flex gap-3"><x-admin.button>{{ $creating ? 'Create link' : 'Save link' }}</x-admin.button><x-admin.button variant="secondary" :href="route('admin.navigation.index',['placement'=>$item->placement])">Cancel</x-admin.button></div>
+</form>
+@if(!$creating && str_starts_with($item->key,'custom:'))<section class="admin-card mt-6 max-w-4xl"><h2 class="mb-4 text-lg font-semibold">Remove custom link</h2><x-admin.delete-confirmation :action="route('admin.navigation.destroy',$item)" label="navigation link" :id="'delete-navigation-'.$item->id"/></section>@endif
+@endsection

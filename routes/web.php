@@ -3,7 +3,10 @@
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\MediaController;
+use App\Http\Controllers\Admin\NavigationController;
+use App\Http\Controllers\Admin\PageContentController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\InquiryController;
 use App\Http\Controllers\LegacyPageController;
 use App\Http\Controllers\PublicPageController;
@@ -22,6 +25,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::put('/profile/password', [ProfileController::class, 'password'])->name('password.update');
         Route::resource('media', MediaController::class)->parameters(['media' => 'media'])->except('show');
         Route::put('/media/{media}/references', [MediaController::class, 'replace'])->name('media.replace');
+        Route::get('/settings', [SettingsController::class, 'edit'])->name('settings.edit');
+        Route::put('/settings/{group}', [SettingsController::class, 'update'])->name('settings.update');
+        Route::get('/pages', [PageContentController::class, 'index'])->name('pages.index');
+        Route::get('/pages/{page:key}/edit', [PageContentController::class, 'edit'])->name('pages.edit');
+        Route::put('/pages/{page:key}', [PageContentController::class, 'update'])->name('pages.update');
+        Route::resource('navigation', NavigationController::class)->parameters(['navigation' => 'navigationItem'])->except('show');
     });
 });
 

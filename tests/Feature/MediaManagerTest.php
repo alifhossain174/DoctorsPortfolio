@@ -32,7 +32,7 @@ class MediaManagerTest extends TestCase
                 }
             }
         });
-        Storage::fake('public-media', ['url' => 'https://example.test/uploads']);
+        $this->fakeMediaDisk();
         app(InitialWebsiteImporter::class)->import();
         $user = User::create(['name' => 'Test editor', 'email' => Str::uuid().'@example.test', 'password' => bin2hex(random_bytes(24))]);
         $user->forceFill(['is_admin' => true])->save();
@@ -50,6 +50,15 @@ class MediaManagerTest extends TestCase
         imagedestroy($image);
 
         return new UploadedFile($path, $name ?? 'test.'.$format, null, null, true);
+    }
+
+    private function fakeMediaDisk(string $url = 'https://example.test/uploads'): void
+    {
+        // Windows may retain files during cleanup of a reused fake directory.
+        // A unique Laravel test disk keeps each test independent, even across reruns.
+        $disk = Storage::fake('media-test-'.bin2hex(random_bytes(12)), ['url' => $url, 'throw' => true]);
+        Storage::set('public-media', $disk);
+        $this->beforeApplicationDestroyed(fn () => $disk->delete($disk->allFiles()));
     }
 
     private function text(): array
@@ -110,7 +119,7 @@ class MediaManagerTest extends TestCase
             $asset = new MediaAsset(['disk' => 'public-media', 'path' => $path]);
             $this->assertSame('', $asset->url());
         }
-        Storage::fake('public-media', ['url' => 'javascript:unsafe']);
+        $this->fakeMediaDisk('javascript:unsafe');
         $asset = new MediaAsset(['disk' => 'public-media', 'path' => 'images/2026/10/'.str_repeat('a', 32).'.png']);
         $this->assertSame('', $asset->url());
     }

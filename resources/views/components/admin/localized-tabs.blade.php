@@ -1,7 +1,8 @@
-@props(['name', 'label', 'value' => [], 'type' => 'text', 'required' => false, 'hint' => null])
+@props(['name', 'label', 'value' => [], 'type' => 'text', 'required' => false, 'hint' => null, 'maxlength'=>null, 'routes'=>null])
 @php
     $editorId = 'editor-'.preg_replace('/[^a-zA-Z0-9_-]/', '-', $name);
-    $bangla = old($name.'.bn', $value['bn'] ?? null);
+    $dot=trim(str_replace(['[',']'],['.',''],$name),'.');
+    $bangla = old($dot.'.bn', $value['bn'] ?? null);
     $missingBangla = $type === 'paragraphs' && is_array($bangla) ? count(array_filter($bangla, fn ($paragraph) => is_string($paragraph) && trim($paragraph) !== '')) === 0 : trim(is_string($bangla) ? $bangla : '') === '';
 @endphp
 <fieldset class="space-y-4" data-editor-tabs>
@@ -14,14 +15,16 @@
         <div id="{{ $editorId }}-{{ $language }}-panel" data-editor-panel="{{ $language }}" aria-labelledby="{{ $editorId }}-{{ $language }}-tab">
             @if ($type === 'paragraphs')
                 @php
-                    $paragraphValues = old($name.'.'.$language, $value[$language] ?? []);
+                    $paragraphValues = old($dot.'.'.$language, $value[$language] ?? []);
                     $paragraphValues = is_array($paragraphValues) ? array_values(array_filter($paragraphValues, 'is_string')) : [];
                 @endphp
                 @include('admin.partials.paragraph-language', ['language' => $language, 'paragraphs' => $paragraphValues ?: ['']])
+            @elseif ($type === 'target')
+                <x-admin.link-target :name="$name.'['.$language.']'" :label="$languageLabel" :value="$value[$language] ?? ''" :required="$required && $language === 'en'" :hint="$hint" :routes="$routes"/>
             @elseif ($type === 'textarea')
-                <x-admin.textarea :name="$name.'['.$language.']'" :label="$languageLabel" :value="$value[$language] ?? ''" :required="$required && $language === 'en'" :hint="$hint"/>
+                <x-admin.textarea :name="$name.'['.$language.']'" :label="$languageLabel" :value="$value[$language] ?? ''" :required="$required && $language === 'en'" :hint="$hint" :maxlength="$maxlength"/>
             @else
-                <x-admin.input :name="$name.'['.$language.']'" :label="$languageLabel" :value="$value[$language] ?? ''" :required="$required && $language === 'en'" :hint="$hint"/>
+                <x-admin.input :name="$name.'['.$language.']'" :label="$languageLabel" :value="$value[$language] ?? ''" :required="$required && $language === 'en'" :hint="$hint" :type="$type==='url' ? 'url' : 'text'" :maxlength="$maxlength"/>
             @endif
         </div>
     @endforeach

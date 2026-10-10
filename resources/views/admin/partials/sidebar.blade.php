@@ -4,7 +4,8 @@
         <div><h2 class="mb-2 px-3 text-[10px] font-semibold uppercase tracking-[.16em] text-slate-500">{{ $group }}</h2><ul class="space-y-1">
         @foreach ($items as $item)
             <li>@if ($item['route'] && \Illuminate\Support\Facades\Route::has($item['route']))
-                <a href="{{ route($item['route']) }}" @class(['flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors', 'bg-jade-700 text-white' => request()->routeIs($item['route']), 'text-slate-300 hover:bg-slate-800 hover:text-white' => ! request()->routeIs($item['route'])]) @if (request()->routeIs($item['route'])) aria-current="page" @endif><x-admin.icon :name="$item['icon']"/>{{ $item['label'] }}</a>
+                @php($active=request()->routeIs($item['route']) || (str_contains($item['route'],'.') && $item['route']!=='admin.dashboard' && request()->routeIs(substr($item['route'],0,strrpos($item['route'],'.')).'.*')))
+                <a href="{{ route($item['route']) }}" @class(['flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors', 'bg-jade-700 text-white' => $active, 'text-slate-300 hover:bg-slate-800 hover:text-white' => ! $active]) @if ($active) aria-current="page" @endif><x-admin.icon :name="$item['icon']"/>{{ $item['label'] }}</a>
             @else
                 <span class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-slate-500" aria-disabled="true"><x-admin.icon :name="$item['icon']"/><span class="flex-1">{{ $item['label'] }}</span><span class="rounded bg-slate-800 px-1.5 py-0.5 text-[9px] font-medium text-slate-400">Soon</span></span>
             @endif</li>
