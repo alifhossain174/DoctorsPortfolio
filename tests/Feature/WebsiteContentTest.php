@@ -84,10 +84,10 @@ class WebsiteContentTest extends TestCase
     {
         foreach (['en', 'bn'] as $locale) {
             foreach (['/', '/about', '/services', '/diagnostics', '/blog', '/gallery', '/contact'] as $url) {
-                $this->get($url.'?lang='.$locale)->assertOk()->assertSee('lang="'.$locale.'"', false)->assertDontSee('assets/app.js')->assertDontSee('/build/');
+                $this->get($url.'?locale='.$locale)->assertOk()->assertSee('lang="'.$locale.'"', false)->assertDontSee('assets/app.js')->assertDontSee('/build/');
             }
             foreach (Post::all() as $post) {
-                $this->get('/blog/'.$post->slug.'?lang='.$locale)->assertOk()->assertSee($post->title[$locale])->assertSee($post->body[$locale][0]);
+                $this->get('/blog/'.$post->slug.'?locale='.$locale)->assertOk()->assertSee($post->title[$locale])->assertSee($post->body[$locale][0]);
             }
         }
         $this->get('/blog/missing-slug')->assertNotFound();
@@ -114,16 +114,16 @@ class WebsiteContentTest extends TestCase
     public function test_inquiries_save_before_success_with_separate_modes_and_snapshots(): void
     {
         $option = ConsultationOption::where('key', 'obstetrics')->firstOrFail();
-        $this->post('/inquiries', ['kind' => 'appointment', 'name' => 'Test patient', 'phone' => 'Test phone', 'consultation_option_id' => $option->id, 'message' => 'Test message'])->assertRedirect('/contact?mode=appointment')->assertSessionHas('inquiry_success');
+        $this->post('/inquiries', ['locale' => 'en', 'kind' => 'appointment', 'name' => 'Test patient', 'phone' => 'Test phone', 'consultation_option_id' => $option->id, 'message' => 'Test message'])->assertRedirect('/contact?locale=en&mode=appointment')->assertSessionHas('inquiry_success');
         $inquiry = Inquiry::firstOrFail();
         $this->assertSame($option->label, $inquiry->consultation_label);
         $this->assertTrue($option->inquiries->contains($inquiry));
         $this->assertSame('new', $inquiry->status);
         $this->assertArrayNotHasKey('name', $inquiry->toArray());
-        $this->post('/inquiries', ['kind' => 'contact', 'name' => 'Test contact', 'phone' => 'Test phone', 'consultation_option_id' => $option->id])->assertRedirect('/contact?mode=contact');
+        $this->post('/inquiries', ['locale' => 'en', 'kind' => 'contact', 'name' => 'Test contact', 'phone' => 'Test phone', 'consultation_option_id' => $option->id])->assertRedirect('/contact?locale=en&mode=contact');
         $this->assertNull(Inquiry::where('kind', 'contact')->firstOrFail()->consultation_option_id);
         $this->post('/inquiries', ['kind' => 'appointment', 'name' => ''])->assertSessionHasErrors();
-        $this->get('/contact?mode=contact&lang=bn')->assertOk()->assertDontSee('name="consultation_option_id"', false);
+        $this->get('/contact?mode=contact&locale=bn')->assertOk()->assertDontSee('name="consultation_option_id"', false);
         $this->get('/gallery?category=facility')->assertOk();
         $this->assertSame(2, Inquiry::count());
         $this->assertNotSame($inquiry->public_reference, Inquiry::where('kind', 'contact')->firstOrFail()->public_reference);

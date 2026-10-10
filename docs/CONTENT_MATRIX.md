@@ -1,6 +1,6 @@
 # Public content ownership matrix
 
-Updated after Step 3, 2026-10-10. `frontend/` is the unmodified reference. `Imported; admin pending` means the database owner/initial value is implemented and verified; admin editors remain future work. `Implemented; admin pending` covers private inquiry/request behavior. The 81-key table now uses actual destinations. Structural layout/CSS/glyphs are code-owned. Shared identity/address/hours are canonical settings, never per-page copies. All managed text uses `{en,bn}` and the shared LocalizedContent resolver. The reconciliation section below describes final schema names and newly implemented fields.
+Updated after Step 4, 2026-10-10. `frontend/` is the unmodified reference. `Imported; admin pending` means database ownership/initial value and its documented public rendering are implemented and verified; admin editors remain future work. `Implemented; admin pending` covers private inquiry/request behavior. The 81-key table uses actual destinations. Structural layout/CSS/glyphs are code-owned. Shared identity/address/hours are canonical settings, never per-page copies. All managed text uses `{en,bn}` and the shared LocalizedContent resolver. The reconciliation sections describe actual schema and reusable rendering components.
 
 The first table contains every one of the 81 dictionary keys, including unused blogdesc, with individual source, DB owner, admin screen, rendering use and status. Subsequent tables enumerate collection fields and extra literal/structural copy. Exact bilingual values and slugs are preserved in FRONTEND_AUDIT. Shared fact prose uses allowlisted format placeholders as specified in ARCHITECTURE.
 
@@ -440,3 +440,24 @@ The source rows above remain the full original inventory. Actual initial databas
 Canonical field formats reference shared settings instead of storing duplicate doctor/address/hours text. Post bodies are localized arrays of plain paragraphs; no executable templates. Required English validation is enforced on saves; optional Bangla/optional fields use the shared safe resolver. All source literals without Bangla receive simple translations, including headings, accessibility labels, badges and metadata. The unused blogdesc remains blog.blogdesc. Historical credit rows mean provenance controls; no photographer credit was supplied or invented. Displayed copies of fixed glyphs remain code-owned. Unused proposed helper strings are covered by contact.privacy or code-owned focus behavior; there is no arbitrary JSON editor.
 
 Future admin screens must use the code registry’s field control/owner/group/rules, and individual English / বাংলা controls. Schema and public rendering are implemented; an admin editor is not yet claimed for any row.
+
+## Step 4 rendering reconciliation
+
+Every original source row retains the same database owner; no second content catalog or seed fallback was introduced. `blog.blogdesc` remains intentionally unrendered because the original renderer never used it. Provenance/technical media fields and private inquiry/staff fields are administrative data, not invented public copy.
+
+| Fields/collection | Existing database owner | Rendering location / Step 4 status |
+| --- | --- | --- |
+| Shared branding/subtitle/address/hours/Friday | SiteSetting + shared.brand_target | public.parts.topbar/navigation/footer; locale-aware safe targets, escaped text |
+| Header/footer labels/targets/order/visibility | NavigationItem | public.parts.navigation/footer; shared contact heading still reads header:contact label even when its link is hidden |
+| Shared CTA/copyright/footer/notices | SiteSetting + registered footer/UI fields | public.parts.cta/footer/notice; diagnostic notice remains its own diagnostics.diagnotice; essential notices retained |
+| Home cards/icons/targets | CareCard | public.parts.care-card; four enabled initial rows, original glyphs/classes/order |
+| Services blocks/title/body | Service | public.pages.services; five enabled rows, code-owned numbering |
+| Category slugs/labels/applicability | Category | public.parts.filters; validated GET links, server collection filtering, locale retained, no new tagging system |
+| Post title/excerpt/badge/category/media/alt/body/metadata | Post + Category + MediaAsset | public.parts.article-card/paragraphs and public.pages.article; published-only slug binding, no date substitution, escaped paragraph arrays |
+| Gallery caption/alt/category/media/visibility/order | GalleryImage + Category + MediaAsset | public.parts.gallery-item/gallery/lightbox; escaped attributes, localized captions/alt and safe URLs |
+| All page headings/copy/link labels/media/SEO | ContentField + Page + approved PageSection + canonical SiteSetting | Existing eight public.pages templates within public.layouts.app; fixed original hierarchy/classes/order; all primary content server-rendered |
+| Locale button/filter empty state/menu/lightbox accessible labels | Existing registered ui.* fields | navigation/filters/articles/gallery/lightbox; no hardcoded replacement language dictionary |
+| Contact mode/name/phone/topic/message/submit/privacy/success/errors | Existing contact.* fields + ConsultationOption | public.pages.contact and InquiryController; mode GET separate from POST, hidden validated locale, safe internal redirect, success only after existing save |
+| Article editor paragraph controls | Code-owned private editor controls; future Post.body values | Reusable admin.partials.paragraph-repeater/paragraph-row + admin.js; add/remove/reorder implemented, escaped arrays; article CRUD remains pending |
+
+Homepage counts and flags still select exactly the original first three articles/gallery entries. No content records, translations, visibility/publication decisions, source assets or initialization snapshot were changed in Step 4. Public interaction CSS is separate from the unchanged baseline and admin Tailwind. PUBLIC_VERIFICATION records intentional functional/control differences and the manual visual checklist.

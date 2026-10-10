@@ -45,7 +45,12 @@ final class WebsiteContent
 
     public function target(string $target): string
     {
-        return in_array($target, PublicTarget::ROUTES, true) ? route($target) : $target;
+        return in_array($target, PublicTarget::ROUTES, true) ? app(PublicUrl::class)->route($target) : $this->external($target);
+    }
+
+    public function external(string $url): string
+    {
+        return PublicTarget::safeExternal($url) ? $url : '';
     }
 
     public function format(string $text, array $context = []): string

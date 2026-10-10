@@ -1,0 +1,2 @@
+@php($mediaUrl = $image->mediaAsset?->url() ?? '')
+<figure class="gallery-item" data-category="{{ $image->category?->slug }}" data-caption="{{ $image->localized('caption') }}" data-url="{{ $mediaUrl }}" @if ($mediaUrl) tabindex="0" role="button" aria-label="{{ $image->localized('caption') }}" @endif>@include('public.parts.image', ['url' => $mediaUrl, 'class' => '', 'alt' => $image->localized('alt_text')])<figcaption>{{ $image->localized('caption') }}</figcaption></figure>

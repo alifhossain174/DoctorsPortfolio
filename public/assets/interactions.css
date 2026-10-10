@@ -1,0 +1,5 @@
+/* The unchanged source stylesheet remains the design baseline. These link controls
+   match the source buttons' browser font/line-height while supporting native GETs. */
+.links a.lang,.links a.lang:hover{font-family:Arial,sans-serif;font-size:13.3333px;font-weight:800;line-height:normal;color:var(--jade)}
+.filters a.filter{font-family:Arial,sans-serif;line-height:normal}
+.gallery-item[role=button]:focus-visible,.filter:focus-visible,.lang:focus-visible{outline:2px solid var(--jade);outline-offset:3px}

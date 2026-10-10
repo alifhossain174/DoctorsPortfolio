@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Rules\PublicTarget;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Storage;
 
@@ -34,6 +35,15 @@ class MediaAsset extends CmsModel
 
     public function url(): string
     {
-        return $this->path ? Storage::disk($this->disk)->url($this->path) : ($this->source_url ?? '');
+        if ($this->path) {
+            // Public raster uploads only; never emit arbitrary disks, SVG or traversal paths.
+            if ($this->disk !== 'public' || ! preg_match('~^uploads/[A-Za-z0-9/_-]+\.(?:jpg|jpeg|png|webp|gif)$~iD', $this->path)) {
+                return '';
+            }
+
+            return Storage::disk('public')->url($this->path);
+        }
+
+        return PublicTarget::safeExternal($this->source_url) ? $this->source_url : '';
     }
 }

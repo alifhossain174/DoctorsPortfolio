@@ -22,3 +22,28 @@ window.addEventListener('pageshow', () => {
         form.querySelectorAll('[aria-disabled="true"]').forEach((button) => button.removeAttribute('aria-disabled'));
     });
 });
+
+// Plain paragraph arrays, submitted by the parent Blade form in DOM order.
+document.querySelectorAll('[data-paragraph-repeater]').forEach(repeater => {
+    const list = repeater.querySelector('[data-paragraph-list]');
+    repeater.addEventListener('click', event => {
+        const button = event.target.closest('button');
+        if (!button) return;
+        const row = button.closest('[data-paragraph-row]');
+        if (button.hasAttribute('data-paragraph-add')) {
+            list.append(repeater.querySelector('template').content.cloneNode(true));
+            list.lastElementChild.querySelector('textarea').focus();
+        } else if (row && button.hasAttribute('data-paragraph-up') && row.previousElementSibling) {
+            list.insertBefore(row, row.previousElementSibling);
+            button.focus();
+        } else if (row && button.hasAttribute('data-paragraph-down') && row.nextElementSibling) {
+            list.insertBefore(row.nextElementSibling, row);
+            button.focus();
+        } else if (row && button.hasAttribute('data-paragraph-remove')) {
+            const next = row.nextElementSibling ?? row.previousElementSibling;
+            if (list.children.length > 1) row.remove();
+            else row.querySelector('textarea').value = '';
+            (next?.querySelector('textarea') ?? list.querySelector('textarea')).focus();
+        }
+    });
+});

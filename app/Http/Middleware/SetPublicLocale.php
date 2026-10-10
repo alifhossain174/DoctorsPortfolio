@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Http\Middleware;
+
+use App\Services\WebsiteContent;
+use Closure;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+
+final class SetPublicLocale
+{
+    public function handle(Request $request, Closure $next): Response
+    {
+        $selected = $request->query('locale');
+        $stored = $request->session()->get('public_locale');
+        $default = app(WebsiteContent::class)->settings?->default_locale;
+        $locale = collect([$selected, $stored, $default, 'en'])->first(fn ($value) => in_array($value, ['en', 'bn'], true));
+        app()->setLocale($locale);
+        $request->session()->put('public_locale', $locale);
+
+        return $next($request);
+    }
+}

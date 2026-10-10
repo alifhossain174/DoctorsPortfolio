@@ -10,40 +10,61 @@ use App\Models\NavigationItem;
 use App\Models\Page;
 use App\Models\Post;
 use App\Models\Service;
+use App\Services\PublicUrl;
 use App\Services\WebsiteContent;
 use Illuminate\Http\Request;
 
 class PublicPageController extends Controller
 {
-    public function article(Request $request, WebsiteContent $site, string $slug)
+    public function article(Request $request, WebsiteContent $site, Post $post)
     {
-        return $this->show($request, $site, 'article', $slug);
+        abort_unless($post->status === 'published' && $post->published_at && $post->published_at->lte(now()), 404);
+        $post->load(['category', 'mediaAsset']);
+
+        return $this->show($request, $site, 'article', $post);
     }
 
-    public function show(Request $request, WebsiteContent $site, string $page = 'home', ?string $slug = null)
+    public function show(Request $request, WebsiteContent $site, string $page = 'home', ?Post $post = null)
     {
-        $post = $slug === null ? null : Post::published()->with(['category', 'mediaAsset'])->where('slug', $slug)->firstOrFail();
-        if ($post) {
-            $page = 'article';
-        }
         $pageRecord = Page::with('sections')->where('key', $page)->firstOrFail();
-        $posts = Post::published()->with(['category', 'mediaAsset'])->orderBy('sort_order')->orderBy('id');
-        $images = GalleryImage::visible()->with(['category', 'mediaAsset'])->orderBy('sort_order')->orderBy('id');
-        if ($page === 'home') {
-            $posts->where('on_homepage', true)->limit($site->count('home.article_count'));
-            $images->where('on_homepage', true)->limit($site->count('home.gallery_count'));
+        $categories = in_array($page, ['blog', 'gallery'], true)
+            ? Category::where($page === 'gallery' ? 'for_gallery' : 'for_blog', true)->orderBy('sort_order')->orderBy('id')->get() : collect();
+        $query = app(PublicUrl::class)->query($request, $page, $categories->pluck('slug')->all());
+        $filter = $query['category'] ?? 'all';
+        $posts = collect();
+        $images = collect();
+        if (in_array($page, ['home', 'blog'], true)) {
+            $builder = Post::published()->with(['category', 'mediaAsset'])->orderBy('sort_order')->orderBy('id');
+            if ($page === 'home') {
+                $builder->where('on_homepage', true)->limit($site->count('home.article_count'));
+            } elseif ($filter !== 'all') {
+                $builder->whereHas('category', fn ($category) => $category->where('slug', $filter));
+            }
+            $posts = $builder->get();
         }
+        if (in_array($page, ['home', 'gallery'], true)) {
+            $builder = GalleryImage::visible()->with(['category', 'mediaAsset'])->orderBy('sort_order')->orderBy('id');
+            if ($page === 'home') {
+                $builder->where('on_homepage', true)->limit($site->count('home.gallery_count'));
+            } elseif ($filter !== 'all') {
+                $builder->whereHas('category', fn ($category) => $category->where('slug', $filter));
+            }
+            $images = $builder->get();
+        }
+        $sections = $pageRecord->sections->keyBy('key');
 
         return view('public.page', [
-            'site' => $site, 'page' => $page, 'pageRecord' => $pageRecord, 'post' => $post,
-            'navigation' => NavigationItem::where('is_visible', true)->orderBy('sort_order')->get()->groupBy('placement'),
-            'cards' => CareCard::where('is_enabled', true)->orderBy('sort_order')->get(),
-            'services' => Service::where('is_enabled', true)->orderBy('sort_order')->get(),
-            'posts' => $posts->get(), 'images' => $images->get(),
-            'categories' => Category::where($page === 'gallery' ? 'for_gallery' : 'for_blog', true)->orderBy('sort_order')->get(),
-            'options' => ConsultationOption::where('is_active', true)->orderBy('sort_order')->get(),
-            'mode' => $request->query('mode') === 'contact' ? 'contact' : 'appointment',
-            'filter' => is_string($request->query('category')) ? $request->query('category') : 'all',
+            'site' => $site, 'urls' => app(PublicUrl::class), 'page' => $page, 'pageRecord' => $pageRecord, 'post' => $post,
+            'label' => $pageRecord->localized('label'), 'locale' => app()->getLocale(),
+            'metaTitle' => $post?->localized('meta_title') ?: $pageRecord->localized('meta_title'),
+            'metaDescription' => $post?->localized('meta_description') ?: $pageRecord->localized('meta_description'),
+            'visible' => fn ($key) => (bool) ($sections->get($page.'.'.$key)?->is_visible ?? false),
+            'navigation' => NavigationItem::orderBy('sort_order')->orderBy('id')->get()->groupBy('placement'),
+            'cards' => $page === 'home' ? CareCard::where('is_enabled', true)->orderBy('sort_order')->orderBy('id')->get() : collect(),
+            'services' => $page === 'services' ? Service::where('is_enabled', true)->orderBy('sort_order')->orderBy('id')->get() : collect(),
+            'posts' => $posts, 'images' => $images, 'categories' => $categories,
+            'options' => $page === 'contact' ? ConsultationOption::where('is_active', true)->orderBy('sort_order')->orderBy('id')->get() : collect(),
+            'mode' => $query['mode'] ?? 'appointment', 'filter' => $filter,
         ]);
     }
 }

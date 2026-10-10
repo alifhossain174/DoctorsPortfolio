@@ -1,0 +1,1 @@
+<div class="gallery-lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-label="{{ $site->text('ui.gallery_preview') }}" aria-describedby="lbCaption"><button id="closeLightbox" aria-label="{{ $site->text('ui.close_lightbox') }}">×</button><img id="lbImage" alt=""><p id="lbCaption"></p></div>

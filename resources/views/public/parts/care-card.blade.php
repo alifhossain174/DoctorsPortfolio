@@ -1,0 +1,1 @@
+<a href="{{ $site->target($card->localized('target')) }}" class="card service-card"><div class="service-icon">{{ $card->localized('icon') }}</div><h3>{{ $card->localized('title') }}</h3><p>{{ $site->format($card->localized('description')) }}</p><span class="mini">{{ $card->localized('link_label') }}</span></a>
