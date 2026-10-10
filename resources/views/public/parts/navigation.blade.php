@@ -3,6 +3,6 @@
     <button class="menu" id="menuBtn" aria-label="{{ $site->text('ui.open_navigation') }}" data-open-label="{{ $site->text('ui.open_navigation') }}" data-close-label="{{ $site->text('ui.menu_close') }}" aria-expanded="false" aria-controls="navLinks">☰</button>
     <nav class="links" id="navLinks">
         @foreach ($navigation->get('header', collect())->where('is_visible', true) as $item)<a href="{{ $site->target($item->localized('target')) }}" @class(['active' => $item->localized('target') === ($page === 'article' ? 'blog' : $page)])>{{ $item->localized('label') }}</a>@endforeach
-        <a class="lang" id="langBtn" href="{{ $urls->current(request(), $locale === 'en' ? 'bn' : 'en', $categories->pluck('slug')->all()) }}">{{ $site->text($locale === 'en' ? 'ui.switch_to_bn' : 'ui.switch_to_en') }}</a>
+        <a class="lang" id="langBtn" href="{{ $page === 'error' ? $urls->route('home', ['locale' => $locale === 'en' ? 'bn' : 'en']) : $urls->current(request(), $locale === 'en' ? 'bn' : 'en', $categories->pluck('slug')->all()) }}">{{ $site->text($locale === 'en' ? 'ui.switch_to_bn' : 'ui.switch_to_en') }}</a>
     </nav>
 </div></header>

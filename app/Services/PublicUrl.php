@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Rules\PublicTarget;
 use Illuminate\Http\Request;
 
 /** Only code-owned routes and validated purpose-specific query values are carried forward. */
@@ -14,7 +15,10 @@ final class PublicUrl
 
     public function current(Request $request, string $locale, array $categories = []): string
     {
-        $name = $request->route()->getName();
+        $name = $request->route()?->getName();
+        if (! in_array($name, [...PublicTarget::ROUTES, 'article', 'admin.articles.preview'], true)) {
+            return $this->route('home', ['locale' => $locale]);
+        }
         $parameters = in_array($name, ['article', 'admin.articles.preview'], true) ? ['post' => $request->route('post')] : [];
 
         return route($name, array_merge($parameters, $this->query($request, $name, $categories), ['locale' => $locale]));

@@ -1,6 +1,6 @@
 # DoctorPortfolio
 
-Standalone Laravel 12 / PHP 8.2 application with Blade, Eloquent and vanilla JavaScript. Steps 3–12 supply initialized public pages, private authentication/dashboard/profile, media, settings/page/navigation editors, care/service/consultation editors and category/article and gallery CRUD. Hardened bilingual appointment/contact submissions now save synchronously. Kind-scoped private staff inboxes and the real-data dashboard are implemented. Read AGENTS.md and docs/IMPLEMENTATION_STATUS.md before continuing.
+Standalone Laravel 12 / PHP 8.2 application with Blade, Eloquent and vanilla JavaScript. Steps 3–13 supply initialized public pages, private authentication/dashboard/profile, media, settings/page/navigation editors, care/service/consultation editors and category/article and gallery CRUD. Hardened bilingual appointment/contact submissions now save synchronously. Kind-scoped private staff inboxes, the real-data dashboard and audited database-backed public content/SEO are implemented. Read AGENTS.md and docs/IMPLEMENTATION_STATUS.md before continuing.
 
 ## Local setup (PowerShell, project root)
 
@@ -165,3 +165,14 @@ Run php artisan migrate and npm run build for the additive status-history table 
 Opening a request does not mark it read. Use Mark read or explicitly save status/private notes. Appointment has optional manually confirmed time; General has no confirmation controls. Sensitive changes and permanent deletion require confirmation; stale forms are rejected. Changes record staff/time/status history and send no email/Facebook notification. Deletion affects only the active record/local history, not backups. Dashboard counts and recent private links are actual database results; quick links open content editors and public EN/BN preview.
 
 All admin responses are private/no-store/noindex, with sensitive debug/log protection. Do not share screenshots of real submissions/notes/credentials. See [ADMIN_INQUIRIES](docs/ADMIN_INQUIRIES.md) for exact transitions, time rules, filters, failure/backup boundaries and manual desktop/mobile review. Full PHP suite: 118 tests pass; real localhost bilingual public-submit → staff-review integration passed in the isolated MySQL test database and disposable fixtures/account were cleaned. Public SEO is the next owner step.
+
+
+## Content editing and SEO (Step 13)
+
+Read [ADMIN_CONTENT_GUIDE](docs/ADMIN_CONTENT_GUIDE.md) for every public section's editor, shared facts, English/Bangla fallback, stock-photo/visibility/publication and inquiry rules. [CONTENT_TRACE](docs/CONTENT_TRACE.md) closes every matrix row through actual validation/database/render consumers. All active copy is database-backed; layout/CSS/system controls stay fixed. Public 404/metadata now use the same localized CMS. No source/seed content fallback or JS catalog exists.
+
+Existing installations explicitly run php artisan db:seed for the four missing-only department/404 copy fields, then npm run build. Separate completion marker preserves repeated-import edits/deletions; no migration/new owner credential is needed. Set private APP_URL to the absolute deployed public root, without query/fragment/credentials. Server tags include localized title/description/OG/image/canonical/reciprocal en/bn alternates; article context uses the actual title/excerpt. English/Bangla canonical URLs remain distinct. Valid collection category/page are normalized; contact kind/tracking do not create indexed duplicates.
+
+Dynamic /robots.txt and /sitemap.xml use current database pages/publications and actual update times, exclude private/internal/legacy/filter URLs and recompute synchronously with immediate revalidation. Do not deploy a static public/robots.txt that shadows Laravel. Admin/preview/error privacy/index headers are enforced. No medical structured data, fake original dates, queue or external service is added.
+
+Verified 126 PHP tests/9 JS checks/build; real protected editor changes reached public HTML immediately in both locales. A separate release without frontend or initialization snapshots matched all 22 page-locale responses and read those same database changes. Scoped test fixtures/account/private copied env were cleaned. Source CSS/DOM remain preserved; browser pixel/mobile and real cPanel review are still manual/later.

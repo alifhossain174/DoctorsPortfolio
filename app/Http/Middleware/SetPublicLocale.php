@@ -11,13 +11,20 @@ final class SetPublicLocale
 {
     public function handle(Request $request, Closure $next): Response
     {
+        $this->select($request);
+
+        return $next($request);
+    }
+
+    public function select(Request $request): void
+    {
         $selected = $request->query('locale');
-        $stored = $request->session()->get('public_locale');
+        $stored = $request->hasSession() ? $request->session()->get('public_locale') : null;
         $default = app(WebsiteContent::class)->settings?->default_locale;
         $locale = collect([$selected, $stored, $default, 'en'])->first(fn ($value) => in_array($value, ['en', 'bn'], true));
         app()->setLocale($locale);
-        $request->session()->put('public_locale', $locale);
-
-        return $next($request);
+        if ($request->hasSession()) {
+            $request->session()->put('public_locale', $locale);
+        }
     }
 }

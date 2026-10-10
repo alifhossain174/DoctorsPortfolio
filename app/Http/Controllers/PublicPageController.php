@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\SetPublicLocale;
 use App\Models\CareCard;
 use App\Models\Category;
 use App\Models\ConsultationOption;
@@ -11,6 +12,7 @@ use App\Models\Page;
 use App\Models\Post;
 use App\Models\Service;
 use App\Services\InquirySubmissionTokens;
+use App\Services\PublicSeo;
 use App\Services\PublicUrl;
 use App\Services\PublishedArticle;
 use App\Services\WebsiteContent;
@@ -30,7 +32,7 @@ class PublicPageController extends Controller
 
     public function show(Request $request, WebsiteContent $site, string $page = 'home', ?Post $post = null, bool $preview = false)
     {
-        $pageRecord = Page::with('sections')->where('key', $page)->firstOrFail();
+        $pageRecord = Page::with(['sections', 'ogImage'])->where('key', $page)->firstOrFail();
         $categories = in_array($page, ['blog', 'gallery'], true)
             ? Category::where($page === 'gallery' ? 'for_gallery' : 'for_blog', true)->orderBy('sort_order')->orderBy('id')->get() : collect();
         $query = app(PublicUrl::class)->query($request, $page, $categories->pluck('slug')->all());
@@ -65,8 +67,7 @@ class PublicPageController extends Controller
             'site' => $site, 'urls' => app(PublicUrl::class), 'page' => $page, 'pageRecord' => $pageRecord, 'post' => $post,
             'preview' => $preview,
             'label' => $pageRecord->localized('label'), 'locale' => app()->getLocale(),
-            'metaTitle' => $post?->localized('meta_title') ?: ($post ? $site->text('meta.title_format', ['page_label' => $post->localized('title')]) : ($pageRecord->localized('meta_title') ?: $site->text('meta.title_format', ['page_label' => $pageRecord->localized('label')]))),
-            'metaDescription' => $post?->localized('meta_description') ?: ($pageRecord->localized('meta_description') ?: ($post?->localized('excerpt') ?: $site->setting('doctor_biography'))),
+            'seo' => app(PublicSeo::class)->forPage($request, $site, $pageRecord, $post, $query, $preview),
             'visible' => fn ($key) => (bool) ($sections->get($page.'.'.$key)?->is_visible ?? false),
             'navigation' => NavigationItem::orderBy('sort_order')->orderBy('id')->get()->groupBy('placement'),
             'cards' => $page === 'home' ? CareCard::where('is_enabled', true)->orderBy('sort_order')->orderBy('id')->get() : collect(),
@@ -76,5 +77,18 @@ class PublicPageController extends Controller
             'mode' => $query['kind'] ?? 'appointment', 'filter' => $filter,
             'submissionToken' => $page === 'contact' ? app(InquirySubmissionTokens::class)->issue($request) : null,
         ]);
+    }
+
+    public function notFound(Request $request)
+    {
+        app(SetPublicLocale::class)->select($request);
+        $site = app(WebsiteContent::class);
+        $title = $site->text('ui.not_found_title');
+
+        return response()->view('public.error', [
+            'site' => $site, 'urls' => app(PublicUrl::class), 'page' => 'error', 'locale' => app()->getLocale(), 'categories' => collect(),
+            'navigation' => NavigationItem::orderBy('sort_order')->orderBy('id')->get()->groupBy('placement'),
+            'seo' => ['title' => $title, 'description' => $site->text('ui.not_found_description'), 'og_title' => $title, 'og_description' => $site->text('ui.not_found_description'), 'image' => '', 'type' => 'website', 'site_name' => $site->setting('doctor_name'), 'locale' => app()->getLocale() === 'bn' ? 'bn_BD' : 'en_GB', 'canonical' => '', 'alternates' => [], 'robots' => 'noindex, follow'],
+        ], 404, ['X-Robots-Tag' => 'noindex, follow', 'Cache-Control' => 'private, no-store, max-age=0']);
     }
 }

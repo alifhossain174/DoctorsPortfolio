@@ -3,9 +3,7 @@
 <head>
     <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="theme-color" content="#205d54">
-    @if($preview ?? false)<meta name="robots" content="noindex, nofollow, nosnippet">@endif
-    <meta name="description" content="{{ $site->format($metaDescription, ['page_label' => $label]) }}">
-    <title>{{ $site->format($metaTitle, ['page_label' => $label]) }}</title>
+    @include('public.parts.metadata')
     <link rel="stylesheet" href="{{ asset('assets/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/interactions.css') }}">
     <script src="{{ asset('assets/public.js') }}" defer></script>

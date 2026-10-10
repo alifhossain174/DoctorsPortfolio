@@ -2,6 +2,10 @@
 
 // Code-owned named controls. Values live exclusively in content_fields.
 return [
+    'shared.department_format' => ['type' => 'format', 'localized' => true, 'required' => true, 'screen_group' => 'shared', 'owner' => 'ContentField'],
+    'ui.not_found_title' => ['type' => 'text', 'localized' => true, 'required' => true, 'screen_group' => 'ui', 'owner' => 'ContentField'],
+    'ui.not_found_description' => ['type' => 'textarea', 'localized' => true, 'required' => true, 'screen_group' => 'ui', 'owner' => 'ContentField'],
+    'ui.not_found_link' => ['type' => 'text', 'localized' => true, 'required' => true, 'screen_group' => 'ui', 'owner' => 'ContentField'],
     'home.appointment' => ['type' => 'text', 'localized' => true, 'required' => true, 'screen_group' => 'home', 'owner' => 'ContentField'],
     'home.eyebrow' => ['type' => 'text', 'localized' => true, 'required' => true, 'screen_group' => 'home', 'owner' => 'ContentField'],
     'home.herotitle' => ['type' => 'text', 'localized' => true, 'required' => true, 'screen_group' => 'home', 'owner' => 'ContentField'],

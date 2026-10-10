@@ -1,0 +1,6 @@
+{
+  "shared.department_format": {"en": "Department of {department}", "bn": "{department}"},
+  "ui.not_found_title": {"en": "Page not found", "bn": "পৃষ্ঠাটি পাওয়া যায়নি"},
+  "ui.not_found_description": {"en": "The page may have moved or is unavailable. Please return to the homepage or use the navigation.", "bn": "পৃষ্ঠাটি সরানো হয়েছে অথবা এখন পাওয়া যাচ্ছে না। হোমপেজে ফিরে যান অথবা মেনু ব্যবহার করুন।"},
+  "ui.not_found_link": {"en": "Return to homepage", "bn": "হোমপেজে ফিরে যান"}
+}

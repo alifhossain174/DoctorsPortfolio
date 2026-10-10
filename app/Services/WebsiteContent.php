@@ -61,9 +61,13 @@ final class WebsiteContent
         }
         $facts['year'] = now()->format('Y');
         $facts['credential_lower'] = app()->getLocale() === 'en' ? lcfirst($facts['credential']) : $facts['credential'];
-        $facts['department_full'] = app()->getLocale() === 'en' ? 'Department of '.$facts['department'] : $facts['department'];
-        $facts['clinic_name_sentence'] = app()->getLocale() === 'en' ? str_replace('Iui', 'IUI', ucwords(strtolower($facts['clinic_name']))) : $facts['clinic_name'];
-        $facts['address_short'] = preg_replace('/, Bangladesh$|, বাংলাদেশ$/u', '', $facts['address']);
+        $departmentFormat = app(LocalizedContent::class)->resolve($this->fields->get('shared.department_format')?->value);
+        $facts['department_full'] = str_replace('{department}', $facts['department'], $departmentFormat);
+        $words = preg_split('/\s+/u', trim($facts['clinic_name']), -1, PREG_SPLIT_NO_EMPTY);
+        $facts['clinic_name_sentence'] = app()->getLocale() === 'en'
+            ? implode(' ', array_map(fn ($word, $index) => $index > 0 && $index < count($words) - 1 && mb_strlen($word) <= 4 && $word === mb_strtoupper($word) ? $word : mb_convert_case($word, MB_CASE_TITLE, 'UTF-8'), $words, array_keys($words)))
+            : $facts['clinic_name'];
+        $facts['address_short'] = preg_replace('/,\s*[^,]+$/u', '', $facts['address']);
         $facts = array_merge($facts, array_intersect_key($context, array_flip(ContentFormat::TOKENS)));
 
         return preg_replace_callback('/\{([^{}]+)\}/u', fn ($match) => $facts[$match[1]] ?? '', $text);

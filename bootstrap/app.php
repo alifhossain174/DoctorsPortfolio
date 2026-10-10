@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PublicPageController;
 use App\Http\Middleware\PrivateResponse;
 use App\Http\Middleware\RequireAdmin;
 use App\Http\Middleware\SetPublicLocale;
@@ -10,6 +11,7 @@ use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -24,6 +26,11 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->redirectUsersTo(fn () => route('admin.dashboard'));
     })
     ->withExceptions(function (Exceptions $exceptions): void {
+        $exceptions->render(function (NotFoundHttpException $exception, Request $request) {
+            if (! $request->is('admin', 'admin/*', 'inquiries', 'inquiries/*', 'up') && ! $request->expectsJson()) {
+                return app(PublicPageController::class)->notFound($request);
+            }
+        });
         $exceptions->report(function (Throwable $exception) {
             if (app()->bound('request') && request()->is('admin', 'admin/*', 'inquiries')) {
                 // Never emit exception messages, SQL bindings, bodies or private notes.

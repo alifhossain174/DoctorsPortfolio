@@ -12,10 +12,15 @@ use App\Http\Controllers\Admin\NavigationController;
 use App\Http\Controllers\Admin\PageContentController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SettingsController;
+use App\Http\Controllers\DiscoveryController;
 use App\Http\Controllers\InquiryController;
 use App\Http\Controllers\LegacyPageController;
 use App\Http\Controllers\PublicPageController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
+Route::get('/robots.txt', [DiscoveryController::class, 'robots'])->name('robots');
+Route::get('/sitemap.xml', [DiscoveryController::class, 'sitemap'])->name('sitemap');
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware('guest')->group(function () {
@@ -76,4 +81,9 @@ Route::middleware('public.locale')->group(function () {
     }
     Route::get('/article.html', [LegacyPageController::class, 'article'])->name('legacy.article');
     Route::post('/inquiries', [InquiryController::class, 'store'])->middleware('throttle:inquiries')->name('inquiries.store');
+    Route::fallback(function (Request $request) {
+        abort_if($request->is('admin', 'admin/*', 'inquiries', 'inquiries/*', 'up'), 404);
+
+        return app(PublicPageController::class)->notFound($request);
+    })->name('public.not-found');
 });
