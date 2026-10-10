@@ -10,6 +10,8 @@ use Illuminate\Validation\ValidationException;
 
 final class ContentRegistry
 {
+    public const ICONS = ['🤰', '✿', '♡', '🔬', '✚', '✳'];
+
     public function fields(string $owner): array
     {
         $fields = config('cms_models.'.$owner, config('private_content_fields.'.$owner, []));
@@ -128,7 +130,7 @@ final class ContentRegistry
     {
         return match ($type) {
             'paragraphs' => ['array', 'min:1', 'max:100'],
-            'icon' => ['string', 'in:🤰,✿,♡,🔬,✚,✳'],
+            'icon' => ['string', 'in:'.implode(',', self::ICONS)],
             'target' => ['string', 'max:2048', new PublicTarget],
             'url' => ['string', 'max:4096', new PublicTarget(externalOnly: true)],
             'format' => ['string', 'max:'.($definition['max_length'] ?? 15000), new ContentFormat],

@@ -1,0 +1,22 @@
+@extends('admin.layouts.app')
+@section('title',$definition['title'].' · DoctorPortfolio')
+@section('heading',$definition['title'])
+@section('content')
+<x-admin.breadcrumbs :items="[['label'=>'Dashboard','href'=>route('admin.dashboard')],['label'=>$definition['title']]]"/>
+<div class="mb-7 flex flex-wrap items-end justify-between gap-4"><div><h1 class="text-3xl font-semibold tracking-tight">{{ $definition['title'] }}</h1><p class="mt-2 max-w-3xl text-sm leading-6 text-slate-500">{{ $definition['help'] }}</p></div><div class="flex gap-3"><x-admin.button variant="secondary" :href="route($definition['preview'],['locale'=>'en'])" target="_blank" rel="noopener">View page ↗</x-admin.button><x-admin.button :href="route($definition['prefix'].'.create')">Add {{ $definition['singular'] }}</x-admin.button></div></div>
+@include('admin.care.links')
+<x-admin.validation-summary/>
+<div class="mb-5 flex flex-wrap items-center gap-3 text-xs text-slate-500"><x-admin.badge>{{ $records->count() }} records</x-admin.badge><x-admin.badge tone="success">{{ $records->where($definition['state'],true)->count() }} enabled</x-admin.badge><span>Move controls include disabled records. The public site uses enabled order.</span></div>
+@if($records->isEmpty())<section class="admin-card"><x-admin.empty-state :title="'No '.$definition['title'].' yet'" :description="'Add a '.$definition['singular'].' to this independent collection. No other page collection has been removed.'" icon="services"/></section>
+@else<section class="admin-card overflow-hidden p-0"><x-admin.table :headers="['Order','English / বাংলা','Status','Actions']" :caption="$definition['title']">
+@foreach($records as $record)
+<tr>
+    <td class="px-6 py-4"><span class="mb-3 block text-xs font-semibold text-slate-400">{{ $loop->iteration }}</span><div class="flex flex-wrap gap-1">@foreach(['up'=>'↑ Move up','down'=>'↓ Move down'] as $direction=>$label)<form method="post" action="{{ route($definition['prefix'].'.move',$record->id) }}" data-prevent-double-submit>@csrf @method('PATCH')<input type="hidden" name="direction" value="{{ $direction }}"><button type="submit" class="rounded-lg border border-slate-200 px-2 py-1.5 text-xs font-medium hover:border-jade-500 hover:text-jade-700 disabled:cursor-not-allowed disabled:opacity-40" @disabled($direction==='up' ? $loop->parent->first : $loop->parent->last) aria-label="Move {{ $record->localized($definition['label_field'],'en') }} {{ $direction }}">{{ $label }}</button></form>@endforeach</div></td>
+    <th scope="row" class="max-w-md px-6 py-4 text-left"><p class="font-semibold">@if($definition['owner']==='CareCard')<span class="mr-2">{{ $record->localized('icon','en') }}</span>@endif{{ $record->localized($definition['label_field'],'en') }}</p><p class="mt-1 text-sm font-normal text-slate-500" lang="bn">{{ $record->getAttribute($definition['label_field'])['bn'] ?? '' }}</p><p class="mt-2 text-xs font-normal text-slate-400">Key: {{ $record->key }}@if($definition['owner']==='Service') · Slug: {{ $record->slug }}@endif</p></th>
+    <td class="px-6 py-4"><x-admin.badge :tone="$record->getAttribute($definition['state']) ? 'success' : 'neutral'">{{ $record->getAttribute($definition['state']) ? 'Enabled' : 'Disabled' }}</x-admin.badge></td>
+    <td class="px-6 py-4"><a class="text-sm font-semibold text-jade-700 hover:underline" href="{{ route($definition['prefix'].'.edit',$record->id) }}">Edit {{ $definition['singular'] }}</a><form method="post" action="{{ route($definition['prefix'].'.visibility',$record->id) }}" class="mt-3 space-y-2" data-prevent-double-submit>@csrf @method('PATCH')<input type="hidden" name="state" value="{{ $record->getAttribute($definition['state']) ? 0 : 1 }}">@if($record->getAttribute($definition['state']))<label class="flex items-center gap-2 text-xs text-slate-500"><input class="h-4 w-4 accent-jade-700" type="checkbox" name="confirm_disable" value="1" required>Confirm disable</label>@endif<button type="submit" class="rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-medium hover:border-jade-500 hover:text-jade-700">{{ $record->getAttribute($definition['state']) ? 'Disable' : 'Enable' }}</button></form></td>
+</tr>
+@endforeach
+</x-admin.table></section>@endif
+<p class="mt-5 text-xs leading-6 text-slate-500">Changes appear on the next public request. Disable to retain content; delete is available in each editor with confirmation. Original demo records deleted intentionally stay deleted on ordinary reinitialization.</p>
+@endsection

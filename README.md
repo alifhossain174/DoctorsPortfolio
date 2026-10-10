@@ -1,6 +1,6 @@
-﻿# DoctorPortfolio
+# DoctorPortfolio
 
-Standalone Laravel 12 / PHP 8.2 application with Blade, Eloquent and vanilla JavaScript. Steps 3–7 supply initialized public pages, private authentication/dashboard/profile, a media library, shared settings, all eight fixed-page editors and navigation editing. Collection CRUD and staff inbox screens are later steps. Read AGENTS.md and docs/IMPLEMENTATION_STATUS.md before continuing.
+Standalone Laravel 12 / PHP 8.2 application with Blade, Eloquent and vanilla JavaScript. Steps 3–8 supply initialized public pages, private authentication/dashboard/profile, media, shared settings, all eight fixed-page editors, navigation, homepage care cards, service-detail blocks and independent consultation choices. Article/category/gallery editing and staff inbox screens remain later steps. Read AGENTS.md and docs/IMPLEMENTATION_STATUS.md before continuing.
 
 ## Local setup (PowerShell, project root)
 
@@ -80,7 +80,8 @@ resources/js/admin.js    Vanilla admin enhancement
 scripts/vite-dev.mjs     Asset development runner
 public/                  Only production web document root
 public/build/            Generated manifest and hashed admin CSS/JS
-storage/                 Private data, local media, sessions/cache/logs
+storage/                 Private data, sessions/cache/logs
+public/uploads/          Configurable public image disk, safety rules; no symlink
 frontend/                Unmodified original reference; not deployed
 docs/                    Audit, architecture, matrix and status
 ```
@@ -106,6 +107,8 @@ Run `php artisan migrate` to apply the new nullable media caption column, then u
 The **public-media** disk defaults to `public/uploads` and `APP_URL/uploads`, without `storage:link`. For split cPanel layouts set private `PUBLIC_MEDIA_ROOT` to the account's absolute public_html/uploads path and `PUBLIC_MEDIA_URL` to its HTTPS /uploads URL, deploy public/uploads/.htaccess there and verify host overrides/MIME/handler rules. Runtime files are ignored; the safety .htaccess/.gitignore are tracked. Do not store private documents/inquiries on this disk. See docs/MEDIA_MANAGER.md for setup, PHP limits, shared-picker usage and synchronous failure recovery. Public external images and Google Fonts remain network dependencies.
 
 ## Content initialization and tests
+
+Step 8 activates `/admin/care-cards`, `/admin/services` and `/admin/consultation-options`, with independent bilingual CRUD, accessible up/down ordering and confirmed disable/delete. Their initial **4 cards / 5 service blocks / 4 appointment choices** already exist. Card links are limited to Services/Diagnostics; service ordinals follow enabled order. Options retain stable keys and existing inquiry snapshots even after deletion. Diagnostics stays at `/admin/pages/diagnostics/edit`, with shared clinic/CTA sources and its original availability caveat. See [CARE_CONTENT](docs/CARE_CONTENT.md) and CONTENT_MATRIX. No new migration or seed is required for this step on the initialized local database.
 
 On a new dedicated MySQL/MariaDB database run `php artisan migrate`, then `php artisan db:seed`. The completed import marker makes later normal seeding skip existing website content, including deleted originals. No default admin/password or fake inquiry is created. Seed files are explicit initialization input only; production needs the snapshot but does not need frontend/ or Node to seed.
 

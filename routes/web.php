@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CareCollectionController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\MediaController;
@@ -31,6 +32,16 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/pages/{page:key}/edit', [PageContentController::class, 'edit'])->name('pages.edit');
         Route::put('/pages/{page:key}', [PageContentController::class, 'update'])->name('pages.update');
         Route::resource('navigation', NavigationController::class)->parameters(['navigation' => 'navigationItem'])->except('show');
+        foreach (array_keys(config('care_collections')) as $collection) {
+            Route::get('/'.$collection, [CareCollectionController::class, 'index'])->defaults('collection', $collection)->name($collection.'.index');
+            Route::get('/'.$collection.'/create', [CareCollectionController::class, 'create'])->defaults('collection', $collection)->name($collection.'.create');
+            Route::post('/'.$collection, [CareCollectionController::class, 'store'])->defaults('collection', $collection)->name($collection.'.store');
+            Route::get('/'.$collection.'/{item}/edit', [CareCollectionController::class, 'edit'])->whereNumber('item')->defaults('collection', $collection)->name($collection.'.edit');
+            Route::put('/'.$collection.'/{item}', [CareCollectionController::class, 'update'])->whereNumber('item')->defaults('collection', $collection)->name($collection.'.update');
+            Route::delete('/'.$collection.'/{item}', [CareCollectionController::class, 'destroy'])->whereNumber('item')->defaults('collection', $collection)->name($collection.'.destroy');
+            Route::patch('/'.$collection.'/{item}/move', [CareCollectionController::class, 'move'])->whereNumber('item')->defaults('collection', $collection)->name($collection.'.move');
+            Route::patch('/'.$collection.'/{item}/visibility', [CareCollectionController::class, 'visibility'])->whereNumber('item')->defaults('collection', $collection)->name($collection.'.visibility');
+        }
     });
 });
 

@@ -2,6 +2,8 @@
 
 Step 7, implemented 2026-10-10. Sign in through `/admin/login`; Website Settings, Page Content and Navigation are now active destinations. The full original bilingual content remains initialized. No owner account, inquiry fixture, new medical fact or replacement stock photo was added.
 
+Step 8 now adds independent care-card, service-block and consultation-option editors; see CARE_CONTENT. This supersedes the historical pending status for those three collections below. Diagnostics continues to use this fixed-page editor and canonical clinic/CTA sources. Article/category/gallery and staff inbox modules remain pending.
+
 ## Screens and content ownership
 
 - `/admin/settings?group=doctor` is the default. Twelve groups cover doctor profile/credentials, clinic/address/hours, branding/hero imagery, Facebook/Maps, topbar sources, footer/copyright, shared CTA, educational/stock notices, default locale, shared buttons/interaction labels, shared headings/fact formats and contact form/feedback copy.

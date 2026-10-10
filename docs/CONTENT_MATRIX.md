@@ -1,6 +1,6 @@
 # Public content ownership matrix
 
-Updated after Step 7, 2026-10-10. `frontend/` is the unmodified reference. Shared settings, fixed pages, navigation and media editors are implemented; collection/inquiry staff editors remain pending. Step 7's exact reconciliation below lists every registry control, its actual admin route and public renderer, and supersedes historical module-pending statements. `Imported; admin pending` now denotes collection fields with initialized public rendering awaiting their own CRUD. Structural layout/CSS/glyphs are code-owned. Shared identity/address/hours are canonical settings, never per-page copies. All managed text uses `{en,bn}` and the shared LocalizedContent resolver. Public OG/remaining SEO rendering remains Step 13 although its fields are stored and validated now.
+Updated after Step 8, 2026-10-10. `frontend/` is the unmodified reference. Shared settings, fixed pages, navigation, media, care-card, service-block and consultation-option editors are implemented; article/category/gallery and inquiry staff editors remain pending. The exact Step 7/8 reconciliations below supersede historical proposal names and pending statuses. `Imported; admin pending` denotes the remaining initialized collection fields. Shared identity/address/hours stay canonical. All managed text uses `{en,bn}` and LocalizedContent; public OG/remaining SEO is Step 13.
 
 The first table contains every one of the 81 dictionary keys, including unused blogdesc, with individual source, DB owner, admin screen, rendering use and status. Subsequent tables enumerate collection fields and extra literal/structural copy. Exact bilingual values and slugs are preserved in FRONTEND_AUDIT. Shared fact prose uses allowlisted format placeholders as specified in ARCHITECTURE.
 
@@ -29,15 +29,15 @@ The first table contains every one of the 81 dictionary keys, including unused b
 | explore | frontend/assets/app.js L2 content.en/bn.explore | ContentField(ui.explore).value | `/admin/settings?group=ui` | explore: home services link/footer heading; read: article action; readmore: home about/blog/gallery links | Editor/render implemented |
 | servicesTitle | frontend/assets/app.js L2 content.en/bn.servicesTitle | ContentField(home.servicesTitle).value | `/admin/pages/home/edit` | Corresponding home hero/care/doctor/journal slot; herodesc permits canonical fact placeholders | Editor/render implemented |
 | servicesDesc | frontend/assets/app.js L2 content.en/bn.servicesDesc | ContentField(home.servicesDesc).value | `/admin/pages/home/edit` | Corresponding home hero/care/doctor/journal slot; herodesc permits canonical fact placeholders | Editor/render implemented |
-| obtitle | frontend/assets/app.js L2 content.en/bn.obtitle | CareCard(obstetrics).title; ConsultationOption(obstetrics).label | Homepage care cards | Homepage card; appointment topic option | Imported; admin pending |
-| obdesc | frontend/assets/app.js L2 content.en/bn.obdesc | CareCard(obstetrics).description | Homepage care cards | Homepage card description | Imported; admin pending |
-| gytitle | frontend/assets/app.js L2 content.en/bn.gytitle | CareCard(gynecology).title; ConsultationOption(gynecology).label | Homepage care cards | Homepage card; appointment topic option | Imported; admin pending |
-| gydesc | frontend/assets/app.js L2 content.en/bn.gydesc | CareCard(gynecology).description | Homepage care cards | Homepage card description | Imported; admin pending |
-| iuititle | frontend/assets/app.js L2 content.en/bn.iuititle | CareCard(fertility).title; ConsultationOption(fertility).label | Homepage care cards | Homepage card; appointment topic option | Imported; admin pending |
-| iuidesc | frontend/assets/app.js L2 content.en/bn.iuidesc | CareCard(fertility).description | Homepage care cards | Homepage card description | Imported; admin pending |
-| diatitle | frontend/assets/app.js L2 content.en/bn.diatitle | CareCard(diagnostics).title; ConsultationOption(diagnostics).label | Homepage care cards | Homepage card; appointment topic option | Imported; admin pending |
-| diadesc | frontend/assets/app.js L2 content.en/bn.diadesc | CareCard(diagnostics).description | Homepage care cards | Homepage card description | Imported; admin pending |
-| learn | frontend/assets/app.js L2 content.en/bn.learn | CareCard(all four).link_label | Homepage care cards | Each home care-card action label | Imported; admin pending |
+| obtitle | frontend/assets/app.js L2 content.en/bn.obtitle | CareCard(obstetrics).title; ConsultationOption(obstetrics).label | `/admin/care-cards` · dedicated card form; `/admin/consultation-options` · independent option form | Homepage card; appointment topic option | Editor/render implemented |
+| obdesc | frontend/assets/app.js L2 content.en/bn.obdesc | CareCard(obstetrics).description | `/admin/care-cards` · dedicated card form | Homepage card description | Editor/render implemented |
+| gytitle | frontend/assets/app.js L2 content.en/bn.gytitle | CareCard(gynecology).title; ConsultationOption(gynecology).label | `/admin/care-cards` · dedicated card form; `/admin/consultation-options` · independent option form | Homepage card; appointment topic option | Editor/render implemented |
+| gydesc | frontend/assets/app.js L2 content.en/bn.gydesc | CareCard(gynecology).description | `/admin/care-cards` · dedicated card form | Homepage card description | Editor/render implemented |
+| iuititle | frontend/assets/app.js L2 content.en/bn.iuititle | CareCard(fertility).title; ConsultationOption(fertility).label | `/admin/care-cards` · dedicated card form; `/admin/consultation-options` · independent option form | Homepage card; appointment topic option | Editor/render implemented |
+| iuidesc | frontend/assets/app.js L2 content.en/bn.iuidesc | CareCard(fertility).description | `/admin/care-cards` · dedicated card form | Homepage card description | Editor/render implemented |
+| diatitle | frontend/assets/app.js L2 content.en/bn.diatitle | CareCard(diagnostics).title; ConsultationOption(diagnostics).label | `/admin/care-cards` · dedicated card form; `/admin/consultation-options` · independent option form | Homepage card; appointment topic option | Editor/render implemented |
+| diadesc | frontend/assets/app.js L2 content.en/bn.diadesc | CareCard(diagnostics).description | `/admin/care-cards` · dedicated card form | Homepage card description | Editor/render implemented |
+| learn | frontend/assets/app.js L2 content.en/bn.learn | CareCard(all four).link_label | `/admin/care-cards` · dedicated card form | Each home care-card action label | Editor/render implemented |
 | doctorEyebrow | frontend/assets/app.js L2 content.en/bn.doctorEyebrow | ContentField(home.doctorEyebrow).value | `/admin/pages/home/edit` | Corresponding home hero/care/doctor/journal slot; herodesc permits canonical fact placeholders | Editor/render implemented |
 | doctorTitle | frontend/assets/app.js L2 content.en/bn.doctorTitle | ContentField(home.doctorTitle).value | `/admin/pages/home/edit` | Corresponding home hero/care/doctor/journal slot; herodesc permits canonical fact placeholders | Editor/render implemented |
 | doctorText | frontend/assets/app.js L2 content.en/bn.doctorText | SiteSetting(primary).doctor_biography | `/admin/settings?group=doctor` | Home doctor split; about biography | Editor/render implemented |
@@ -123,43 +123,43 @@ The first table contains every one of the 81 dictionary keys, including unused b
 
 | Public field / collection member | Source location | Proposed database owner | Future admin screen | Public rendering location | Status |
 | --- | --- | --- | --- | --- | --- |
-| Card 1 obstetrics.title | app.js L9 cards(); obtitle | CareCard(obstetrics).title | Homepage care cards | Home .service-card; title also appointment option | Imported; admin pending |
-| Card 1 obstetrics.description | app.js L9 cards(); obdesc | CareCard(obstetrics).description | Homepage care cards | Home .service-card; title also appointment option | Imported; admin pending |
-| Card 1 obstetrics.icon | app.js L9 cards(); 🤰 | CareCard(obstetrics).icon_code (allowlist) | Homepage care cards | Home .service-card; title also appointment option | Imported; admin pending |
-| Card 1 obstetrics.link label | app.js L9 cards(); learn | CareCard(obstetrics).link_label {en,bn} | Homepage care cards | Home .service-card; title also appointment option | Imported; admin pending |
-| Card 1 obstetrics.target | app.js L9 cards(); services.html | CareCard(obstetrics).target {en,bn} | Homepage care cards | Home .service-card; title also appointment option | Imported; admin pending |
-| Card 2 gynecology.title | app.js L9 cards(); gytitle | CareCard(gynecology).title | Homepage care cards | Home .service-card; title also appointment option | Imported; admin pending |
-| Card 2 gynecology.description | app.js L9 cards(); gydesc | CareCard(gynecology).description | Homepage care cards | Home .service-card; title also appointment option | Imported; admin pending |
-| Card 2 gynecology.icon | app.js L9 cards(); ✿ | CareCard(gynecology).icon_code (allowlist) | Homepage care cards | Home .service-card; title also appointment option | Imported; admin pending |
-| Card 2 gynecology.link label | app.js L9 cards(); learn | CareCard(gynecology).link_label {en,bn} | Homepage care cards | Home .service-card; title also appointment option | Imported; admin pending |
-| Card 2 gynecology.target | app.js L9 cards(); services.html | CareCard(gynecology).target {en,bn} | Homepage care cards | Home .service-card; title also appointment option | Imported; admin pending |
-| Card 3 fertility.title | app.js L9 cards(); iuititle | CareCard(fertility).title | Homepage care cards | Home .service-card; title also appointment option | Imported; admin pending |
-| Card 3 fertility.description | app.js L9 cards(); iuidesc | CareCard(fertility).description | Homepage care cards | Home .service-card; title also appointment option | Imported; admin pending |
-| Card 3 fertility.icon | app.js L9 cards(); ♡ | CareCard(fertility).icon_code (allowlist) | Homepage care cards | Home .service-card; title also appointment option | Imported; admin pending |
-| Card 3 fertility.link label | app.js L9 cards(); learn | CareCard(fertility).link_label {en,bn} | Homepage care cards | Home .service-card; title also appointment option | Imported; admin pending |
-| Card 3 fertility.target | app.js L9 cards(); services.html | CareCard(fertility).target {en,bn} | Homepage care cards | Home .service-card; title also appointment option | Imported; admin pending |
-| Card 4 diagnostics.title | app.js L9 cards(); diatitle | CareCard(diagnostics).title | Homepage care cards | Home .service-card; title also appointment option | Imported; admin pending |
-| Card 4 diagnostics.description | app.js L9 cards(); diadesc | CareCard(diagnostics).description | Homepage care cards | Home .service-card; title also appointment option | Imported; admin pending |
-| Card 4 diagnostics.icon | app.js L9 cards(); 🔬 | CareCard(diagnostics).icon_code (allowlist) | Homepage care cards | Home .service-card; title also appointment option | Imported; admin pending |
-| Card 4 diagnostics.link label | app.js L9 cards(); learn | CareCard(diagnostics).link_label {en,bn} | Homepage care cards | Home .service-card; title also appointment option | Imported; admin pending |
-| Card 4 diagnostics.target | app.js L9 cards(); diagnostics.html | CareCard(diagnostics).target {en,bn} | Homepage care cards | Home .service-card; title also appointment option | Imported; admin pending |
-| Care-card ordering/visibility/topic code | L9 source order; L22 topic option titles | CareCard.sort_order/is_visible/import_key | Homepage care cards | Home order; appointment-topic allowlist | Imported; admin pending |
+| Card 1 obstetrics.title | app.js L9 cards(); obtitle | CareCard(obstetrics).title | `/admin/care-cards` · dedicated card form | Home .service-card only; options are independent | Editor/render implemented |
+| Card 1 obstetrics.description | app.js L9 cards(); obdesc | CareCard(obstetrics).description | `/admin/care-cards` · dedicated card form | Home .service-card only; options are independent | Editor/render implemented |
+| Card 1 obstetrics.icon | app.js L9 cards(); 🤰 | CareCard(obstetrics).icon {en,bn} (allowlisted glyph) | `/admin/care-cards` · dedicated card form | Home .service-card only; options are independent | Editor/render implemented |
+| Card 1 obstetrics.link label | app.js L9 cards(); learn | CareCard(obstetrics).link_label {en,bn} | `/admin/care-cards` · dedicated card form | Home .service-card only; options are independent | Editor/render implemented |
+| Card 1 obstetrics.target | app.js L9 cards(); services.html | CareCard(obstetrics).target {en,bn} | `/admin/care-cards` · dedicated card form | Home .service-card only; options are independent | Editor/render implemented |
+| Card 2 gynecology.title | app.js L9 cards(); gytitle | CareCard(gynecology).title | `/admin/care-cards` · dedicated card form | Home .service-card only; options are independent | Editor/render implemented |
+| Card 2 gynecology.description | app.js L9 cards(); gydesc | CareCard(gynecology).description | `/admin/care-cards` · dedicated card form | Home .service-card only; options are independent | Editor/render implemented |
+| Card 2 gynecology.icon | app.js L9 cards(); ✿ | CareCard(gynecology).icon {en,bn} (allowlisted glyph) | `/admin/care-cards` · dedicated card form | Home .service-card only; options are independent | Editor/render implemented |
+| Card 2 gynecology.link label | app.js L9 cards(); learn | CareCard(gynecology).link_label {en,bn} | `/admin/care-cards` · dedicated card form | Home .service-card only; options are independent | Editor/render implemented |
+| Card 2 gynecology.target | app.js L9 cards(); services.html | CareCard(gynecology).target {en,bn} | `/admin/care-cards` · dedicated card form | Home .service-card only; options are independent | Editor/render implemented |
+| Card 3 fertility.title | app.js L9 cards(); iuititle | CareCard(fertility).title | `/admin/care-cards` · dedicated card form | Home .service-card only; options are independent | Editor/render implemented |
+| Card 3 fertility.description | app.js L9 cards(); iuidesc | CareCard(fertility).description | `/admin/care-cards` · dedicated card form | Home .service-card only; options are independent | Editor/render implemented |
+| Card 3 fertility.icon | app.js L9 cards(); ♡ | CareCard(fertility).icon {en,bn} (allowlisted glyph) | `/admin/care-cards` · dedicated card form | Home .service-card only; options are independent | Editor/render implemented |
+| Card 3 fertility.link label | app.js L9 cards(); learn | CareCard(fertility).link_label {en,bn} | `/admin/care-cards` · dedicated card form | Home .service-card only; options are independent | Editor/render implemented |
+| Card 3 fertility.target | app.js L9 cards(); services.html | CareCard(fertility).target {en,bn} | `/admin/care-cards` · dedicated card form | Home .service-card only; options are independent | Editor/render implemented |
+| Card 4 diagnostics.title | app.js L9 cards(); diatitle | CareCard(diagnostics).title | `/admin/care-cards` · dedicated card form | Home .service-card only; options are independent | Editor/render implemented |
+| Card 4 diagnostics.description | app.js L9 cards(); diadesc | CareCard(diagnostics).description | `/admin/care-cards` · dedicated card form | Home .service-card only; options are independent | Editor/render implemented |
+| Card 4 diagnostics.icon | app.js L9 cards(); 🔬 | CareCard(diagnostics).icon {en,bn} (allowlisted glyph) | `/admin/care-cards` · dedicated card form | Home .service-card only; options are independent | Editor/render implemented |
+| Card 4 diagnostics.link label | app.js L9 cards(); learn | CareCard(diagnostics).link_label {en,bn} | `/admin/care-cards` · dedicated card form | Home .service-card only; options are independent | Editor/render implemented |
+| Card 4 diagnostics.target | app.js L9 cards(); diagnostics.html | CareCard(diagnostics).target {en,bn} | `/admin/care-cards` · dedicated card form | Home .service-card only; options are independent | Editor/render implemented |
+| Care-card ordering/visibility/topic code | L9 source order; L22 topic option titles | CareCard.sort_order/is_enabled/key | `/admin/care-cards` · dedicated card form | Home enabled order; stable card key | Editor/render implemented |
 
 ## Services-page fields (separate collection)
 
 | Public field / collection member | Source location | Proposed database owner | Future admin screen | Public rendering location | Status |
 | --- | --- | --- | --- | --- | --- |
-| Service 1.title | app.js L16 serviceDetails.en/bn[0][0] | Service(import_key=demo-service-1).title {en,bn} | Services | Services .info-box 1 | Imported; admin pending |
-| Service 1.description | app.js L16 serviceDetails.en/bn[0][1] | Service(import_key=demo-service-1).description {en,bn} | Services | Services .info-box 1 | Imported; admin pending |
-| Service 2.title | app.js L16 serviceDetails.en/bn[1][0] | Service(import_key=demo-service-2).title {en,bn} | Services | Services .info-box 2 | Imported; admin pending |
-| Service 2.description | app.js L16 serviceDetails.en/bn[1][1] | Service(import_key=demo-service-2).description {en,bn} | Services | Services .info-box 2 | Imported; admin pending |
-| Service 3.title | app.js L16 serviceDetails.en/bn[2][0] | Service(import_key=demo-service-3).title {en,bn} | Services | Services .info-box 3 | Imported; admin pending |
-| Service 3.description | app.js L16 serviceDetails.en/bn[2][1] | Service(import_key=demo-service-3).description {en,bn} | Services | Services .info-box 3 | Imported; admin pending |
-| Service 4.title | app.js L16 serviceDetails.en/bn[3][0] | Service(import_key=demo-service-4).title {en,bn} | Services | Services .info-box 4 | Imported; admin pending |
-| Service 4.description | app.js L16 serviceDetails.en/bn[3][1] | Service(import_key=demo-service-4).description {en,bn} | Services | Services .info-box 4 | Imported; admin pending |
-| Service 5.title | app.js L16 serviceDetails.en/bn[4][0] | Service(import_key=demo-service-5).title {en,bn} | Services | Services .info-box 5 | Imported; admin pending |
-| Service 5.description | app.js L16 serviceDetails.en/bn[4][1] | Service(import_key=demo-service-5).description {en,bn} | Services | Services .info-box 5 | Imported; admin pending |
-| Service order/visibility and displayed number | L17 services() index 01–05 | Service.sort_order/is_visible; number derived in Blade | Services | Services detail block order/number | Imported; admin pending |
+| Service 1.title | app.js L16 serviceDetails.en/bn[0][0] | Service(key=pregnancy-antenatal-care).title {en,bn} | `/admin/services` · dedicated service form | Services .info-box 1 | Editor/render implemented |
+| Service 1.description | app.js L16 serviceDetails.en/bn[0][1] | Service(key=pregnancy-antenatal-care).body {en,bn} | `/admin/services` · dedicated service form | Services .info-box 1 | Editor/render implemented |
+| Service 2.title | app.js L16 serviceDetails.en/bn[1][0] | Service(key=menstrual-gynecological-problems).title {en,bn} | `/admin/services` · dedicated service form | Services .info-box 2 | Editor/render implemented |
+| Service 2.description | app.js L16 serviceDetails.en/bn[1][1] | Service(key=menstrual-gynecological-problems).body {en,bn} | `/admin/services` · dedicated service form | Services .info-box 2 | Editor/render implemented |
+| Service 3.title | app.js L16 serviceDetails.en/bn[2][0] | Service(key=infertility-iui).title {en,bn} | `/admin/services` · dedicated service form | Services .info-box 3 | Editor/render implemented |
+| Service 3.description | app.js L16 serviceDetails.en/bn[2][1] | Service(key=infertility-iui).body {en,bn} | `/admin/services` · dedicated service form | Services .info-box 3 | Editor/render implemented |
+| Service 4.title | app.js L16 serviceDetails.en/bn[3][0] | Service(key=menopause-midlife-health).title {en,bn} | `/admin/services` · dedicated service form | Services .info-box 4 | Editor/render implemented |
+| Service 4.description | app.js L16 serviceDetails.en/bn[3][1] | Service(key=menopause-midlife-health).body {en,bn} | `/admin/services` · dedicated service form | Services .info-box 4 | Editor/render implemented |
+| Service 5.title | app.js L16 serviceDetails.en/bn[4][0] | Service(key=postnatal-reproductive-health).title {en,bn} | `/admin/services` · dedicated service form | Services .info-box 5 | Editor/render implemented |
+| Service 5.description | app.js L16 serviceDetails.en/bn[4][1] | Service(key=postnatal-reproductive-health).body {en,bn} | `/admin/services` · dedicated service form | Services .info-box 5 | Editor/render implemented |
+| Service order/visibility and displayed number | L17 services() index 01–05 | Service.sort_order/is_enabled; number derived in Blade | `/admin/services` · Move up/down + enabled control | Services detail block order/number | Editor/render implemented |
 
 ## Categories / tags
 
@@ -380,7 +380,7 @@ Initial technical source URLs are retained as legacy external media. Verified lo
 | home.gallery_target | L14 gallery.html | ContentField.home.gallery_target {en,bn}; known route allowlist | `/admin/pages/home/edit` | Home gallery details | Editor/render implemented |
 | cta.target | L8 contact.html | SiteSetting.cta_target {en,bn}; known route allowlist | `/admin/settings?group=cta` | Shared CTA | Editor/render implemented |
 | diagnostics.contact_target | L18 contact.html | ContentField.diagnostics.contact_target {en,bn}; known route allowlist | `/admin/pages/diagnostics/edit` | Diagnostic contact link | Editor/render implemented |
-| Four independent consultation options | L22 obtitle/gytitle/iuititle/diatitle | ConsultationOption.label {en,bn}; stable key values | Consultation options/contact form | Appointment select only; general stores no topic | Imported; admin pending |
+| Four independent consultation options | L22 obtitle/gytitle/iuititle/diatitle | ConsultationOption.label {en,bn}; stable key values | `/admin/consultation-options` · label/key-at-create, move/active controls | Appointment select only; general stores no topic | Editor/render implemented |
 | Original clipboard text/success (historical) | L23 bilingual header; Name/Phone/Topic/Message; Copied! / কপি হয়েছে! | Audit provenance only; replaced, no production runtime field | None | Removed from new submission behavior | Historical provenance only |
 | New UI/form mode_label | Owner contract / architecture addition; no original string | ContentField(contact.mode_label).value {en,bn} | `/admin/settings?group=forms` | Mode selector label | Editor/render implemented |
 | New UI/form mode_appointment | Owner contract / architecture addition; no original string | ContentField(contact.mode_appointment).value {en,bn} | `/admin/settings?group=forms` | Appointment selector option | Editor/render implemented |
@@ -417,8 +417,8 @@ The source rows above remain the full original inventory. Actual initial databas
 
 | Field / collection | Source | Database owner | Future admin screen | Public rendering | Status |
 | --- | --- | --- | --- | --- | --- |
-| Four consultation labels/keys | app.js contact() obtitle/gytitle/iuititle/diatitle | ConsultationOption.label/key | Consultation options | Appointment-only select | Imported; admin pending |
-| Consultation order/active flag | Original option order | ConsultationOption.sort_order/is_active | Consultation options | Appointment options | Imported; admin pending |
+| Four consultation labels/keys | app.js contact() obtitle/gytitle/iuititle/diatitle | ConsultationOption.label/key | `/admin/consultation-options` · label/key-at-create, move/active controls | Appointment-only select | Editor/render implemented |
+| Consultation order/active flag | Original option order | ConsultationOption.sort_order/is_active | `/admin/consultation-options` · label/key-at-create, move/active controls | Appointment options | Editor/render implemented |
 | Appointment submit label | Owner Step 3 exact copy | ContentField(contact.prepare).value | Contact copy | Appointment submit | Imported; admin pending |
 | Contact submit label | Owner Step 3 exact copy | ContentField(contact.submit_contact).value | Contact copy | General submit | Imported; admin pending |
 | Two success messages | Owner Step 3 exact copy | ContentField(contact.success_appointment/success_contact).value | Contact copy | Success flash after save | Imported; admin pending |
@@ -689,3 +689,48 @@ All original header keys (`header:home/about/services/diagnostics/blog/gallery/c
 | key | No editable input | Shared relational identity | Immutable; server generates custom keys |
 
 Public stock/medical/diagnostic notices, original collection order and first-three initialized previews remain. Only the separate interaction stylesheet adds plain-text line-break preservation; public baseline CSS/DOM and frontend stay unchanged. Page metadata uses database fallback now; OG rendering is explicitly pending. All database test edits roll back, leaving development values/publication/visibility and owner credentials untouched.
+
+## Step 8 exact care/service/consultation controls
+
+The 44 existing source/mapping rows above now point to these implemented independent editors. Identical source titles initialized both a care card and an appointment choice; later edits are independent. This reconciliation supersedes historical `icon_code`, `import_key`, service `description` and `is_visible` proposal names for these owners. Initial database counts remain **4 / 5 / 4** in source order; initialization input is unchanged.
+
+| Database owner.field | Source | Exact admin control | Public rendering | Status |
+| --- | --- | --- | --- | --- |
+| CareCard.key | Original L9 card identity; random custom identity on create | `/admin/care-cards/{id}/edit`, read-only; generated on create | Stable content/import identity; no public separate card route | Protected |
+| CareCard.title | L2 obtitle/gytitle/iuititle/diatitle, L9 cards | `item[title][en/bn]` localized input | `public.parts.care-card` h3 on Home | Implemented |
+| CareCard.description | L2 obdesc/gydesc/iuidesc/diadesc | `item[description][en/bn]`, bounded text/approved fact format | Same card p via shared format/localization | Implemented |
+| CareCard.icon | L9 🤰/✿/♡/🔬 | `item[icon][en/bn]`, fixed-glyph selects | Same `.service-icon`, escaped text | Implemented; no SVG/HTML |
+| CareCard.link_label | L2 learn; L9 card mini | `item[link_label][en/bn]` | Same `.mini` span | Implemented |
+| CareCard.target | L9 services.html / diagnostics.html | `item[target][en/bn][kind/route]` → JSON named route string; only services/diagnostics | Same card anchor, selected locale propagated | Implemented; no external target |
+| CareCard.sort_order | L9 original order | `/admin/care-cards/{id}/move`, PATCH `direction=up/down`; no numeric input | Enabled cards ordered by sort_order,id inside existing grid2 | Transactional |
+| CareCard.is_enabled | Initial all visible; CMS addition | `item[is_enabled]`, or PATCH visibility `state`; confirm disabling | Only this card's Home visibility | Implemented |
+| Service.key | L16 initial service identity | `/admin/services/{id}/edit`, read-only; generated on custom create | Stable identity | Protected |
+| Service.slug | L16 derived stable service key | `/admin/services/create`, `item[slug]`, unique lowercase slug; read-only thereafter | Stable stored identity, no new public individual-service route | Validated/immutable |
+| Service.title | L16 serviceDetails.en/bn[*][0] | `item[title][en/bn]` | `public.pages.services` .info-box h3 | Implemented |
+| Service.body | L16 serviceDetails.en/bn[*][1] | `item[body][en/bn]`, bounded plain-text textarea | Same .info-box p, escaped | Implemented |
+| Service.sort_order | L17 original five blocks | `/admin/services/{id}/move`, PATCH direction | Enabled order; Blade derives ordinal `01…` | Transactional; no stored number |
+| Service.is_enabled | Initial five enabled; CMS addition | `item[is_enabled]` or PATCH visibility state, confirm disabling | Only Services blocks, independent of cards/options | Implemented |
+| ConsultationOption.key | L22 original four choices | `/admin/consultation-options/create`, `item[key]`, unique lowercase key; read-only thereafter | Stable inquiry snapshot identity | Validated/immutable |
+| ConsultationOption.label | L22 obtitle/gytitle/iuititle/diatitle initially copied | `item[label][en/bn]` shared editor | `public.pages.contact` appointment-only #topic options | Implemented; independent label |
+| ConsultationOption.sort_order | L22 original option order | `/admin/consultation-options/{id}/move`, PATCH direction | Active options in display order | Transactional |
+| ConsultationOption.is_active | Initial four active; CMS addition | `item[is_active]` or PATCH visibility state, confirm disabling | Appointment select and server active-choice validation | Implemented |
+| Inquiry.consultation_key/consultation_label | Selected option at real submission | No public/editable collection control; snapshot kept on rename/disable/delete | Private stored readable snapshot; never a public list | Retained; nullable FK, no cascade |
+
+All collection deletes use DELETE plus `confirm_delete=1` in the shared confirmation component. Ordinary reseeding cannot restore intentional deletions. Empty grids reuse database `ui.empty_filter_results`; empty appointment choices disable appointment submit while General contact remains available. All normal populated markup/classes and baseline CSS are unchanged. Both translations save together; omitted language stays intact and empty Bangla falls back through LocalizedContent.
+
+### Diagnostics stays in fixed Page Content
+
+| Owned field / relationship | Exact editor | Public rendering | Status |
+| --- | --- | --- | --- |
+| Page(diagnostics).label | `/admin/pages/diagnostics/edit`, `page[label][en/bn]` | Hero eyebrow | Existing editor reused |
+| diagnostics.diagtitle / diagdesc | Same screen, `fields[{id}][value][en/bn]` | Hero title/intro | Verified next-request bilingual edits |
+| diagnostics.image / image_alt | Same screen, media picker `fields[{id}][media_asset_id]` / localized value | Original splitimg dimensions/classes and escaped alt | Verified shared media resolver |
+| diagnostics.diagtags / diagtagsdesc | Same screen, localized value | Inquiry-topic h3/copy; categories/catalog not created | Verified |
+| diagnostics.diagnotice | Same screen, localized value, non-empty English | Original availability notice | Preserved unless intentionally edited |
+| diagnostics.contact_target | Same screen, named contact destination control | Original contact button href | Safe request target retained |
+| NavigationItem(header:contact).label | `/admin/navigation/{id}/edit`, item[label][en/bn] | Diagnostics contact button text | Shared existing owner |
+| SiteSetting.clinic_name/address/hours/friday_note; shared.visitTitle/visitText | `/admin/settings?group=clinic` / `group=information` | Laboratory clinic label and visiting heading/shared fact format; shared contact/footer uses | Verified canonical clinic/address; no duplicate |
+| SiteSetting.cta_title/description/label/target | `/admin/settings?group=cta` | Shared CTA, contact target | Verified next-request change |
+| PageSection(diagnostics.cta).is_visible | Fixed page's existing section visibility checkbox | Shared CTA presence; laboratory remains required | Existing editor reused |
+
+No diagnostic tests, prices, booking slots or reports were added. See CARE_CONTENT for routes, ordering/snapshot behavior, exact tests and manual desktop/mobile checks. Article/category/gallery staff editors and private inbox remain pending.

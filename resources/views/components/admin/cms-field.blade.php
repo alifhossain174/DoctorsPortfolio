@@ -1,4 +1,4 @@
-@props(['name','label','definition','value'=>null,'hint'=>null,'mediaChoices'=>[],'selected'=>null,'routes'=>null])
+@props(['name','label','definition','value'=>null,'hint'=>null,'mediaChoices'=>[],'selected'=>null,'routes'=>null,'allowExternal'=>true])
 @php
     $type=$definition['type'];
     $editorType=($definition['multiline'] ?? false) ? 'textarea' : $type;
@@ -6,7 +6,7 @@
     $max=$definition['max_length'] ?? (in_array($type,['textarea','format'],true) ? 15000 : ($type==='url' ? 4096 : 500));
 @endphp
 @if($definition['localized'] ?? false)
-    <x-admin.localized-tabs :name="$name" :label="$label" :value="is_array($value) ? $value : []" :type="in_array($editorType,['textarea','format'],true) ? 'textarea' : $editorType" :required="$required" :hint="$hint" :maxlength="$max" :routes="$routes"/>
+    <x-admin.localized-tabs :name="$name" :label="$label" :value="is_array($value) ? $value : []" :type="in_array($editorType,['textarea','format'],true) ? 'textarea' : $editorType" :required="$required" :hint="$hint" :maxlength="$max" :routes="$routes" :allow-external="$allowExternal"/>
 @elseif($type==='relation' || $type==='media')
     <x-admin.media-picker :name="$name" :label="$label" :selected="$selected" :assets="$mediaChoices" :required="$required"/>
 @elseif($type==='integer')
