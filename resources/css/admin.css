@@ -1,0 +1,9 @@
+@import 'tailwindcss' source(none);
+
+/* Scan admin templates/JS only; exclude public Blade and frontend/. */
+@source '../views/admin/**/*.blade.php';
+@source '../js/admin.js';
+
+@theme {
+    --font-sans: ui-sans-serif, system-ui, sans-serif;
+}
