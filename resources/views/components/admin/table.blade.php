@@ -1,0 +1,2 @@
+@props(['headers' => [], 'caption' => 'Records'])
+<div class="overflow-x-auto"><table {{ $attributes->class(['w-full text-left text-sm']) }}><caption class="sr-only">{{ $caption }}</caption><thead class="border-y border-slate-100 bg-slate-50 text-xs font-semibold uppercase tracking-wide text-slate-500"><tr>@foreach ($headers as $header)<th scope="col" class="px-6 py-3">{{ $header }}</th>@endforeach</tr></thead><tbody class="divide-y divide-slate-100">{{ $slot }}</tbody></table></div>

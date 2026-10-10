@@ -2,8 +2,35 @@
 
 /* Scan admin templates/JS only; exclude public Blade and frontend/. */
 @source '../views/admin/**/*.blade.php';
+@source '../views/components/admin/**/*.blade.php';
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/tailwind.blade.php';
 @source '../js/admin.js';
 
 @theme {
     --font-sans: ui-sans-serif, system-ui, sans-serif;
+    --color-jade-50: #eff8f5;
+    --color-jade-100: #d9eee5;
+    --color-jade-200: #b4dbcb;
+    --color-jade-500: #398d75;
+    --color-jade-600: #28725e;
+    --color-jade-700: #205d54;
+    --color-jade-800: #194b43;
+    --color-jade-900: #153d37;
+}
+
+@layer base {
+    button,a,input,textarea,select,summary { @apply focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-jade-600; }
+    button:not(:disabled),summary { cursor:pointer; }
+    [hidden] { display:none!important; }
+    dialog::backdrop { background:rgb(15 23 42 / .55); }
+}
+@layer components {
+    .admin-card { @apply rounded-2xl border border-slate-200 bg-white shadow-xs; }
+    .admin-field { @apply block w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-xs placeholder:text-slate-400 focus:border-jade-600 focus:outline-2 focus:outline-offset-0 focus:outline-jade-100 disabled:bg-slate-50 disabled:text-slate-500; }
+    .admin-label { @apply mb-2 block text-sm font-medium text-slate-700; }
+    .admin-button { @apply inline-flex min-h-10 items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50; }
+    .admin-button-primary { @apply bg-jade-700 text-white hover:bg-jade-800; }
+    .admin-button-secondary { @apply border border-slate-300 bg-white text-slate-700 hover:bg-slate-50; }
+    .admin-button-danger { @apply bg-rose-700 text-white hover:bg-rose-800; }
+    .admin-button-quiet { @apply text-slate-600 hover:bg-slate-100 hover:text-slate-900; }
 }

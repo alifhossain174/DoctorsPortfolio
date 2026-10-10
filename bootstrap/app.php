@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\RequireAdmin;
 use App\Http\Middleware\SetPublicLocale;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -12,7 +13,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        $middleware->alias(['public.locale' => SetPublicLocale::class]);
+        $middleware->alias(['public.locale' => SetPublicLocale::class, 'admin' => RequireAdmin::class]);
+        $middleware->redirectGuestsTo(fn () => route('admin.login'));
+        $middleware->redirectUsersTo(fn () => route('admin.dashboard'));
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

@@ -1,6 +1,6 @@
 # Public content ownership matrix
 
-Updated after Step 4, 2026-10-10. `frontend/` is the unmodified reference. `Imported; admin pending` means database ownership/initial value and its documented public rendering are implemented and verified; admin editors remain future work. `Implemented; admin pending` covers private inquiry/request behavior. The 81-key table uses actual destinations. Structural layout/CSS/glyphs are code-owned. Shared identity/address/hours are canonical settings, never per-page copies. All managed text uses `{en,bn}` and the shared LocalizedContent resolver. The reconciliation sections describe actual schema and reusable rendering components.
+Updated after Step 5, 2026-10-10. `frontend/` is the unmodified reference. `Imported; admin pending` means database ownership/initial value and its documented public rendering are implemented and verified; content editors remain future work. Admin authentication/dashboard/profile and reusable controls are now implemented. `Implemented; admin pending` covers private inquiry/request behavior whose staff screens remain pending. The 81-key table uses actual destinations. Structural layout/CSS/glyphs are code-owned. Shared identity/address/hours are canonical settings, never per-page copies. All managed text uses `{en,bn}` and the shared LocalizedContent resolver. The reconciliation sections describe actual schema and reusable rendering components.
 
 The first table contains every one of the 81 dictionary keys, including unused blogdesc, with individual source, DB owner, admin screen, rendering use and status. Subsequent tables enumerate collection fields and extra literal/structural copy. Exact bilingual values and slugs are preserved in FRONTEND_AUDIT. Shared fact prose uses allowlisted format placeholders as specified in ARCHITECTURE.
 
@@ -434,7 +434,7 @@ The source rows above remain the full original inventory. Actual initial databas
 | Private kind/reference/locale | Submission context/generated ULID | Inquiry.kind/public_reference/locale | Private inquiries | No public reference or PII listing | Implemented; admin pending |
 | Consultation submission snapshot | Chosen active consultation option | Inquiry.consultation_option_id/key/label | Private inquiries | Stored appointment context; general clears it | Implemented; admin pending |
 | Private status/notes/confirmed time/handler | Staff workflow; not a booking promise | Inquiry.status/internal_notes/confirmed_visit_at/handled_by/handled_at | Private inquiries | No public rendering | Schema implemented; admin pending |
-| Admin identity/authorization | Secure interactive provisioning in Step 5 | User.name/email/password/is_admin | Private account/login | No public user content | Schema/Gate implemented; provisioning/login pending |
+| Admin identity/authorization | Owner-supplied interactive provisioning in Step 5 | User.name/email/password/is_admin | Private login/profile | No public user content | Provisioning/auth/profile implemented; no owner account created automatically |
 | Completion marker | Successful explicit import only | content_initializations.key/snapshot_sha256/completed_at | No editor | No public rendering | Completed; normal repeated seed skips import |
 
 Canonical field formats reference shared settings instead of storing duplicate doctor/address/hours text. Post bodies are localized arrays of plain paragraphs; no executable templates. Required English validation is enforced on saves; optional Bangla/optional fields use the shared safe resolver. All source literals without Bangla receive simple translations, including headings, accessibility labels, badges and metadata. The unused blogdesc remains blog.blogdesc. Historical credit rows mean provenance controls; no photographer credit was supplied or invented. Displayed copies of fixed glyphs remain code-owned. Unused proposed helper strings are covered by contact.privacy or code-owned focus behavior; there is no arbitrary JSON editor.
@@ -461,3 +461,22 @@ Every original source row retains the same database owner; no second content cat
 | Article editor paragraph controls | Code-owned private editor controls; future Post.body values | Reusable admin.partials.paragraph-repeater/paragraph-row + admin.js; add/remove/reorder implemented, escaped arrays; article CRUD remains pending |
 
 Homepage counts and flags still select exactly the original first three articles/gallery entries. No content records, translations, visibility/publication decisions, source assets or initialization snapshot were changed in Step 4. Public interaction CSS is separate from the unchanged baseline and admin Tailwind. PUBLIC_VERIFICATION records intentional functional/control differences and the manual visual checklist.
+
+## Step 5 admin infrastructure
+
+Public owners/values/rendering above are unchanged. This step implements private account screens and reusable infrastructure; it does not claim settings/page/nav/collection/inbox editors are complete.
+
+| Field/control | Owner | Implemented screen/component | Status |
+| --- | --- | --- | --- |
+| Admin name/email | User; validated whitelist, canonical email | /admin/profile; current-password verification | Implemented |
+| Password/current-password challenge | User hashed cast; private request fields never flashed/rendered | /admin/profile password form; admin:create hidden prompts | Implemented; no automatic account |
+| Explicit admin authorization | User.is_admin + access-admin Gate | RequireAdmin, protected route group, AdminController base | Implemented; no public privilege editing |
+| Dashboard published/visible/new-request counts | Post/GalleryImage/Inquiry database scopes | /admin | Implemented real aggregates; no private request listings/fake activity |
+| English/Bangla localized text controls | Existing localized JSON owner fields | x-admin.localized-tabs with input/textarea components | Reusable controls implemented; both languages retained in one form |
+| Article plain paragraph body controls | Post.body | x-admin.paragraph-repeater → existing shared partials | Add/remove/reorder and language tabs implemented; article CRUD pending |
+| Bilingual atomic update boundary | Code registry + existing CmsModel owner | AdminContentWriter | Tested whitelist/language-key validation, trimming, atomic save and omitted-Bangla preservation; no new CMS write routes yet |
+| Missing-Bangla indicator/fallback help | Current field's bn value + shared public LocalizedContent rule | Localized tabs | Implemented indicator; no translation API |
+| Tables/pagination/badges/flash/errors/buttons/breadcrumbs | Code-owned private UI | components/admin and admin partials | Implemented; Tailwind pagination only in private bundle |
+| Media picker | Existing media reference | x-admin.media-picker | Disabled truthful placeholder; existing reference unchanged; upload/library pending |
+| Delete confirmation | Authorized future entity action | x-admin.delete-confirmation | CSRF/DELETE + dialog or no-JS checkbox consent; actual delete routes pending |
+| Planned sidebar destinations | Code-owned config/admin_navigation.php | Sidebar | All requested groups present; only Dashboard/Profile links active |

@@ -1,0 +1,2 @@
+@props(['title', 'description' => null, 'icon' => 'pages'])
+<div {{ $attributes->class(['px-6 py-12 text-center']) }}><div class="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100 text-slate-400"><x-admin.icon :name="$icon"/></div><h3 class="text-sm font-semibold text-slate-800">{{ $title }}</h3>@if ($description)<p class="mx-auto mt-2 max-w-md text-sm leading-6 text-slate-500">{{ $description }}</p>@endif{{ $slot }}</div>

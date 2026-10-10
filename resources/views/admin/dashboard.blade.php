@@ -1,0 +1,22 @@
+@extends('admin.layouts.app')
+@section('title', 'Dashboard · DoctorPortfolio Admin')
+@section('heading', 'Dashboard')
+@section('content')
+<x-admin.breadcrumbs :items="[['label' => 'Dashboard']]"/>
+<div class="mb-8 flex flex-wrap items-start justify-between gap-4"><div><h1 class="text-2xl font-semibold tracking-tight sm:text-3xl">Your website, at a glance</h1><p class="mt-2 max-w-2xl text-sm leading-6 text-slate-500">Welcome, {{ auth()->user()->name }}. This is the current state of your published content and new requests.</p></div><x-admin.badge tone="success"><span class="mr-1.5 h-1.5 w-1.5 rounded-full bg-jade-600"></span>Admin workspace ready</x-admin.badge></div>
+<div class="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+    @foreach ([['Published articles', $publishedPosts, 'articles', 'Currently available on the public site'], ['Visible gallery images', $visibleImages, 'gallery', 'Gallery entries marked visible'], ['New appointment requests', $newAppointments, 'appointments', 'Requests, not confirmed bookings'], ['New contact messages', $newMessages, 'messages', 'General messages awaiting review']] as [$metricLabel, $metricValue, $metricIcon, $metricHint])
+    <div class="admin-card p-6"><div class="mb-5 flex items-center justify-between gap-3"><p class="text-xs font-medium text-slate-500">{{ $metricLabel }}</p><span class="rounded-xl bg-jade-50 p-2.5 text-jade-700"><x-admin.icon :name="$metricIcon"/></span></div><p class="text-3xl font-semibold tracking-tight">{{ number_format($metricValue) }}</p><p class="mt-3 text-xs leading-5 text-slate-400">{{ $metricHint }}</p></div>
+    @endforeach
+</div>
+<div class="mt-7 grid gap-7 xl:grid-cols-3">
+    <section class="admin-card overflow-hidden xl:col-span-2"><div class="flex items-start justify-between gap-4 p-6"><div><h2 class="text-base font-semibold">Workspace availability</h2><p class="mt-1 text-xs leading-5 text-slate-500">Only completed modules are available in the sidebar.</p></div><x-admin.badge>Step 5</x-admin.badge></div><x-admin.table :headers="['Area', 'Status', 'Details']" caption="Admin module availability">
+        <tr><th scope="row" class="px-6 py-4 font-medium">Dashboard & profile</th><td class="px-6 py-4"><x-admin.badge tone="success">Available</x-admin.badge></td><td class="px-6 py-4 text-xs text-slate-500">Sign-in, overview and your account</td></tr>
+        <tr><th scope="row" class="px-6 py-4 font-medium">Website editors</th><td class="px-6 py-4"><x-admin.badge>Coming soon</x-admin.badge></td><td class="px-6 py-4 text-xs text-slate-500">{{ $pageCount }} database-backed page types</td></tr>
+        <tr><th scope="row" class="px-6 py-4 font-medium">Media library</th><td class="px-6 py-4"><x-admin.badge>Coming soon</x-admin.badge></td><td class="px-6 py-4 text-xs text-slate-500">{{ $mediaCount }} existing media records</td></tr>
+        <tr><th scope="row" class="px-6 py-4 font-medium">Private inbox</th><td class="px-6 py-4"><x-admin.badge>Coming soon</x-admin.badge></td><td class="px-6 py-4 text-xs text-slate-500">Staff request management is a later step</td></tr>
+    </x-admin.table></section>
+    <section class="rounded-2xl bg-jade-800 p-7 text-white"><span class="inline-flex rounded-xl bg-white/10 p-3"><x-admin.icon name="pages" class="h-6 w-6"/></span><h2 class="mt-5 text-xl font-semibold tracking-tight">One website.<br>Two languages.</h2><p class="mt-4 text-sm leading-7 text-jade-100/85">Public content is stored in the database in English and Bangla. Upcoming editors will save both translations together and keep the original public design.</p><div class="mt-6 border-t border-white/15 pt-5 text-xs leading-6 text-jade-100/80">Missing Bangla falls back to English.<br>Layouts are fixed; content stays editable.</div></section>
+</div>
+<section class="admin-card mt-7"><x-admin.empty-state title="Staff activity is not available yet" description="This dashboard shows real content and new-request counts. A detailed staff activity summary will be added with the remaining dashboard and inbox workflow." icon="appointments"/></section>
+@endsection

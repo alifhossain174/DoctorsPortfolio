@@ -1,9 +1,26 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\InquiryController;
 use App\Http\Controllers\LegacyPageController;
 use App\Http\Controllers\PublicPageController;
 use Illuminate\Support\Facades\Route;
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::middleware('guest')->group(function () {
+        Route::get('/login', [LoginController::class, 'create'])->name('login');
+        Route::post('/login', [LoginController::class, 'store'])->name('login.store');
+    });
+    Route::middleware(['auth', 'admin', 'auth.session'])->group(function () {
+        Route::get('/', DashboardController::class)->name('dashboard');
+        Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::put('/profile/password', [ProfileController::class, 'password'])->name('password.update');
+    });
+});
 
 Route::middleware('public.locale')->group(function () {
     Route::get('/', [PublicPageController::class, 'show'])->name('home');

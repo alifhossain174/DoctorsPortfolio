@@ -1,6 +1,6 @@
 ﻿# DoctorPortfolio
 
-Standalone Laravel 12 / PHP 8.2 application with Blade, Eloquent and vanilla JavaScript. Steps 3–4 supply the schema, bilingual initialization and server-rendered public pages/interactions. Private admin screens are later steps. Read AGENTS.md and docs/IMPLEMENTATION_STATUS.md before continuing.
+Standalone Laravel 12 / PHP 8.2 application with Blade, Eloquent and vanilla JavaScript. Steps 3–5 supply initialized public pages and a private admin dashboard, sign-in and profile. Content editors and staff inbox screens are later steps. Read AGENTS.md and docs/IMPLEMENTATION_STATUS.md before continuing.
 
 ## Local setup (PowerShell, project root)
 
@@ -19,7 +19,21 @@ php artisan db:seed
 php artisan serve
 ```
 
-Open http://127.0.0.1:8000. Public pages and /blog/{post:slug} articles read database content in English/Bangla; use ?locale=en or ?locale=bn for reproducible language URLs. Language preference persists in the file session. Blog/gallery accept validated ?category= database slugs; original .html links redirect to named routes. /up is Laravel's health route. Private admin/login/editors are not implemented yet; no default account is seeded. Do not regenerate an existing APP_KEY during updates.
+Open http://127.0.0.1:8000. Public pages and /blog/{post:slug} articles read database content in English/Bangla; use ?locale=en or ?locale=bn for reproducible language URLs. Language preference persists in the file session. Blog/gallery accept validated ?category= database slugs; original .html links redirect to named routes. /up is Laravel's health route. /admin redirects guests to /admin/login; authenticated admins see the dashboard. No default account is seeded. Do not regenerate an existing APP_KEY during updates.
+
+## Create your admin account
+
+After database setup and asset building, run this **locally from the project root**:
+
+```powershell
+php artisan admin:create
+# Or explicitly select this machine's XAMPP PHP:
+& 'E:\xampp8.2\php\php.exe' artisan admin:create
+```
+
+Enter your own name, a unique email and password at the prompts. Password and confirmation are hidden, with no visible fallback. Use at least 12 characters with uppercase, lowercase, a number and a symbol; the UTF-8 limit is 72 bytes to avoid bcrypt truncation. Credentials cannot be passed as command arguments or supplied with --no-interaction. The command creates a hashed admin account atomically and never overwrites/promotes an existing account. No owner account has been created during implementation; only disposable test accounts were used in the isolated test database.
+
+Visit http://127.0.0.1:8000/admin/login. Dashboard and Profile are available; other sidebar destinations are marked Soon without dead links. Profile changes and password changes require your current password. Logout is POST-only; password changes invalidate other sessions on their next admin request. There is no registration, password-reset email service or user-management module. See docs/ADMIN_INTERFACE.md for security and reusable editor controls.
 
 Start **MySQL** from XAMPP Control Panel. XAMPP here exposes **MariaDB 10.4.32** at 127.0.0.1:3306. The dedicated `doctor_portfolio` database is connected and explicitly initialized with the full original bilingual content. For another machine, create only this dedicated database with utf8mb4/utf8mb4_unicode_ci in phpMyAdmin and set the matching local credentials in private `.env`. Never use an unrelated database. The Step 3 non-destructive migrations and import have run locally; no fake inquiries or default users exist.
 
@@ -41,7 +55,7 @@ npm run build
 npm run dev
 ```
 
-Pinned Vite 7.3.7 and Tailwind 4.3.3 compile `resources/css/admin.css` and `resources/js/admin.js`. Tailwind scans only admin Blade/JS. Only `resources/views/admin/layouts/app.blade.php` includes these entries via @vite; public pages must never extend it. Plain Vite uses a manifest, with no client-framework or Laravel-specific Vite plugins. A small development runner creates/removes `public/hot` for @vite; Node is a temporary asset development tool, not a production runtime. Stop it with Ctrl+C. If forcibly killed, remove only its stale public/hot file before serving built assets.
+Pinned Vite 7.3.7 and Tailwind 4.3.3 compile `resources/css/admin.css` and `resources/js/admin.js`. Tailwind scans admin views, admin Blade components, admin JS and Laravel's Tailwind pagination template only. Admin app/guest layouts include these entries via @vite; public pages never extend them. Plain Vite uses a manifest, with no client-framework or Laravel-specific Vite plugins. A small development runner creates/removes `public/hot` for @vite; Node is a temporary asset development tool, not a production runtime. Stop it with Ctrl+C. If forcibly killed, remove only its stale public/hot file before serving built assets.
 
 Public pages load public/assets/style.css (an identical reference copy), tiny public/assets/interactions.css for GET controls/focus, and interaction-only public/assets/public.js; initial images retain legacy external URLs. `frontend/` remains an unchanged reference and its app.js is never loaded by Laravel. No Tailwind/JavaScript CDN, Axios, framework starter kit, client router, queue worker, scheduler or Docker tooling is installed. Use `php artisan serve`; Composer's default multi-process dev/setup commands were removed.
 
@@ -52,7 +66,10 @@ app/                     Laravel models, controllers and providers
 bootstrap/app.php        Laravel 12 routing/middleware configuration
 config/                  Environment-driven application settings
 routes/                  web.php and read-only DB check in console.php
-resources/views/admin/   Isolated admin layout, ready for later auth/screens
+resources/views/admin/   Admin login, dashboard/profile, layouts and shared parts
+resources/views/components/admin/ Reusable private form/table/editor controls
+app/Http/Controllers/Admin/ Guarded base controller, auth/dashboard/profile
+app/Console/Commands/    Interactive admin:create; never a credential seeder
 resources/views/public/  Database-backed public pages/shared parts
 database/seeders/data/   UTF-8 initialization snapshot; never runtime content
 config/*content*.php     Typed content controls; values live in the database
@@ -95,6 +112,8 @@ Remove-Item Env:DB_DATABASE
 php artisan test
 ```
 
-Keep .env set to doctor_portfolio for development; phpunit.xml selects the isolated test schema. No RefreshDatabase/migrate:fresh or test records in the development database. Secure interactive admin provisioning belongs to Step 5. The contact form now saves appointment requests/general messages locally before success; private staff management is still pending.
+Keep .env set to doctor_portfolio for development; phpunit.xml selects the isolated test schema. No RefreshDatabase/migrate:fresh or test records in the development database. Admin provisioning is an explicit interactive command, separate from initialization. The contact form saves appointment requests/general messages locally before success; private staff management is still pending.
 
 Run interaction checks without extra packages: `node --test tests/JavaScript/public-interactions.test.mjs`. See docs/PUBLIC_VERIFICATION.md for Step 4 route/structure results and the manual desktop/mobile checklist. Browser automation was unavailable, so screenshots are not claimed. Article CRUD must reuse resources/views/admin/partials/paragraph-repeater.blade.php and plain localized paragraph arrays; no rich-text editor is installed.
+
+Admin interaction checks: `node --test tests/JavaScript/admin-interactions.test.mjs`. This Windows automation environment denies Laravel's atomic replacement of existing compiled Blade files, including an outside-sandbox retry of `php artisan view:cache`. Generated views were refreshed in place with the existing local QA helper (`php .local-artifacts/refresh-views.php`); application/vendor code and owner content were unchanged. That ignored helper is local QA tooling, not a deployment requirement. On the actual writable production host, verify Laravel's normal view-cache command during the hosting step.

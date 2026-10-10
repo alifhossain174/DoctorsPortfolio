@@ -11,6 +11,7 @@ use App\Services\InitialWebsiteImporter;
 use App\Services\WebsiteContent;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\ViewErrorBag;
 use Tests\TestCase;
 
 class PublicPresentationTest extends TestCase
@@ -109,6 +110,7 @@ class PublicPresentationTest extends TestCase
 
     public function test_shared_admin_repeater_keeps_escaped_plain_paragraph_arrays(): void
     {
+        view()->share('errors', new ViewErrorBag);
         $html = view('admin.partials.paragraph-repeater', ['body' => ['en' => ['First', '<script>plain text</script>'], 'bn' => ['বাংলা']]])->render();
         $this->assertStringContainsString('name="body[en][]"', $html);
         $this->assertStringContainsString('name="body[bn][]"', $html);
