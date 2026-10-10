@@ -18,6 +18,7 @@ final class DashboardController extends AdminController
             'newAppointments' => Inquiry::where('kind', 'appointment')->where('status', 'new')->count(),
             'newMessages' => Inquiry::where('kind', 'contact')->where('status', 'new')->count(),
             'pageCount' => Page::count(), 'mediaCount' => MediaAsset::count(),
+            'recentInquiries' => Inquiry::orderByDesc('created_at')->orderByDesc('id')->limit(config('inquiries.recent_count'))->get(),
         ]);
     }
 }

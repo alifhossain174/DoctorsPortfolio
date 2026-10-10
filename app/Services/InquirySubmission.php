@@ -10,12 +10,12 @@ use Illuminate\Validation\ValidationException;
 
 final class InquirySubmission
 {
-    public function save(array $data, string $token): Inquiry
+    public function save(array $data, string $token, bool $wasSaved = false): Inquiry
     {
         $hash = hash('sha256', $token);
         $fingerprint = hash_hmac('sha256', json_encode($data, JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE), $token);
 
-        return DB::transaction(function () use ($data, $hash, $fingerprint) {
+        return DB::transaction(function () use ($data, $hash, $fingerprint, $wasSaved) {
             // Shared anchor with consultation-option edits protects active choice/snapshot.
             SiteSetting::where('key', 'primary')->lockForUpdate()->firstOrFail();
             $existing = Inquiry::where('submission_token_hash', $hash)->first();
@@ -25,6 +25,10 @@ final class InquirySubmission
                 }
 
                 return $existing;
+            }
+            if ($wasSaved) {
+                // Staff deletion must not resurrect a saved request on an old-form retry.
+                throw ValidationException::withMessages(['submission_token' => app(WebsiteContent::class)->text('contact.submission_expired')]);
             }
             if ($data['kind'] === 'appointment' && ! ConsultationOption::where('is_active', true)->whereKey($data['consultation_option_id'])->lockForUpdate()->first()) {
                 throw ValidationException::withMessages(['consultation_option_id' => app(WebsiteContent::class)->text('contact.validation_invalid')]);

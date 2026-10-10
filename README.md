@@ -1,6 +1,6 @@
 # DoctorPortfolio
 
-Standalone Laravel 12 / PHP 8.2 application with Blade, Eloquent and vanilla JavaScript. Steps 3–11 supply initialized public pages, private authentication/dashboard/profile, media, settings/page/navigation editors, care/service/consultation editors and category/article and gallery CRUD. Hardened bilingual appointment/contact submissions now save synchronously. Staff inbox screens are Step 12. Read AGENTS.md and docs/IMPLEMENTATION_STATUS.md before continuing.
+Standalone Laravel 12 / PHP 8.2 application with Blade, Eloquent and vanilla JavaScript. Steps 3–12 supply initialized public pages, private authentication/dashboard/profile, media, settings/page/navigation editors, care/service/consultation editors and category/article and gallery CRUD. Hardened bilingual appointment/contact submissions now save synchronously. Kind-scoped private staff inboxes and the real-data dashboard are implemented. Read AGENTS.md and docs/IMPLEMENTATION_STATUS.md before continuing.
 
 ## Local setup (PowerShell, project root)
 
@@ -123,7 +123,7 @@ Remove-Item Env:DB_DATABASE
 php artisan test
 ```
 
-Keep .env set to doctor_portfolio for development; phpunit.xml selects the isolated test schema. No RefreshDatabase/migrate:fresh or test records in the development database. Admin provisioning is an explicit interactive command, separate from initialization. The contact form saves appointment requests/general messages locally before success; private staff management is still pending.
+Keep .env set to doctor_portfolio for development; phpunit.xml selects the isolated test schema. No RefreshDatabase/migrate:fresh or test records in the development database. Admin provisioning is an explicit interactive command, separate from initialization. The contact form saves appointment requests/general messages locally before success; the protected Appointments/Contact Messages inboxes manage those same saved records.
 
 Run interaction checks without extra packages: `node --test tests/JavaScript/public-interactions.test.mjs`. See docs/PUBLIC_VERIFICATION.md for Step 4 route/structure results and the manual desktop/mobile checklist. Browser automation was unavailable, so screenshots are not claimed. Article CRUD must reuse resources/views/admin/partials/paragraph-repeater.blade.php and plain localized paragraph arrays; no rich-text editor is installed.
 
@@ -155,4 +155,13 @@ php artisan migrate
 php artisan db:seed
 ```
 
-Migration 000005 adds nullable private duplicate-protection columns. The original completed import skips and a separate create-missing-only marker initializes five localized feedback/help fields. Subsequent normal seeds preserve edits/deletions; no credentials or inquiries are seeded. Edit copy under Website Settings → Contact form & feedback copy. Keep file sessions/cache writable: CSRF, a separate session-bound unique submission token, honeypot and 10/minute file-cache limiter protect native POST. No SMTP or email notification is used; database/private staff inbox is the notification mechanism. The Step 12 inbox and its end-to-end visibility test are still pending. See docs/INQUIRY_WORKFLOW.md for rules, actual localhost commit/retry/CSRF checks, failure behavior and manual review.
+Migration 000005 adds nullable private duplicate-protection columns. The original completed import skips and a separate create-missing-only marker initializes five localized feedback/help fields. Subsequent normal seeds preserve edits/deletions; no credentials or inquiries are seeded. Edit copy under Website Settings → Contact form & feedback copy. Keep file sessions/cache writable: CSRF, a separate session-bound unique submission token, honeypot and 10/minute file-cache limiter protect native POST. No SMTP or email notification is used; database/private staff inbox is the notification mechanism. Step 12 verified actual en/bn × both-kind POSTs in the correct protected inbox/details, including persisted staff notes/read status/history. See docs/INQUIRY_WORKFLOW.md for rules, actual localhost commit/retry/CSRF checks, failure behavior and manual review.
+
+
+## Staff inboxes and dashboard (Step 12)
+
+Run php artisan migrate and npm run build for the additive status-history table and current admin assets. No Step 12 reseed/new credential is needed. Log in with the existing owner-created account, then open /admin/appointments or /admin/contact-messages. Both use the same saved public Inquiry rows; each kind is enforced on list/detail/read/save/delete. Search name/reference/phone and status/received dates stay in the private session, with paginated results and no personal data in links.
+
+Opening a request does not mark it read. Use Mark read or explicitly save status/private notes. Appointment has optional manually confirmed time; General has no confirmation controls. Sensitive changes and permanent deletion require confirmation; stale forms are rejected. Changes record staff/time/status history and send no email/Facebook notification. Deletion affects only the active record/local history, not backups. Dashboard counts and recent private links are actual database results; quick links open content editors and public EN/BN preview.
+
+All admin responses are private/no-store/noindex, with sensitive debug/log protection. Do not share screenshots of real submissions/notes/credentials. See [ADMIN_INQUIRIES](docs/ADMIN_INQUIRIES.md) for exact transitions, time rules, filters, failure/backup boundaries and manual desktop/mobile review. Full PHP suite: 118 tests pass; real localhost bilingual public-submit → staff-review integration passed in the isolated MySQL test database and disposable fixtures/account were cleaned. Public SEO is the next owner step.

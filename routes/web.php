@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CareCollectionController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\GalleryController;
+use App\Http\Controllers\Admin\InquiryController as AdminInquiryController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\NavigationController;
@@ -23,6 +24,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
     });
     Route::middleware(['auth', 'admin', 'auth.session'])->group(function () {
         Route::get('/', DashboardController::class)->name('dashboard');
+        foreach (array_keys(config('inquiries.inboxes')) as $inbox) {
+            Route::get('/'.$inbox, [AdminInquiryController::class, 'index'])->defaults('inbox', $inbox)->name($inbox.'.index');
+            Route::post('/'.$inbox.'/filter', [AdminInquiryController::class, 'filter'])->defaults('inbox', $inbox)->name($inbox.'.filter');
+            Route::get('/'.$inbox.'/{inquiry}', [AdminInquiryController::class, 'show'])->whereNumber('inquiry')->defaults('inbox', $inbox)->name($inbox.'.show');
+            Route::patch('/'.$inbox.'/{inquiry}', [AdminInquiryController::class, 'update'])->whereNumber('inquiry')->defaults('inbox', $inbox)->name($inbox.'.update');
+            Route::patch('/'.$inbox.'/{inquiry}/read', [AdminInquiryController::class, 'read'])->whereNumber('inquiry')->defaults('inbox', $inbox)->name($inbox.'.read');
+            Route::delete('/'.$inbox.'/{inquiry}', [AdminInquiryController::class, 'destroy'])->whereNumber('inquiry')->defaults('inbox', $inbox)->name($inbox.'.destroy');
+        }
         Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

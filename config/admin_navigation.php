@@ -16,8 +16,8 @@ return [
         ['label' => 'Media', 'route' => 'admin.media.index', 'icon' => 'media'],
     ],
     'Inbox' => [
-        ['label' => 'Appointments', 'route' => null, 'icon' => 'appointments'],
-        ['label' => 'Contact Messages', 'route' => null, 'icon' => 'messages'],
+        ['label' => 'Appointments', 'route' => 'admin.appointments.index', 'icon' => 'appointments'],
+        ['label' => 'Contact Messages', 'route' => 'admin.contact-messages.index', 'icon' => 'messages'],
     ],
     'Account' => [['label' => 'Profile', 'route' => 'admin.profile.edit', 'icon' => 'profile']],
 ];

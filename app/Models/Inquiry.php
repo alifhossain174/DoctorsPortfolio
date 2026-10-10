@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -42,7 +43,7 @@ class Inquiry extends Model
                 $data[$field] = $inquiry->getAttribute($field);
             }
             Validator::make($data, [
-                'kind' => ['required', 'in:appointment,contact'], 'name' => ['required', 'string', 'max:80'], 'phone' => ['required', 'string', 'max:40'], 'email' => ['nullable', 'email', 'max:255'], 'message' => ['nullable', 'string', 'max:500'], 'locale' => ['required', 'in:en,bn'], 'status' => ['nullable', 'in:'.implode(',', self::STATUSES)], 'internal_notes' => ['nullable', 'string', 'max:15000'], 'confirmed_visit_at' => ['nullable', 'date'], 'handled_by' => ['nullable', 'integer', 'exists:users,id'],
+                'kind' => ['required', 'in:appointment,contact'], 'name' => ['required', 'string', 'max:80'], 'phone' => ['required', 'string', 'max:40'], 'email' => ['nullable', 'email', 'max:255'], 'message' => ['nullable', 'string', 'max:500'], 'locale' => ['required', 'in:en,bn'], 'status' => ['nullable', 'in:'.implode(',', $inquiry->kind === 'contact' ? ['new', 'read', 'completed', 'spam'] : self::STATUSES)], 'internal_notes' => ['nullable', 'string', 'max:15000'], 'confirmed_visit_at' => $inquiry->kind === 'contact' ? ['prohibited'] : ['nullable', 'date'], 'handled_by' => ['nullable', 'integer', 'exists:users,id'],
             ])->validate();
         });
     }
@@ -55,5 +56,10 @@ class Inquiry extends Model
     public function handledBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'handled_by');
+    }
+
+    public function statusChanges(): HasMany
+    {
+        return $this->hasMany(InquiryStatusChange::class);
     }
 }

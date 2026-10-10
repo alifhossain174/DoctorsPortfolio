@@ -13,6 +13,7 @@ final class InquirySubmissionTokens
         $token = bin2hex(random_bytes(32));
         $tokens[hash('sha256', $token)] = time();
         $request->session()->put('inquiry_submission_tokens', $tokens);
+        $request->session()->put('inquiry_submission_receipts', array_intersect_key($request->session()->get('inquiry_submission_receipts', []), $tokens));
 
         return $token;
     }
@@ -26,5 +27,15 @@ final class InquirySubmissionTokens
 
         // Used tokens can replay only the identical persisted request, never insert again.
         return is_int($issued) && $issued > time() - 7200;
+    }
+
+    public function wasSaved(Request $request, string $token): bool
+    {
+        return $request->session()->get('inquiry_submission_receipts.'.hash('sha256', $token)) === true;
+    }
+
+    public function markSaved(Request $request, string $token): void
+    {
+        $request->session()->put('inquiry_submission_receipts.'.hash('sha256', $token), true);
     }
 }

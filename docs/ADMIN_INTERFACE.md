@@ -1,4 +1,6 @@
-# Step 5 admin interface and authentication
+# Admin interface and authentication
+
+Current owner Step 12: Appointments and Contact Messages are active private destinations over the actual saved Inquiry rows. Scoped filtering/pagination/details, explicit read/status/notes/manual appointment time, handler/history and confirmed local deletion are implemented. Dashboard uses real counts/recent private links. All admin responses are no-store/noindex with private errors/logs; no GET mutation, public patient API or notification. See [ADMIN_INQUIRIES](ADMIN_INQUIRIES.md). Earlier availability descriptions below are retained as historical step evidence.
 
 Current owner Step 10: Gallery is now an active sidebar destination with bilingual caption/alt/media/category CRUD, pagination and accessible global ordering. Staff inbox remains pending; earlier gallery-pending statements below are historical. See [GALLERY_CMS](GALLERY_CMS.md).
 
@@ -66,3 +68,6 @@ Actual local HTTP verifies guest /admin and /admin/profile redirects, login 200 
 `php artisan view:cache` failed here with Windows Access denied on atomic replacement of existing generated compiled views, including an outside-sandbox retry. The existing ignored QA helper refreshed all 50 project Blade files in place; subsequent rendering/tests passed. Application/vendor code, permissions/global services and database content were not changed to bypass it. Verify the ordinary view-cache command on the actual writable cPanel host in the deployment step; no claim that that command passed locally.
 
 When an owner account is provisioned, manually check desktop/mobile login, dashboard/profile spacing, sidebar keyboard/focus/scroll behavior, both error bags and password fields without echoed values. In future editor screens, verify unsaved tab text, paragraph order, Tailwind pagination and delete confirmation with and without JavaScript. Build locally and deploy the complete public/build manifest/assets directory; no runtime Node is needed.
+
+
+Step 12 staff verification: 118 full PHP tests passed; actual localhost public POSTs in en/bn for both kinds became four durable isolated test records, visible only in the correct protected details. Random test staff login, read/notes/history persistence, dashboard links/privacy headers and guest/cross-kind denial passed; owned fixture rows/account were removed. Use disposable data for manual 1190px/390px sidebar/table/focus/long-Bangla review. Staff routes inherit the existing guarded base and require auth/admin/auth.session. No new owner credentials/dependencies/public CSS change.
