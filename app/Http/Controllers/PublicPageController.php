@@ -54,7 +54,9 @@ class PublicPageController extends Controller
             } elseif ($filter !== 'all') {
                 $builder->whereHas('category', fn ($category) => $category->where('slug', $filter));
             }
-            $images = $builder->get();
+            $images = $page === 'gallery'
+                ? $builder->paginate(config('gallery.public_per_page'), ['*'], 'page', $query['page'] ?? 1)->appends(['locale' => app()->getLocale(), ...array_intersect_key($query, ['category' => true])])
+                : $builder->get();
         }
         $sections = $pageRecord->sections->keyBy('key');
 

@@ -79,7 +79,7 @@ class AdminAuthTest extends TestCase
         $this->assertAuthenticatedAs($user);
         $this->assertNotSame($before, session()->getId());
         $this->assertFalse(session()->has('url.intended'));
-        $this->get('/admin')->assertOk()->assertSee('Your website, at a glance')->assertSee('Coming soon')->assertSee('href="http://127.0.0.1:8000/admin/articles"', false)->assertDontSee('href="http://127.0.0.1:8000/admin/gallery"', false);
+        $this->get('/admin')->assertOk()->assertSee('Your website, at a glance')->assertSee('Coming soon')->assertSee('href="http://127.0.0.1:8000/admin/articles"', false)->assertSee('href="http://127.0.0.1:8000/admin/gallery"', false);
         $this->get('/admin/profile')->assertOk()->assertSee($user->email);
         $this->get('/admin/login')->assertRedirect('/admin');
     }

@@ -12,7 +12,7 @@ return [
         ['label' => 'Consultation Options', 'route' => 'admin.consultation-options.index', 'icon' => 'appointments'],
         ['label' => 'Categories', 'route' => 'admin.categories.index', 'icon' => 'categories'],
         ['label' => 'Articles', 'route' => 'admin.articles.index', 'icon' => 'articles'],
-        ['label' => 'Gallery', 'route' => null, 'icon' => 'gallery'],
+        ['label' => 'Gallery', 'route' => 'admin.gallery.index', 'icon' => 'gallery'],
         ['label' => 'Media', 'route' => 'admin.media.index', 'icon' => 'media'],
     ],
     'Inbox' => [

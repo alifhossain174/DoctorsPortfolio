@@ -1,5 +1,8 @@
 # Media manager — Step 6
 
+Current owner Step 10: Gallery CRUD reuses the shared picker/upload manager. Validated picker context now persists through upload/details so Choose image can return a new raster without discarding unsaved gallery text. Gallery entry removal retains media/files; usage still includes hidden entries. See [GALLERY_CMS](GALLERY_CMS.md).
+
+
 Current owner Step 9: Post OG media is now the sixth ownership path; library usage/counts, delete protection and atomic replace-all include it. Category/article forms reuse the existing picker, with no remote download service or image substitution. See [EDITORIAL_CMS](EDITORIAL_CMS.md). Older five-path statements below describe Step 7.
 
 

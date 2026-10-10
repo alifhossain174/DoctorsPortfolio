@@ -1,5 +1,5 @@
 @if($paginator->hasPages())
-<div class="spacing"></div><nav class="filters" aria-label="{{ $site->text('blog.blogheading') }}">
+<div class="spacing"></div><nav class="filters" aria-label="{{ $paginationLabel ?? $site->text('blog.blogheading') }}">
     @foreach($elements as $element)
         @if(is_string($element))<span class="filter" aria-hidden="true">{{ $element }}</span>@endif
         @if(is_array($element))@foreach($element as $number=>$url)

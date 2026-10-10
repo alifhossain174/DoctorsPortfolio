@@ -225,3 +225,8 @@ During initial implementation, unchanged demo text slots were refined into canon
 Full public visual/browser QA, legacy URL compatibility, admin authentication/editors/inquiry management and upload controls remain later build work. The database-backed Blade foundation was implemented now to satisfy Step 3’s populated/readable-site acceptance.
 
 Final development-database verification (separate from test fixtures): **22 HTTP kernel responses returned 200** across the seven main URLs and four articles in each language. All test fixture tables checked after rollback had zero rows; development users/inquiries remained zero. The last database comparison still matched all 266 locale pairs and 81 mappings. Source preservation checks matched all ten original hashes and the byte-identical public stylesheet. Composer validation, Pint, Blade compilation and admin asset build passed.
+
+
+## Owner Step 10 gallery preservation check
+
+No new seed/migration was necessary. Read-only verification on doctor_portfolio confirmed all eight original GalleryImage rows match initialization input for English/Bengali captions and alt, category/media references, source order and visible/homepage flags. Source Bengali literals are preserved, not retranslated. Category totals remain facility 3, clinical 3, wellness 2; first three remain homepage-selected. Ten reference hashes and snapshot checksum match the audit. Development remains nine external/zero local media, with no fake inquiries or owner account/content changes. Gallery CRUD tests run only in doctor_portfolio_test rollback transactions; normal seeding continues to preserve edits and intentional deletions. See GALLERY_CMS and IMPLEMENTATION_STATUS for exact tests.

@@ -1,5 +1,8 @@
 # Shared settings, fixed pages and navigation
 
+Current owner Step 10: Gallery is now an active sidebar destination with bilingual caption/alt/media/category CRUD, pagination and accessible global ordering. Staff inbox remains pending; earlier gallery-pending statements below are historical. See [GALLERY_CMS](GALLERY_CMS.md).
+
+
 Current owner Step 9: Categories and Articles are implemented and active sidebar links, with bilingual paragraph authoring, safe publication, slug history, private preview and public pagination. Gallery/staff inbox remain pending. See [EDITORIAL_CMS](EDITORIAL_CMS.md); earlier category/article-pending statements below are historical.
 
 

@@ -5,9 +5,11 @@
 <x-admin.breadcrumbs :items="[['label'=>'Dashboard','href'=>route('admin.dashboard')],['label'=>'Media','href'=>route('admin.media.index')],['label'=>'Image '.$media->id]]"/>
 <div class="mb-7"><h1 class="text-3xl font-semibold tracking-tight">Image details</h1><p class="mt-2 text-sm text-slate-500">Edit descriptions or replace content references. Image files are never overwritten in place.</p></div>
 <x-admin.validation-summary/>
+@if($picker)<section class="admin-card mb-6"><button type="button" class="admin-button admin-button-primary" data-media-choose data-media-id="{{ $media->id }}" data-media-url="{{ $media->url() }}" data-media-title="{{ $media->localized('title','en') }}" data-media-alt="{{ $media->localized('alt_text','en') }}">Choose image</button><a class="ml-4 text-sm font-semibold text-jade-700" href="{{ route('admin.media.index',['picker'=>1]) }}">Back to image picker</a><p class="mt-3 text-xs text-slate-500">Returns this image to the open editor without saving or discarding its text. Without JavaScript, upload first and select it in a freshly opened editor.</p></section>@endif
 <div class="grid items-start gap-6 xl:grid-cols-3">
     <div class="space-y-6 xl:col-span-2">
         <form method="post" action="{{ route('admin.media.update',$media) }}" class="admin-card space-y-7" data-prevent-double-submit>@csrf @method('PUT')
+            @if($picker)<input type="hidden" name="picker" value="1">@endif
             @include('admin.media.fields')<x-admin.button>Save image details</x-admin.button>
         </form>
         <section class="admin-card"><h2 class="text-lg font-semibold">Usage</h2><p class="mt-1 text-sm text-slate-500">All references count, including draft articles and hidden gallery items.</p>

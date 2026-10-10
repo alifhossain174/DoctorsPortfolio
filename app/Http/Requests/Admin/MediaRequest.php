@@ -11,7 +11,9 @@ final class MediaRequest extends FormRequest
 {
     protected function getRedirectUrl(): string
     {
-        return $this->isMethod('POST') ? route('admin.media.create') : route('admin.media.edit', $this->route('media'));
+        $picker = $this->input('picker') === '1' ? ['picker' => '1'] : [];
+
+        return $this->isMethod('POST') ? route('admin.media.create', $picker) : route('admin.media.edit', ['media' => $this->route('media'), ...$picker]);
     }
 
     public function authorize(): bool
@@ -42,6 +44,7 @@ final class MediaRequest extends FormRequest
     public function rules(): array
     {
         $rules = [];
+        $rules['picker'] = ['sometimes', 'in:1'];
         foreach (app(ContentRegistry::class)->fields('MediaAsset') as $field => $definition) {
             if (in_array($field, self::textFields(), true)) {
                 foreach ($definition['rules'] as $key => $value) {

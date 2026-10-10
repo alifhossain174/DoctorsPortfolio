@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\CareCollectionController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\NavigationController;
@@ -35,6 +36,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::put('/pages/{page:key}', [PageContentController::class, 'update'])->name('pages.update');
         Route::resource('navigation', NavigationController::class)->parameters(['navigation' => 'navigationItem'])->except('show');
         Route::resource('categories', CategoryController::class)->except('show');
+        Route::resource('gallery', GalleryController::class)->parameters(['gallery' => 'image'])->except('show');
+        Route::patch('/gallery/{image}/move', [GalleryController::class, 'move'])->name('gallery.move');
+        Route::patch('/gallery/{image}/visibility', [GalleryController::class, 'visibility'])->name('gallery.visibility');
         Route::put('/categories/{category}/reassign', [CategoryController::class, 'reassign'])->name('categories.reassign');
         Route::resource('articles', ArticleController::class)->parameters(['articles' => 'post'])->except('show');
         Route::patch('/articles/{post}/publication', [ArticleController::class, 'publication'])->name('articles.publication');

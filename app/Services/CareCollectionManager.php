@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Category;
 use App\Models\CmsModel;
 use App\Models\SiteSetting;
 use Illuminate\Support\Collection;
@@ -29,12 +30,20 @@ final class CareCollectionManager
         }
     }
 
+    private function validateCategory(array $definition, array $input, ?CmsModel $record = null): void
+    {
+        if ($definition['owner'] === 'GalleryImage' && ! Category::whereKey($input['category_id'] ?? $record?->category_id)->where('for_gallery', true)->lockForUpdate()->exists()) {
+            throw ValidationException::withMessages(['item.category_id' => 'Choose a category enabled for gallery entries.']);
+        }
+    }
+
     public function create(array $definition, array $input): CmsModel
     {
         Gate::authorize('access-admin');
 
         return DB::transaction(function () use ($definition, $input) {
             $rows = $this->lockedRows($definition);
+            $this->validateCategory($definition, $input);
             $this->normalize($rows);
             if ($definition['owner'] !== 'ConsultationOption') {
                 $input['key'] = 'custom-'.bin2hex(random_bytes(16));
@@ -58,6 +67,7 @@ final class CareCollectionManager
         DB::transaction(function () use ($definition, $record, $input, $confirmed) {
             $rows = $this->lockedRows($definition);
             $current = $rows->firstWhere('id', $record->id) ?? $record->newQuery()->findOrFail($record->id);
+            $this->validateCategory($definition, $input, $current);
             if ($current->getAttribute($definition['state']) && array_key_exists($definition['state'], $input) && ! $input[$definition['state']] && ! $confirmed) {
                 throw ValidationException::withMessages(['confirm_disable' => 'Confirm disabling this record before saving.']);
             }

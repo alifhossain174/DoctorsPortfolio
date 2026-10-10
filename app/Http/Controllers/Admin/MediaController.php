@@ -26,29 +26,32 @@ final class MediaController extends AdminController
         return view('admin.media.index', ['media' => $media, 'filter' => $filter]);
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        return view('admin.media.create');
+        $context = $request->validate(['picker' => ['sometimes', 'in:1']]);
+
+        return view('admin.media.create', ['picker' => ($context['picker'] ?? null) === '1']);
     }
 
     public function store(MediaRequest $request, MediaManager $manager)
     {
         $asset = $manager->upload($request->file('image'), $request->safe()->only(MediaRequest::textFields()));
 
-        return redirect()->route('admin.media.edit', $asset)->with('status', 'Image uploaded. It is ready to choose in website content.');
+        return redirect()->route('admin.media.edit', ['media' => $asset, ...($request->validated('picker') === '1' ? ['picker' => '1'] : [])])->with('status', 'Image uploaded. It is ready to choose in website content.');
     }
 
-    public function edit(MediaAsset $media)
+    public function edit(Request $request, MediaAsset $media)
     {
+        $context = $request->validate(['picker' => ['sometimes', 'in:1']]);
         $media->load(['posts', 'galleryImages', 'contentFields', 'settings', 'pages', 'ogPosts']);
         $usages = [];
         foreach (['posts' => 'Article', 'galleryImages' => 'Gallery', 'contentFields' => 'Page field', 'settings' => 'Doctor portrait', 'pages' => 'Page OG image', 'ogPosts' => 'Article OG image'] as $relation => $label) {
             foreach ($media->$relation as $record) {
-                $usages[] = ['type' => $label, 'identity' => $record->slug ?? $record->key, 'label' => $record->localized('title', 'en') ?: ($record->slug ?? $record->key)];
+                $usages[] = ['type' => $label, 'identity' => $record->slug ?? $record->key, 'label' => $record->localized('title', 'en') ?: ($record->localized('caption', 'en') ?: ($record->slug ?? $record->key))];
             }
         }
 
-        return view('admin.media.edit', ['media' => $media, 'usages' => $usages,
+        return view('admin.media.edit', ['media' => $media, 'usages' => $usages, 'picker' => ($context['picker'] ?? null) === '1',
             'mediaChoices' => MediaAsset::whereKeyNot($media->id)->orderBy('id')->get(['id', 'title', 'alt_text', 'path', 'disk', 'source_url'])]);
     }
 
@@ -62,7 +65,7 @@ final class MediaController extends AdminController
             return redirect()->route('admin.media.edit', $media)->withErrors(['media' => 'Details could not be saved. Please retry.'])->withInput($request->safe()->only(MediaRequest::textFields()));
         }
 
-        return redirect()->route('admin.media.edit', $media)->with('status', 'Image details saved.');
+        return redirect()->route('admin.media.edit', ['media' => $media, ...($request->validated('picker') === '1' ? ['picker' => '1'] : [])])->with('status', 'Image details saved.');
     }
 
     public function replace(Request $request, MediaAsset $media, MediaManager $manager)
