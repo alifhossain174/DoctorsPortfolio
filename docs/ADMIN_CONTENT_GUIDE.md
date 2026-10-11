@@ -1,5 +1,9 @@
 # Editing website content
 
+## Hosting and first admin
+
+See the concise root-hosting setup in [README](../README.md). Transfers preserve your existing accounts, key, edits, import markers and uploads. The separate new-installation SQL contains bilingual demo content with zero accounts/inquiries: create your own admin privately with `php artisan admin:create` in a separate local provisioning copy/database and privately transfer its owner users row when hosting has no Terminal. Never ship credentials or add a public installer. Root hosting keeps media in project/public/uploads with consistent /uploads URLs; no split public-path configuration is needed. Editor/localization behavior and next-request updates are unchanged.
+
 Use `/admin` with your securely created staff account. The public design, CSS, layout/order of fixed sections, breakpoints and interaction behavior stay in code. Admin edits manage content, images, links and documented visibility/counts; there is no visual page builder, arbitrary JSON/template/CSS editor or translation API. Every public copy control submits to Laravel and writes MySQL/MariaDB. No JavaScript content catalog, seed fallback or source frontend is needed to display the site.
 
 ## Where to edit each public section

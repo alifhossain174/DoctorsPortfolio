@@ -1,5 +1,9 @@
 # Public content ownership matrix
 
+## Current root-hosting boundary — 2026-10-11
+
+No managed field/editor/Blade owner changed. The owner-selected hardened root wrapper/rewrite layout keeps Laravel's public path at project/public: Vite reads public/build, local media lives in public/uploads and resolves through /uploads across admin previews/public cards/lightbox. No APP_PUBLIC_PATH/split-index is used. Existing media and database ownership stay unchanged; transfers preserve edits, users, key, initialization markers and uploads. The separate clean SQL is new-installation input, not an owner-data export. Source frontend is excluded from releases and blocked on HTTP; README/TEST_REPORT record setup/security evidence. The obsolete split-layout deployment guides/code were removed.
+
 Updated after owner Step 13, 2026-10-10. `frontend/` is the unmodified reference. Shared settings, fixed pages, navigation, media, care/service/consultation, category/article and gallery editors are implemented; hardened inquiry POST/PRG is implemented; staff kind-scoped inboxes and the real-data dashboard are implemented. Exact reconciliation sections supersede historical proposal names/pending statuses. Shared identity/address/hours stay canonical. Managed text uses `{en,bn}` and LocalizedContent; localized public metadata/OG/canonical/hreflang, robots/sitemap and the end-to-end admin/database/render audit are implemented. Every table row is reconciled in CONTENT_TRACE; the editor guide is ADMIN_CONTENT_GUIDE.
 
 The first table contains every one of the 81 dictionary keys, including unused blogdesc, with individual source, DB owner, admin screen, rendering use and status. Subsequent tables enumerate collection fields and extra literal/structural copy. Exact bilingual values and slugs are preserved in FRONTEND_AUDIT. Shared fact prose uses allowlisted format placeholders as specified in ARCHITECTURE.

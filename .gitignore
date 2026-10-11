@@ -3,9 +3,11 @@
 /.env
 /.env.*
 !/.env.example
+!/.env.production.example
 /.bootstrap-laravel/
 /.local-cache/
 /.local-artifacts/
+/releases/
 .phpactor.json
 .phpunit.result.cache
 /.fleet
@@ -42,6 +44,8 @@
 /storage/logs/*
 !/storage/logs/.gitignore
 /database/*.sqlite*
+# Private owner/database-transfer exports are not source code.
+/*.sql
 /storage/*.key
 /storage/pail
 /vendor

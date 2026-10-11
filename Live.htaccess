@@ -1,0 +1,64 @@
+# Apache 2.4 + mod_rewrite. Install as .htaccess in the Laravel project root.
+# Keep public/.htaccess and public/uploads/.htaccess; both remain necessary.
+Options -Indexes -ExecCGI -Includes -MultiViews
+DirectoryIndex index.php
+<IfModule mod_rewrite.c>
+    Require all granted
+</IfModule>
+
+# Fail closed for the project root if rewrite support is unavailable.
+<IfModule !mod_rewrite.c>
+    Require all denied
+</IfModule>
+
+# Authorization survives a child .htaccess overriding parent rewrite rules.
+# REQUEST_FILENAME also covers percent-encoded paths after Apache resolves them.
+<If "(-f %{REQUEST_FILENAME} || -d %{REQUEST_FILENAME}) && (%{REQUEST_FILENAME} =~ m#(?i)/(?:app|bootstrap|config|database|storage|vendor|resources|routes|tests|docs|scripts|frontend|deployment|releases|node_modules|\.git|\.local-artifacts|\.local-cache)(?:/|$)# || %{REQUEST_FILENAME} =~ m#(?i)/public(?:$|/(?!assets/|build/|uploads/))# || %{REQUEST_FILENAME} =~ m#(?i)/public/(?:assets|build|uploads)/.*\.(?:php[0-9]?|phtml|phar|cgi|pl|py|shtml)(?:\..*)?$#)">
+    Require all denied
+</If>
+
+# Protect secrets/source archives even before rewrite processing.
+<FilesMatch "(?i)^(?:\..*|artisan|AGENTS\.md|(?:composer|package)(?:-lock)?\.(?:json|lock)|phpunit\.xml|.*\.(?:env|log|sql|sqlite3?|bak|ini|ya?ml|lock|md|zip|tar|gz|7z))$">
+    Require expr "! -f %{REQUEST_FILENAME} && ! -d %{REQUEST_FILENAME}"
+</FilesMatch>
+# Only the two known index.php front controllers may execute PHP.
+<FilesMatch "(?i)^(?!index\.php$).*\.(?:php[0-9]?|phtml|phar|cgi|pl|py|shtml)(?:\..*)?$">
+    Require expr "! -f %{REQUEST_FILENAME} && ! -d %{REQUEST_FILENAME}"
+</FilesMatch>
+
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule ^ - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+    RewriteCond %{HTTP:X-XSRF-Token} .
+    RewriteRule ^ - [E=HTTP_X_XSRF_TOKEN:%{HTTP:X-XSRF-Token}]
+
+    # Read-only AutoSSL tokens and standard Sectigo validation text files.
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteRule ^\.well-known/(?:acme-challenge/[A-Za-z0-9_-]+|pki-validation/[a-fA-F0-9]{32}\.txt)$ - [END]
+
+    RewriteRule (^|/)\. - [F,END]
+    RewriteRule ^(?:app|bootstrap|config|database|storage|vendor|resources|routes|tests|docs|scripts|frontend|deployment|releases|node_modules)(?:/|$) - [F,END,NC]
+
+    # Public CSS/JS/design assets and compiled Vite output only.
+    RewriteRule ^public/(assets|build)/[A-Za-z0-9_./-]+\.(?:css|js|json|map|jpg|jpeg|png|webp|gif|ico|svg|woff2?|ttf|otf)$ - [END,NC]
+    RewriteRule ^(assets|build)/([A-Za-z0-9_./-]+\.(?:css|js|json|map|jpg|jpeg|png|webp|gif|ico|svg|woff2?|ttf|otf))$ public/$1/$2 [END,NC]
+
+    # Match the media manager's controlled directories and random raster names.
+    # Child upload .htaccess still enforces non-execution, MIME and nosniff.
+    RewriteRule ^public/uploads/images/[0-9]{4}/[0-9]{2}/[a-f0-9]{32}\.(?:jpg|png|webp)$ - [END,NC]
+    RewriteRule ^uploads/(images/[0-9]{4}/[0-9]{2}/[a-f0-9]{32}\.(?:jpg|png|webp))$ public/uploads/$1 [END,NC]
+    RewriteRule ^(?:public|assets|build|uploads)(?:/|$) - [F,END,NC]
+
+    RewriteRule ^$ index.php [END]
+    RewriteRule ^index\.php$ - [END]
+    # Never serve arbitrary project-root files or directories.
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [F,END]
+    RewriteRule ^ index.php [END]
+</IfModule>
