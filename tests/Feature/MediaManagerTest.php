@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\GalleryImage;
 use App\Models\MediaAsset;
 use App\Models\Post;
 use App\Models\User;
@@ -93,6 +94,54 @@ class MediaManagerTest extends TestCase
         $this->assertSame(12, MediaAsset::count());
         $this->get(route('admin.media.index'))->assertOk()->assertSee('Local')->assertSee('External');
         $this->get(route('admin.media.edit', $asset))->assertOk()->assertSee($asset->url(), false)->assertSee('Copy URL');
+    }
+
+    public function test_file_only_upload_returns_a_library_asset_and_changes_content_only_after_save(): void
+    {
+        $entry = GalleryImage::firstOrFail();
+        $original = $entry->media_asset_id;
+        $response = $this->postJson(route('admin.media.store'), ['quick_upload' => '1', 'image' => $this->image('png', '../../clinic-photo.png')])
+            ->assertCreated()->assertJsonPath('title', 'clinic-photo')->assertJsonPath('alt', '');
+        $asset = MediaAsset::findOrFail($response->json('id'));
+        $this->assertSame($asset->url(), $response->json('url'));
+        $this->assertSame($original, $entry->fresh()->media_asset_id);
+        $this->assertFalse($asset->inUse());
+        $this->assertNull($asset->alt_text);
+        Storage::disk('public-media')->assertExists($asset->path);
+
+        $this->put(route('admin.gallery.update', $entry), ['item' => ['media_asset_id' => $asset->id]])->assertSessionHasNoErrors();
+        $this->assertSame($asset->id, $entry->fresh()->media_asset_id);
+        $this->assertNotNull(MediaAsset::find($original));
+        $this->get('/gallery?locale=bn')->assertOk()->assertSee($asset->url(), false);
+    }
+
+    public function test_quick_upload_keeps_validation_authorization_and_optional_bilingual_metadata(): void
+    {
+        $this->postJson(route('admin.media.store'), ['quick_upload' => '1', 'image' => UploadedFile::fake()->createWithContent('unsafe.svg', '<svg/>')])
+            ->assertUnprocessable()->assertJsonValidationErrors('image');
+        $this->postJson(route('admin.media.store'), ['quick_upload' => '1', 'image' => [$this->image()]])
+            ->assertUnprocessable()->assertJsonValidationErrors('image');
+        $this->postJson(route('admin.media.store'), ['quick_upload' => '1', 'image' => $this->image(), 'source_url' => 'https://example.test/image.png'])
+            ->assertUnprocessable()->assertJsonValidationErrors('source_url');
+        $this->assertSame(9, MediaAsset::count());
+        $this->postJson(route('admin.media.store'), ['quick_upload' => '1', 'title' => ['bn' => 'ছবি'], 'image' => $this->image()])
+            ->assertCreated()->assertJsonPath('title', 'test');
+        $this->assertSame('ছবি', MediaAsset::latest('id')->firstOrFail()->title['bn']);
+        auth()->user()->forceFill(['is_admin' => false])->save();
+        $this->postJson(route('admin.media.store'), ['quick_upload' => '1', 'image' => $this->image()])->assertForbidden();
+        auth()->logout();
+        $this->postJson(route('admin.media.store'), ['quick_upload' => '1', 'image' => $this->image()])->assertUnauthorized();
+        $this->assertSame(10, MediaAsset::count());
+    }
+
+    public function test_library_file_only_upload_keeps_the_normal_redirect_workflow(): void
+    {
+        $this->get(route('admin.media.create'))->assertOk()->assertSee('Image name (optional)')->assertSee('Optional descriptions');
+        $response = $this->post(route('admin.media.store'), ['quick_upload' => '1', 'title' => ['en' => '', 'bn' => 'নিজস্ব ছবি'], 'image' => $this->image('png', 'my-photo.png')]);
+        $asset = MediaAsset::latest('id')->firstOrFail();
+        $response->assertRedirect(route('admin.media.edit', $asset))->assertSessionHasNoErrors();
+        $this->assertSame(['en' => 'my-photo', 'bn' => 'নিজস্ব ছবি'], $asset->title);
+        $this->get(route('admin.media.edit', $asset))->assertOk()->assertSee('address is generated automatically');
     }
 
     public function test_svg_executables_html_mismatched_extensions_and_broken_signatures_are_rejected(): void
@@ -223,7 +272,7 @@ class MediaManagerTest extends TestCase
         $this->get('/admin/media?q=unlikely-no-match')->assertOk()->assertSee('No images found');
         $this->get('/admin/media?kind=unsafe')->assertSessionHasErrors('kind');
         $asset = MediaAsset::first();
-        $this->get(route('admin.media.edit', $asset))->assertOk()->assertSee('not a downloaded local file');
+        $this->get(route('admin.media.edit', $asset))->assertOk()->assertSee('imported from the original demo website')->assertSee('Image address (advanced)');
         $this->assertSame(9, MediaAsset::whereNotNull('source_url')->whereNull('path')->count());
         $this->assertSame([], Storage::disk('public-media')->allFiles());
     }

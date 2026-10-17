@@ -116,15 +116,21 @@ test('delete cancellation makes no request and confirmation submits once with ex
     form.requestSubmit(button); assert.equal(form.submissions, 1);
 });
 
-function mediaSetup() {
+function mediaSetup(options = {}) {
     const document = new Element(); document.body = new Element();
     const create = () => { const item = new Element(); item.document = document; return item; };
     const picker = create(), select = create(), preview = create(), browse = create();
+    const upload = create(), uploadControls = create(), uploadStatus = create(), previewError = create(), form = create();
+    const token = create(); token.value = 'csrf-test-token';
+    const textInput = create(); textInput.value = 'Unsaved bilingual content';
+    form.querySelector = () => token;
+    picker.closest = () => form;
+    upload.files = []; upload.dataset.uploadUrl = 'https://example.test/admin/media';
     const empty = create(); empty.value = ''; select.options = [empty]; select.value = '';
     Object.defineProperty(select, 'selectedOptions', { get: () => select.options.filter(option=>option.value===select.value) });
     select.add = option => select.options.push(option);
     browse.href = 'https://example.test/admin/media?picker=1';
-    picker.querySelector = selector => ({ '[data-media-select]':select,'[data-media-preview]':preview,'[data-media-browse]':browse })[selector];
+    picker.querySelector = selector => ({ '[data-media-select]':select,'[data-media-preview]':preview,'[data-media-browse]':browse, '[data-media-upload]':upload, '[data-media-upload-controls]':uploadControls, '[data-media-upload-status]':uploadStatus, '[data-media-preview-error]':previewError })[selector];
     const choose = create(); choose.dataset = { mediaId:'9',mediaUrl:'https://example.test/uploads/image.png',mediaTitle:'Selected title',mediaAlt:'Selected alt' };
     const copy = create(), input = create(), status = create(); copy.dataset.copyUrl='public-url'; input.value='https://example.test/uploads/image.png'; input.select=()=>{input.selected=true;}; copy.parentElement={querySelector:()=>status};
     document.querySelectorAll = selector => ({ '[data-media-picker]':[picker],'[data-media-choose]':[choose],'[data-copy-url]':[copy] })[selector] ?? [];
@@ -135,8 +141,11 @@ function mediaSetup() {
     window.opener={postMessage:(message,origin)=>{window.sent={message,origin};}};
     const navigator={clipboard:{writeText: async ()=>{ throw Error('Unavailable'); }}};
     function Option(text,value) { const option=create(); option.text=text; option.value=value; return option; }
-    vm.runInNewContext(fs.readFileSync('resources/js/admin.js','utf8'),{document,window,navigator,Option,URL,HTMLFormElement:Element,queueMicrotask});
-    return { document,window,popup,select,preview,browse,choose,copy,input,status };
+    class FormData extends Map { append(key, value) { this.set(key, value); } }
+    const requests = [];
+    const fetch = async (url, settings) => { requests.push({ url, ...settings }); return options.fetch(url, settings); };
+    vm.runInNewContext(fs.readFileSync('resources/js/admin.js','utf8'),{document,window,navigator,Option,URL,HTMLFormElement:Element,queueMicrotask,FormData,fetch,Error});
+    return { document,window,popup,select,preview,browse,choose,copy,input,status,upload,uploadControls,uploadStatus,previewError,form,textInput,requests };
 }
 
 test('shared media picker accepts only its same-origin popup and updates a reference without submitting', () => {
@@ -158,4 +167,67 @@ test('copy URL falls back to keyboard selection when clipboard access fails', as
     const {copy,input,status} = mediaSetup();
     copy.fire('click'); await new Promise(setImmediate);
     assert.equal(input.selected,true); assert.match(status.textContent,/keyboard/);
+});
+
+test('inline upload sends file and CSRF, blocks save while pending, and selects only after persistence', async () => {
+    let finish;
+    const state = mediaSetup({ fetch: () => new Promise(resolve => { finish = resolve; }) });
+    const { upload,uploadControls,uploadStatus,form,select,preview,textInput,requests } = state;
+    assert.equal(uploadControls.hidden, false);
+    upload.files = [{ name: 'clinic.png' }]; upload.fire('change');
+    assert.equal(upload.disabled, true); assert.equal(select.disabled, true);
+    assert.equal(form.fire('submit').defaultPrevented, true);
+    assert.equal(select.value, ''); assert.equal(textInput.value, 'Unsaved bilingual content');
+    assert.equal(requests[0].body.get('_token'), 'csrf-test-token');
+    assert.equal(requests[0].body.get('image'), upload.files[0]);
+    assert.equal(requests[0].body.get('quick_upload'), '1');
+    assert.equal(requests[0].body.size, 3);
+    assert.equal(requests[0].credentials, 'same-origin');
+    finish({ status: 201, ok: true, json: async () => ({ id: 18, title: 'clinic', alt: '', url: 'https://example.test/uploads/clinic.png' }) });
+    await new Promise(setImmediate);
+    assert.equal(select.value, '18'); assert.equal(preview.src, 'https://example.test/uploads/clinic.png');
+    assert.equal(upload.disabled, false); assert.equal(select.disabled, false); assert.equal(upload.value, '');
+    assert.match(uploadStatus.textContent, /Save this form/);
+    assert.notEqual(form.fire('submit').defaultPrevented, true);
+    assert.equal(textInput.value, 'Unsaved bilingual content');
+});
+
+test('failed inline upload preserves selection and text, allows retry and explains session and size failures', async () => {
+    for (const [response, message] of [
+        [{ status: 422, ok: false, json: async () => ({ errors: { image: ['Choose a valid raster image.'] } }) }, /valid raster/],
+        [{ status: 419 }, /session expired/],
+        [{ status: 413 }, /too large/],
+        [{ status: 201, ok: true, json: async () => ({ id: 5, title: 'bad', alt: '', url: 'javascript:alert(1)' }) }, /could not be read/],
+    ]) {
+        const { window,popup,browse,select,upload,uploadStatus,textInput,form } = mediaSetup({ fetch: async () => response });
+        browse.fire('click', { currentTarget: browse });
+        window.fire('message', { origin: window.location.origin, source: popup, data: { type:'doctor-portfolio:media', id:9, title:'Current', alt:'', url:'https://example.test/current.png' } });
+        upload.files = [{ name: 'bad.png' }]; upload.fire('change');
+        await new Promise(setImmediate);
+        assert.equal(select.value, '9'); assert.equal(upload.disabled, false);
+        assert.match(uploadStatus.textContent, message);
+        assert.equal(textInput.value, 'Unsaved bilingual content');
+        assert.notEqual(form.fire('submit').defaultPrevented, true);
+    }
+});
+
+test('unavailable image preview gives a replacement hint and clears it for a new selection', () => {
+    const { preview,previewError,select } = mediaSetup();
+    preview.fire('error'); assert.equal(preview.hidden, true); assert.equal(previewError.hidden, false);
+    select.fire('change'); assert.equal(previewError.hidden, true);
+});
+
+test('network failure allows uploading the same file again without losing editor text', async () => {
+    let attempt = 0;
+    const { upload,uploadStatus,select,textInput,requests } = mediaSetup({ fetch: async () => {
+        if (++attempt === 1) throw new TypeError('Failed to fetch');
+        return { status:201, ok:true, json:async () => ({ id:23, title:'Retried image', alt:'', url:'https://example.test/uploads/retried.png' }) };
+    } });
+    upload.files = [{ name:'same.png' }]; upload.fire('change');
+    await new Promise(setImmediate);
+    assert.equal(select.value, ''); assert.equal(upload.value, '');
+    assert.match(uploadStatus.textContent, /connection/);
+    upload.fire('change'); await new Promise(setImmediate);
+    assert.equal(select.value, '23'); assert.equal(requests.length, 2);
+    assert.equal(textInput.value, 'Unsaved bilingual content');
 });

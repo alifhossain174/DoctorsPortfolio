@@ -1,5 +1,11 @@
 # Public content ownership matrix
 
+## Simplified image controls — 2026-10-17
+
+All existing image owners now share an inline **Upload from device** control: SiteSetting.portrait_media_asset_id; typed ContentField.media_asset_id; Page.og_media_asset_id; Post.media_asset_id/og_media_asset_id; GalleryImage.media_asset_id; and the confirmed Media replace-all picker. A file uploads synchronously to the existing MediaAsset/public-media store and is selected in the current form. The ordinary content save applies the FK; uploading alone does not change website references. Native library selection and the popup remain available. No managed field/schema/public renderer changed.
+
+Quick uploads use the filename as the English library title when blank; English/Bangla metadata remains editable. No alt text, provenance, caption or authenticity assertion is invented. Media source explanation identifies imported demo addresses/external hosts versus local uploads, and URL copying is inside **Image address (advanced)**. Existing slot-owned alt/caption and stock notices retain their ownership. See MEDIA_MANAGER and ADMIN_CONTENT_GUIDE for the current workflow; older multi-page upload instructions below are historical.
+
 ## Current root-hosting boundary — 2026-10-11
 
 No managed field/editor/Blade owner changed. The owner-selected hardened root wrapper/rewrite layout keeps Laravel's public path at project/public: Vite reads public/build, local media lives in public/uploads and resolves through /uploads across admin previews/public cards/lightbox. No APP_PUBLIC_PATH/split-index is used. Existing media and database ownership stay unchanged; transfers preserve edits, users, key, initialization markers and uploads. The separate clean SQL is new-installation input, not an owner-data export. Source frontend is excluded from releases and blocked on HTTP; README/TEST_REPORT record setup/security evidence. The obsolete split-layout deployment guides/code were removed.

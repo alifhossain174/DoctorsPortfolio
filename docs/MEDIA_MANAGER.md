@@ -1,5 +1,17 @@
 # Media manager — Step 6
 
+## Current simplified workflow — 2026-10-17
+
+In Website Settings, Page Content, Articles or Gallery, use **Upload from device**, choose a JPEG/PNG/WebP, wait for **Image uploaded and selected**, then save that content. The current editor stays open and its unsaved translations are retained. A pending upload blocks form saving; validation/session/server-size failures appear beside the file input and leave the previous image selected. The preview explains unavailable external images. Existing library selection and Browse library remain alternatives. Without JavaScript, upload in Media first, then reopen the content editor and choose from its native list.
+
+Uploads use the existing protected POST /admin/media with CSRF, authorization, raster/size/dimension rules, disk cleanup and random local filenames. An Accept: application/json request receives only id/url/title/alt with HTTP201 after persistence. `quick_upload=1` supplies a filename-based English library title when blank; it does not infer image alt, caption, provenance or authenticity. Explicit bilingual metadata is still validated and editable. Uploading does not replace content until its normal save (or explicit confirmed replace-all). Unused uploads remain in Media if the editor is abandoned.
+
+The Media upload page now requires only the file; image name is optional and descriptions/source notes are expandable. Image details explain that original demo addresses were imported into database records, identify the external host, and distinguish local uploads whose addresses are generated automatically. The signed Facebook CDN address comes from the original demo hero URL documented in FRONTEND_AUDIT; no download occurs at runtime. **Image address (advanced)** contains optional URL copying. For in-use images, **Change image everywhere it is used** accepts an inline upload or an existing image and retains explicit confirmation/all-six-owner replacement protection. Existing per-slot descriptions and stock caveats are not overwritten.
+
+This change does not alter the public design, frontend reference, database schema, imported source URLs, hosting rules or release archives. Build output is regenerated locally; a future deployment needs the rebuilt assets and updated application files.
+
+Verification: 52 focused PHP tests / 1,392 assertions on guarded doctor_portfolio_testing with DML rollback and fake disk cleanup; 10 admin JavaScript interaction checks; admin build, targeted Pint and whitespace checks passed. File-only JSON and redirect uploads, authorization, malformed/unsafe files, unchanged references until content save, shared-image preservation, pending-save blocking, CSRF payload, error/session/size handling and network retry are covered. The compiled-view Windows rename access error was cleared with view:clear/view:cache before successful rendering checks. No connected browser was available for visual QA; no owner database or release archive was changed.
+
 Current owner Step 10: Gallery CRUD reuses the shared picker/upload manager. Validated picker context now persists through upload/details so Choose image can return a new raster without discarding unsaved gallery text. Gallery entry removal retains media/files; usage still includes hidden entries. See [GALLERY_CMS](GALLERY_CMS.md).
 
 

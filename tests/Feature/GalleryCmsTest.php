@@ -103,7 +103,7 @@ class GalleryCmsTest extends TestCase
             $this->assertSame(array_slice(array_column($figures, 'caption'), 0, 3), array_column($this->figures($this->get('/?locale='.$locale)->getContent()), 'caption'));
         }
         $this->get('/admin/gallery')->assertOk()->assertSee('Move up')->assertSee('Confirm hide');
-        $this->get('/admin/gallery/create')->assertOk()->assertSee('Browse library')->assertSee('Upload image');
+        $this->get('/admin/gallery/create')->assertOk()->assertSee('Browse library')->assertSee('Upload from device')->assertSee('data-media-upload', false);
         $this->get('/admin/gallery/999999/edit')->assertNotFound();
         $this->assertTrue(app(InitialWebsiteImporter::class)->import()['skipped']);
     }

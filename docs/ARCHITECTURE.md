@@ -1,5 +1,9 @@
 # Architecture and implementation contract
 
+## Inline image upload — 2026-10-17
+
+The shared Blade media picker enhances each existing content form with a file-only synchronous upload to the protected POST /admin/media endpoint. Vanilla JavaScript sends multipart image/quick_upload/CSRF only, expects a persisted MediaAsset JSON response (201), and updates that picker's native FK select/preview. It preserves unsaved bilingual fields and blocks the parent save while any picker upload is pending. Errors retain the previous selection and allow retry. Ordinary library uploads retain POST/Redirect/GET, native library selection works without JavaScript, and actual content references still change only through their existing validated save. There are no nested forms, new packages, schema changes or runtime content arrays. Filename-derived library titles are labels only; optional descriptions/source notes stay bilingual and owner supplied. Existing upload validation, random paths, cleanup and usage protection are reused.
+
 ## Current deployment implementation — owner override, 2026-10-11
 
 The owner explicitly selected the application-root document-root approach. Hardened Live.htaccess becomes root .htaccess and Liveindex.php becomes root index.php; the wrapper requires the unchanged Laravel12 public/index.php. Apache authorization and whitelisted rewrites protect private files/directories and expose only public/assets, public/build and controlled public/uploads rasters. Authorization rules survive child rewrite overrides. Missing mod_rewrite denies project-root access; the host must honor .htaccess/Apache2.4 expressions. Actual host enforcement remains unverified.

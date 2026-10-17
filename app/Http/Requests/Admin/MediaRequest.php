@@ -5,6 +5,7 @@ namespace App\Http\Requests\Admin;
 use App\Rules\RasterImage;
 use App\Services\ContentRegistry;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Gate;
 
 final class MediaRequest extends FormRequest
@@ -23,6 +24,16 @@ final class MediaRequest extends FormRequest
 
     protected function prepareForValidation(): void
     {
+        // Quick uploads need only a file. The filename is a library label, not an
+        // invented image description; all localized metadata remains editable.
+        if ($this->isMethod('POST') && $this->input('quick_upload') === '1' && $this->file('image') instanceof UploadedFile) {
+            $title = $this->input('title', []);
+            if (is_array($title) && trim(is_string($title['en'] ?? null) ? $title['en'] : '') === '') {
+                $filename = basename(str_replace('\\', '/', $this->file('image')->getClientOriginalName()));
+                $title['en'] = mb_substr(pathinfo($filename, PATHINFO_FILENAME), 0, 200) ?: 'Uploaded image';
+                $this->merge(['title' => $title]);
+            }
+        }
         foreach (self::textFields() as $field) {
             $translations = $this->input($field);
             if (is_array($translations)) {
@@ -45,6 +56,7 @@ final class MediaRequest extends FormRequest
     {
         $rules = [];
         $rules['picker'] = ['sometimes', 'in:1'];
+        $rules['quick_upload'] = $this->isMethod('POST') ? ['sometimes', 'in:1'] : ['prohibited'];
         foreach (app(ContentRegistry::class)->fields('MediaAsset') as $field => $definition) {
             if (in_array($field, self::textFields(), true)) {
                 foreach ($definition['rules'] as $key => $value) {

@@ -15,16 +15,78 @@ document.querySelectorAll('[data-target-control]').forEach(control => {
 document.querySelectorAll('[data-media-picker]').forEach(picker => {
     const select = picker.querySelector('[data-media-select]');
     const preview = picker.querySelector('[data-media-preview]');
+    const previewError = picker.querySelector('[data-media-preview-error]');
+    const upload = picker.querySelector('[data-media-upload]');
+    const uploadStatus = picker.querySelector('[data-media-upload-status]');
     let libraryWindow;
     const showPreview = () => {
         const option = select.selectedOptions[0];
         const url = option?.dataset.url ?? '';
+        if (previewError) previewError.hidden = true;
         preview.hidden = !url;
         if (url) { preview.src = url; preview.alt = option.dataset.alt ?? ''; }
         else { preview.removeAttribute('src'); preview.alt = ''; }
     };
-    select.addEventListener('change', showPreview);
+    select.addEventListener('change', () => {
+        showPreview();
+        if (uploadStatus) uploadStatus.textContent = '';
+    });
+    preview.addEventListener('error', () => {
+        preview.hidden = true;
+        if (previewError) previewError.hidden = false;
+    });
     showPreview();
+    const chooseAsset = data => {
+        if (!Number.isSafeInteger(data?.id) || data.id < 1 || typeof data.title !== 'string' || typeof data.url !== 'string' || typeof data.alt !== 'string') return false;
+        let url;
+        try { url = new URL(data.url, window.location.href); } catch { return false; }
+        if (!['http:', 'https:'].includes(url.protocol) || url.username || url.password) return false;
+        let option = [...select.options].find(option => option.value === String(data.id));
+        if (!option) { option = new Option(`#${data.id} · ${data.title}`, String(data.id)); select.add(option); }
+        option.dataset.url = url.href; option.dataset.alt = data.alt;
+        select.value = String(data.id); showPreview();
+        return true;
+    };
+    if (upload) {
+        picker.querySelector('[data-media-upload-controls]').hidden = false;
+        upload.addEventListener('change', async () => {
+            const file = upload.files[0];
+            if (!file || picker.hasAttribute('data-media-uploading')) return;
+            const form = picker.closest('form');
+            const previousSelection = select.value;
+            const body = new FormData();
+            body.append('image', file);
+            body.append('quick_upload', '1');
+            body.append('_token', form.querySelector('input[name="_token"]').value);
+            picker.setAttribute('data-media-uploading', '');
+            upload.disabled = true; select.disabled = true;
+            uploadStatus.textContent = 'Uploading image… Please wait before saving.';
+            try {
+                const response = await fetch(upload.dataset.uploadUrl, {
+                    method: 'POST', credentials: 'same-origin',
+                    headers: { Accept: 'application/json' }, body,
+                });
+                if ([401, 419].includes(response.status) || response.redirected) throw Error('Your session expired. Keep a copy of your changes, reload and sign in, then retry.');
+                if (response.status === 413) throw Error('The image is too large for this server. Choose a smaller file.');
+                const data = await response.json().catch(() => { throw Error('The server could not complete this upload. Check the library before retrying.'); });
+                if (!response.ok) throw Error(Object.values(data.errors ?? {}).flat().join(' ') || 'The image could not be uploaded. Please retry.');
+                if (response.status !== 201 || !chooseAsset(data)) throw Error('The upload response could not be read. Check the library before retrying.');
+                uploadStatus.textContent = 'Image uploaded and selected. Save this form to apply it.';
+            } catch (error) {
+                select.value = previousSelection; showPreview();
+                uploadStatus.textContent = error?.name !== 'TypeError' && error instanceof Error && error.message ? error.message : 'The upload could not finish. Check your connection and the image library before retrying.';
+            } finally {
+                picker.removeAttribute('data-media-uploading');
+                upload.disabled = false; select.disabled = false; upload.value = '';
+            }
+        });
+        picker.closest('form').addEventListener('submit', event => {
+            if (!picker.hasAttribute('data-media-uploading')) return;
+            event.preventDefault();
+            uploadStatus.textContent = 'Please wait for the image upload to finish, then save this form.';
+            uploadStatus.focus();
+        });
+    }
     picker.querySelector('[data-media-browse]').addEventListener('click', event => {
         // If a popup is blocked, retain the ordinary library link.
         libraryWindow = window.open(event.currentTarget.href, '_blank', 'width=1100,height=800');
@@ -33,14 +95,8 @@ document.querySelectorAll('[data-media-picker]').forEach(picker => {
     window.addEventListener('message', event => {
         if (event.origin !== window.location.origin || !libraryWindow || event.source !== libraryWindow) return;
         const data = event.data;
-        if (data?.type !== 'doctor-portfolio:media' || !Number.isSafeInteger(data.id) || data.id < 1 || typeof data.title !== 'string' || typeof data.url !== 'string' || typeof data.alt !== 'string') return;
-        let url;
-        try { url = new URL(data.url, window.location.href); } catch { return; }
-        if (!['http:', 'https:'].includes(url.protocol) || url.username || url.password) return;
-        let option = [...select.options].find(option => option.value === String(data.id));
-        if (!option) { option = new Option(`#${data.id} · ${data.title}`, String(data.id)); select.add(option); }
-        option.dataset.url = url.href; option.dataset.alt = data.alt;
-        select.value = String(data.id); showPreview(); select.focus();
+        if (picker.hasAttribute('data-media-uploading') || data?.type !== 'doctor-portfolio:media') return;
+        if (chooseAsset(data)) select.focus();
     });
 });
 document.querySelectorAll('[data-media-choose]').forEach(button => button.addEventListener('click', () => {

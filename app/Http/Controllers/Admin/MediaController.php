@@ -37,6 +37,15 @@ final class MediaController extends AdminController
     {
         $asset = $manager->upload($request->file('image'), $request->safe()->only(MediaRequest::textFields()));
 
+        if ($request->expectsJson()) {
+            return response()->json([
+                'id' => $asset->id,
+                'url' => $asset->url(),
+                'title' => $asset->localized('title', 'en'),
+                'alt' => $asset->localized('alt_text', 'en'),
+            ], 201);
+        }
+
         return redirect()->route('admin.media.edit', ['media' => $asset, ...($request->validated('picker') === '1' ? ['picker' => '1'] : [])])->with('status', 'Image uploaded. It is ready to choose in website content.');
     }
 
