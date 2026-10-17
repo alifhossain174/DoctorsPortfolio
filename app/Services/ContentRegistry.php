@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Rules\CallPhoneNumber;
 use App\Rules\ContentFormat;
 use App\Rules\PublicTarget;
 use App\Rules\RequiredPlaceholder;
@@ -129,6 +130,7 @@ final class ContentRegistry
     private function valueRules(string $type, array $definition): array
     {
         return match ($type) {
+            'phone' => ['string', 'max:40', new CallPhoneNumber],
             'paragraphs' => ['array', 'min:1', 'max:100'],
             'icon' => ['string', 'in:'.implode(',', self::ICONS)],
             'target' => ['string', 'max:2048', new PublicTarget],

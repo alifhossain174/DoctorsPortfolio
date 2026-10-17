@@ -5,3 +5,18 @@
 .gallery-item[role=button]:focus-visible,.filter:focus-visible,.lang:focus-visible{outline:2px solid var(--jade);outline-offset:3px}
 /* Preserve owner-entered plain-text line breaks without rendering HTML. */
 p,.notice,.footer-bottom,.topbar span,.floating strong,.floating small{white-space:pre-line}
+/* Shared call action: native tel link, restrained pulse, no layout shift. */
+.call-button{position:fixed;right:calc(22px + env(safe-area-inset-right,0px));bottom:calc(22px + env(safe-area-inset-bottom,0px));z-index:40;display:flex;align-items:center;justify-content:center;width:54px;height:54px;border:2px solid #fff;border-radius:50%;background:var(--jade);color:#fff;box-shadow:0 4px 18px #172a2a33;text-decoration:none;isolation:isolate}
+.call-button::before{content:"";position:absolute;inset:-2px;border:2px solid var(--jade);border-radius:50%;z-index:-1;animation:call-pulse 2.8s ease-out infinite;pointer-events:none}
+.call-button:hover{background:#194b43;color:#fff}
+.call-button:focus-visible{outline:3px solid var(--jade);outline-offset:5px}
+.call-button-label{position:absolute;right:calc(100% + 12px);padding:8px 12px;border-radius:10px;background:var(--ink);color:#fff;font-size:13px;line-height:1.4;max-width:min(240px,calc(100vw - 110px));width:max-content;white-space:normal;opacity:0;visibility:hidden;pointer-events:none}
+.call-button:hover .call-button-label,.call-button:focus-visible .call-button-label{opacity:1;visibility:visible}
+@keyframes call-pulse{0%{transform:scale(1);opacity:.5}75%,100%{transform:scale(1.45);opacity:0}}
+@media(max-width:550px){.call-button{right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));width:50px;height:50px}}
+@media(prefers-reduced-motion:reduce){.call-button::before{animation:none;opacity:0}}
+/* Additional placements reuse the same database phone and native tel action. */
+.footer .footer-phone{display:inline-block;color:#fff;font-size:18px;font-weight:700;letter-spacing:.02em}
+.footer .footer-phone:hover{text-decoration:underline;text-underline-offset:4px}
+.footer-phone:focus-visible,.contact-call:focus-visible{outline:2px solid currentColor;outline-offset:4px}
+.contact-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px}

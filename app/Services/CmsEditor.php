@@ -57,6 +57,12 @@ final class CmsEditor
 
     public function help(string $key, array $definition): string
     {
+        if ($key === 'call_phone_number') {
+            return 'Used by the footer phone link, the Contact / Appointment call button and round call buttons. Include the country code, for example +880…. Leave blank to hide all call links. One number serves both languages.';
+        }
+        if ($key === 'call_button_label') {
+            return 'Visible Contact / Appointment call button text and the round button accessible/hover label. Empty Bangla uses English.';
+        }
         if ($key === 'blog.blogdesc') {
             return 'Retained from the original bilingual demo, which did not render this description. It is not a runtime fallback.';
         }

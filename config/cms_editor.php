@@ -4,7 +4,7 @@
 return [
     'groups' => [
         'doctor' => ['label' => 'Doctor identity & profile', 'help' => 'Canonical identity and qualifications, reused on home, about and metadata.', 'settings' => ['doctor_name', 'doctor_biography', 'credential', 'department', 'institution'], 'fields' => []],
-        'clinic' => ['label' => 'Clinic & visiting hours', 'help' => 'One address and schedule feed the topbar, visit information, contact and footer.', 'settings' => ['clinic_name', 'address', 'consultation_hours', 'friday_note', 'location_label'], 'fields' => []],
+        'clinic' => ['label' => 'Clinic & visiting hours', 'help' => 'One address and schedule feed the topbar, visit information, contact and footer.', 'settings' => ['clinic_name', 'call_phone_number', 'call_button_label', 'address', 'consultation_hours', 'friday_note', 'location_label'], 'fields' => []],
         'branding' => ['label' => 'Branding & hero image', 'help' => 'The brand structure stays fixed. Home/about secondary image slots belong to their page screens.', 'settings' => ['subtitle', 'brand_icon', 'portrait_media_asset_id'], 'fields' => ['shared.brand_target', 'home.hero_alt']],
         'social' => ['label' => 'Facebook & Maps', 'help' => 'Standalone social/location links only. Inquiry submissions and appointment CTAs stay on this website.', 'settings' => ['facebook_url', 'map_url'], 'fields' => ['contact.fb', 'contact.openmap', 'footer.social_label']],
         'topbar' => ['label' => 'Topbar', 'help' => 'The topbar reads the shared clinic address, hours and Friday text. Edit their source rather than a duplicate.', 'settings' => [], 'fields' => []],
@@ -18,7 +18,7 @@ return [
     ],
     'labels' => [
         'doctor_name' => 'Doctor name', 'doctor_biography' => 'Biography / introduction', 'credential' => 'Credential / designation', 'department' => 'Department', 'institution' => 'Institution',
-        'clinic_name' => 'Chamber / laboratory name', 'address' => 'Address', 'consultation_hours' => 'Visiting hours', 'friday_note' => 'Friday text', 'location_label' => 'Hero location label',
+        'call_phone_number' => 'Call phone number', 'call_button_label' => 'Call button label', 'clinic_name' => 'Chamber / laboratory name', 'address' => 'Address', 'consultation_hours' => 'Visiting hours', 'friday_note' => 'Friday text', 'location_label' => 'Hero location label',
         'subtitle' => 'Brand subtitle', 'brand_icon' => 'Brand symbol', 'portrait_media_asset_id' => 'Home hero / portrait image', 'facebook_url' => 'Facebook URL', 'map_url' => 'Maps URL',
         'footer_description' => 'Footer description', 'medical_disclaimer' => 'Educational / medical disclaimer', 'stock_notice' => 'Stock-photo notice', 'default_locale' => 'Default locale',
         'cta_title' => 'CTA title', 'cta_description' => 'CTA description', 'cta_label' => 'CTA button label', 'cta_target' => 'CTA destination',

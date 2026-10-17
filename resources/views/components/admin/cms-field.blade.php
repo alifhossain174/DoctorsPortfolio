@@ -11,6 +11,8 @@
     <x-admin.media-picker :name="$name" :label="$label" :selected="$selected" :assets="$mediaChoices" :required="$required"/>
 @elseif($type==='integer')
     <x-admin.input :name="$name" :label="$label" type="number" :value="$value ?? ''" min="0" max="24" :required="$required" :hint="$hint"/>
+@elseif($type==='phone')
+    <x-admin.input :name="$name" :label="$label" type="tel" :value="$value ?? ''" :maxlength="$max" :hint="$hint" autocomplete="tel"/>
 @elseif($type==='enum')
     @php
         $inRule=collect($definition['validation'] ?? [])->first(fn($rule)=>is_string($rule) && str_starts_with($rule,'in:'));

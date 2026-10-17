@@ -11,7 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call([InitialWebsiteContentSeeder::class, InquiryFormContentSeeder::class, PublicInterfaceContentSeeder::class]);
+        $this->call([InitialWebsiteContentSeeder::class, InquiryFormContentSeeder::class, PublicInterfaceContentSeeder::class, CallButtonSettingsSeeder::class]);
         // No default users, passwords or fake inquiries.
     }
 }

@@ -1,5 +1,19 @@
 # Public content ownership matrix
 
+Call placements extended (2026-10-17): The existing SiteSetting.call_phone_number also supplies a visible clickable number below the shared footer address on every public page. The Contact information card in both inquiry modes adds a native call button beside Facebook, using SiteSetting.call_button_label and the same safe tel URL. Existing admin controls in Clinic & visiting hours update all placements; clearing the number hides them. No additional values, translations, columns or initialization are needed. The footer displays the owner's saved number; it does not duplicate the number in page copy.
+
+Public asset URL versions (2026-10-17) are code-owned file metadata in the public layout, with no admin field or managed-content owner change. CSS/JS content stays in existing static assets; database values and the call-number controls are unchanged.
+
+## Public call button — 2026-10-17
+
+| Field / boundary | Source / database owner | Admin control | Public use / status |
+| --- | --- | --- | --- |
+| call_phone_number | Owner-supplied number; nullable SiteSetting scalar, single shared clinic fact | Website Settings → Clinic & visiting hours → Call phone number; validated 7–15 digits, optional leading + and common formatting; blank hides button | Home and Contact in both appointment/general modes; safe normalized native tel URL; implemented |
+| call_button_label {en,bn} | SiteSetting JSON; explicit missing-only CallButtonSettingsSeeder initializes Call now / কল করুন; never seeds a phone number | Same clinic group → Call button label; existing English / বাংলা controls and shared fallback | Accessible name, title and hover/keyboard-focus label for the single shared call-button partial; implemented |
+| Position, phone icon, pulse and reduced-motion behavior | Fixed CSS/Blade, no new managed layout | Code-owned; no page builder or new appointment page | Round bottom-right button on Home/Contact only; safe-area/mobile positioning, focus ring, reduced-motion disables pulse; implemented |
+
+Migration 2026_10_17_000007 adds only the two nullable SiteSetting columns. Initial demo data is unchanged. The same phone serves both languages; labels stay localized. Existing inquiry submissions and confirmation wording are unchanged. This section adds two shared settings (25 editable settings total); the 97 named ContentField values retain their ownership.
+
 ## Simplified image controls — 2026-10-17
 
 All existing image owners now share an inline **Upload from device** control: SiteSetting.portrait_media_asset_id; typed ContentField.media_asset_id; Page.og_media_asset_id; Post.media_asset_id/og_media_asset_id; GalleryImage.media_asset_id; and the confirmed Media replace-all picker. A file uploads synchronously to the existing MediaAsset/public-media store and is selected in the current form. The ordinary content save applies the FK; uploading alone does not change website references. Native library selection and the popup remain available. No managed field/schema/public renderer changed.
